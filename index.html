@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nave Beat Apurado 👽🚀</title>
+  <title>Rádio Beat Apurado 👽🚀</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
     body {
       margin: 0;
       font-family: 'Audiowide', cursive;
-      background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') no-repeat center center fixed;
+      background: url("https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bg_espaco_sideral.jpg") no-repeat center center fixed;
       background-size: cover;
       color: #cfcff5;
     }
@@ -70,27 +70,18 @@
 
     .online-counter {
       font-size: 1.4rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: #39ff14;
       text-shadow: 0 0 15px #39ff14;
     }
 
-    /* Botão verde customizado */
-    #playBtn {
-      background-color: #2ecc71;
+    iframe.radio-player {
+      width: 100%;
+      max-width: 600px;
+      height: 480px;
       border: none;
-      color: white;
-      padding: 15px 40px;
-      font-size: 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      border-radius: 15px;
       box-shadow: 0 0 20px #39ff14;
-    }
-
-    #playBtn:hover {
-      background-color: #27ae60;
-      transform: scale(1.05);
     }
 
     .programacao {
@@ -139,7 +130,7 @@
 </head>
 <body>
   <header>
-    <h1>👽 Nave Beat Apurado 🚀</h1>
+    <h1>👽 Rádio Beat Apurado 🚀</h1>
     <p>Sons do underground direto do espaço sideral</p>
   </header>
   
@@ -151,6 +142,7 @@
   </nav>
 
   <div class="container">
+    <!-- PLAYER -->
     <section id="player" class="player-box">
       <h2>▶️ Ao Vivo</h2>
       <div class="online-counter">
@@ -158,22 +150,21 @@
         🚀 Visitas totais: <span id="visitas">0</span>
       </div>
 
-      <!-- Botão de Play -->
-      <button id="playBtn">▶️ Play</button>
-
-      <!-- Player invisível -->
-      <audio id="radioPlayer" preload="none">
-        <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_936062884" type="audio/mpeg">
-        Seu navegador não suporta áudio HTML5.
-      </audio>
+      <!-- Player oficial Listen2MyRadio -->
+      <iframe 
+        class="radio-player"
+        src="https://beatapurado.radiostream123.com"
+        allow="autoplay">
+      </iframe>
     </section>	
 	
-    <!-- Flyer -->
+    <!-- FLYER -->
     <section class="flyer">
       <h2>📡 Flyer da Semana</h2>
       <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg" alt="Flyer Beat Apurado">
     </section>
 
+    <!-- PROGRAMAÇÃO -->
     <section id="programacao">
       <h2>📅 Programação da Semana</h2>
       <div class="programacao">
@@ -185,12 +176,14 @@
       </div>
     </section>
 
+    <!-- PRODUTOS -->
     <section id="produtos">
       <h2>🛒 Produtos</h2>
       <p>Confira camisetas, bonés e vinis exclusivos do Beat Apurado:</p>
       <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14;font-weight:bold;">👉 Acesse nossa loja</a>
     </section>
 
+    <!-- CHAT -->
     <section id="chat">
       <h2>💬 Chat Intergaláctico</h2>
       <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
@@ -201,59 +194,27 @@
     © 2025 Beat Apurado - DJ Jordan 🚀 Conectando galáxias pelo som
   </footer>
 
-<script>
-  // --- Player Play/Pause ---
-  const btn = document.getElementById("playBtn");
-  const player = document.getElementById("radioPlayer");
-  let isPlaying = false;
+  <script>
+    // CountAPI namespace
+    const namespace = "beatapurado-radio";
 
-  btn.addEventListener("click", () => {
-    if (isPlaying) {
-      player.pause();
-      btn.textContent = "▶️ Play";
-      isPlaying = false;
-    } else {
-      player.play();
-      btn.textContent = "⏸️ Pause";
-      isPlaying = true;
+    // Atualizar visitas totais
+    async function updateVisitas() {
+      let res = await fetch(`https://api.countapi.xyz/hit/${namespace}/visitas`);
+      let data = await res.json();
+      document.getElementById("visitas").textContent = data.value;
     }
-  });
 
-  // --- Contador de Visitas Totais ---
-  function updateVisitas() {
-    let visitas = parseInt(localStorage.getItem('total_visitas')) || 0;
-    if (!sessionStorage.getItem('visit_counted')) {
-      visitas++;
-      localStorage.setItem('total_visitas', visitas);
-      sessionStorage.setItem('visit_counted', 'true');
+    // Atualizar usuários online (simulação simples)
+    async function updateOnline() {
+      let res = await fetch(`https://api.countapi.xyz/hit/${namespace}/online`);
+      let data = await res.json();
+      document.getElementById("online").textContent = Math.floor(data.value / 5);
     }
-    document.getElementById("visitas").textContent = visitas;
-  }
 
-  // --- Contador de Online (simulado) ---
-  function updateOnline() {
-    let sessionId = sessionStorage.getItem('session_id');
-    if (!sessionId) {
-      sessionId = Math.random().toString(36).substr(2, 9);
-      sessionStorage.setItem('session_id', sessionId);
-    }
-    let onlineUsers = JSON.parse(localStorage.getItem('online_users')) || [];
-    const currentTime = Date.now();
-    onlineUsers = onlineUsers.filter(user => currentTime - user.timestamp < 30000);
-    const currentUserIndex = onlineUsers.findIndex(user => user.id === sessionId);
-    if (currentUserIndex > -1) {
-      onlineUsers[currentUserIndex].timestamp = currentTime;
-    } else {
-      onlineUsers.push({ id: sessionId, timestamp: currentTime });
-    }
-    localStorage.setItem('online_users', JSON.stringify(onlineUsers));
-    document.getElementById("online").textContent = onlineUsers.length;
-  }
-
-  // Inicialização
-  updateVisitas();
-  updateOnline();
-  setInterval(updateOnline, 5000);
-</script>
+    updateVisitas();
+    updateOnline();
+    setInterval(updateOnline, 5000);
+  </script>
 </body>
 </html>
