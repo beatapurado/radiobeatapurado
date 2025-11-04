@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beat Apurado - Rádio Estável 4G</title>
+    <title>Beat Apurado - Rádio Estável 4G (Tentativa HTTPS)</title>
     <style>
-        /* Estilos básicos para centralizar o player e melhorar a aparência */
+        /* ... (Seu CSS permanece inalterado) ... */
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -38,11 +38,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎧 Beat Apurado Rádio 🎧</h1>
+        <h1>🔒 Tentativa de Correção HTTPS 🔒</h1>
         <p>Clique no botão de **play** abaixo para ouvir a transmissão.</p>
         
         <audio id="audioPlayer" controls preload="none">
-            <source src="http://207.244.245.140:19184/;" type="audio/mpeg">
+            <source src="https://207.244.245.140:19184/;" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
         
@@ -52,23 +52,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const audio = document.getElementById('audioPlayer');
-
-            // Esta função garante que o navegador tente carregar o stream
-            // somente após o clique do usuário no botão de Play.
             function handlePlayAttempt() {
-                // Tenta carregar a fonte (essencial com preload="none")
                 audio.load();
-                
-                audio.play().then(() => {
-                    console.log("Reprodução iniciada com sucesso!");
-                }).catch(error => {
-                    // Se o navegador ainda bloquear (raro após interação), avisa o usuário.
+                audio.play().catch(error => {
                     console.error("Tentativa de reprodução bloqueada:", error);
-                    alert("Atenção: O navegador está bloqueando o início. Por favor, clique novamente no botão 'Play'.");
+                    alert("Atenção: O navegador está bloqueando o início. Por favor, clique novamente no botão 'Play'. Se não funcionar, o host da rádio não suporta HTTPS.");
                 });
             }
-
-            // Ouve o evento 'play' (disparado pelo clique no player) uma única vez.
             audio.addEventListener('play', handlePlayAttempt, { once: true });
         });
     </script>
