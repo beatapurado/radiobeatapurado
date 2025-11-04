@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reprodutor de Áudio Simples</title>
+    <title>Reprodutor de Áudio ao Vivo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,12 +39,41 @@
         <h1>🎵 Reprodutor de Áudio ao Vivo 🎵</h1>
         <p>Clique no botão de **play** abaixo para ouvir a transmissão.</p>
         
-        <audio controls>
+        <audio id="audioPlayer" controls>
             <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
         
         <p><small>Link da fonte: <a href="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" target="_blank">Acessar stream</a></small></p>
     </div>
-</body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('audioPlayer');
+
+            // Esta função lida com as restrições de mobile.
+            // Ela é chamada quando o usuário CLICA (interage) com o player.
+            function handlePlayAttempt() {
+                // Remove o próprio listener após o primeiro clique para evitar chamadas duplicadas
+                audio.removeEventListener('play', handlePlayAttempt);
+                
+                // Tenta carregar a fonte (necessário em alguns navegadores iOS/Android 4G)
+                audio.load();
+                
+                // Tenta iniciar a reprodução. O .play() retorna uma Promise.
+                audio.play().then(() => {
+                    console.log("Reprodução iniciada com sucesso!");
+                }).catch(error => {
+                    // Se falhar (por exemplo, bloqueio de navegador), 
+                    // a interface nativa do 'controls' deve tentar novamente.
+                    console.error("Tentativa de autoplay/reprodução bloqueada:", error);
+                    // Opcionalmente, pode-se adicionar uma mensagem para o usuário aqui
+                });
+            }
+
+            // Adiciona o listener para o evento 'play' (que é disparado no primeiro clique)
+            audio.addEventListener('play', handlePlayAttempt);
+        });
+    </script>
+    </body>
 </html>
