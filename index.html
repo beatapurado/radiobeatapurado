@@ -39,7 +39,7 @@
         <h1>🎵 Reprodutor de Áudio ao Vivo 🎵</h1>
         <p>Clique no botão de **play** abaixo para ouvir a transmissão.</p>
         
-        <audio id="audioPlayer" controls>
+        <audio id="audioPlayer" controls preload="none">
             <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
@@ -51,29 +51,30 @@
         document.addEventListener('DOMContentLoaded', () => {
             const audio = document.getElementById('audioPlayer');
 
-            // Esta função lida com as restrições de mobile.
-            // Ela é chamada quando o usuário CLICA (interage) com o player.
             function handlePlayAttempt() {
-                // Remove o próprio listener após o primeiro clique para evitar chamadas duplicadas
-                audio.removeEventListener('play', handlePlayAttempt);
-                
-                // Tenta carregar a fonte (necessário em alguns navegadores iOS/Android 4G)
+                // Tenta carregar a fonte (necessário para streams em mobile, especialmente com preload="none")
                 audio.load();
                 
-                // Tenta iniciar a reprodução. O .play() retorna uma Promise.
+                // Tenta iniciar a reprodução.
                 audio.play().then(() => {
                     console.log("Reprodução iniciada com sucesso!");
                 }).catch(error => {
-                    // Se falhar (por exemplo, bloqueio de navegador), 
-                    // a interface nativa do 'controls' deve tentar novamente.
-                    console.error("Tentativa de autoplay/reprodução bloqueada:", error);
-                    // Opcionalmente, pode-se adicionar uma mensagem para o usuário aqui
+                    // O erro de rejeição de Promise significa que o navegador bloqueou.
+                    console.error("Tentativa de reprodução bloqueada:", error);
+                    // O controle nativo do <audio> geralmente faz uma segunda tentativa.
                 });
             }
 
-            // Adiciona o listener para o evento 'play' (que é disparado no primeiro clique)
-            audio.addEventListener('play', handlePlayAttempt);
+            // Ouve o clique do usuário no player
+            audio.addEventListener('play', handlePlayAttempt, { once: true });
+            
+            // Adiciona um listener para 'canplay' para garantir que o player nativo esteja ativo
+            // Este evento é disparado assim que o navegador consegue carregar metadados suficientes para o play.
+            audio.addEventListener('canplay', () => {
+                console.log("Player pronto para o play (canplay).");
+                // Em alguns casos, simplesmente chamar .play() aqui pode ajudar, se o usuário já interagiu.
+            });
         });
     </script>
-    </body>
+</body>
 </html>
