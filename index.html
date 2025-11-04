@@ -90,19 +90,23 @@ section {
   margin-top: 25px;
 }
 
-/* PROGRAMAÇÃO */
-.programacao {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+/* BOTÃO TOCAR AGORA */
+#playButton {
+  background: #39ff14;
+  color: black;
+  border: none;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 15px;
+  text-shadow: 0 0 5px #000;
+  display: none;
 }
-.programacao .card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  color: #cfcff5;
-  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.5);
+#playButton:hover {
+  background: #ff00de;
+  color: white;
+  box-shadow: 0 0 15px #ff00de;
 }
 
 /* CHAT */
@@ -183,14 +187,14 @@ footer {
       🚀 Visitas totais: <span id="visitas">0</span>
     </div>
 
-    <!-- Player HTML5 funcional -->
-    <audio id="beat-player" controls autoplay>
+    <audio id="beat-player" preload="auto">
       <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
       Seu navegador não suporta o player de áudio.
     </audio>
 
     <canvas id="visualizer"></canvas>
-    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, toque na tela.</p>
+    <button id="playButton">🔊 Tocar agora</button>
+    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">Se o som não iniciar automaticamente, toque no botão acima.</p>
   </section>
 
   <!-- FLYER -->
@@ -209,13 +213,6 @@ footer {
       <div class="card">🎧 Sábado – Beat Apurado com DJ Jordan (21h - 23h)</div>
       <div class="card">🎧 Domingo – Samba & Rock Classics (18h - 20h)</div>
     </div>
-  </section>
-
-  <!-- PRODUTOS -->
-  <section id="produtos">
-    <h2>🛒 Produtos</h2>
-    <p>Confira camisetas, bonés e vinis exclusivos do Beat Apurado:</p>
-    <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14;font-weight:bold;">👉 Acesse nossa loja</a>
   </section>
 
   <!-- CHAT -->
@@ -237,64 +234,71 @@ footer {
 const player = document.getElementById("beat-player");
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
+const playButton = document.getElementById("playButton");
+
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 100;
 
 let audioCtx, analyser, source, dataArray;
+
 function setupVisualizer() {
+  if (audioCtx) return;
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   analyser = audioCtx.createAnalyser();
   source = audioCtx.createMediaElementSource(player);
   source.connect(analyser);
   analyser.connect(audioCtx.destination);
   analyser.fftSize = 256;
-  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  const bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
 
   function draw() {
     requestAnimationFrame(draw);
     analyser.getByteFrequencyData(dataArray);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const barWidth = (canvas.width / dataArray.length) * 2.5;
+    const barWidth = (canvas.width / bufferLength) * 2.5;
     let x = 0;
-    for (let i = 0; i < dataArray.length; i++) {
+    for (let i = 0; i < bufferLength; i++) {
       const barHeight = dataArray[i] / 2;
-      ctx.fillStyle = `rgb(57,255,${20 + barHeight / 2})`;
+      ctx.fillStyle = `rgb(57,255,${20 + barHeight/2})`;
       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
       x += barWidth + 1;
     }
   }
   draw();
 }
-player.addEventListener("play", () => {
-  if (!audioCtx) setupVisualizer();
-});
 
-// --- AUTO FIX 4G (autoplay bloqueado) ---
-document.body.addEventListener("click", () => {
-  if (player.paused) {
-    player.play().then(() => {
-      if (audioCtx) audioCtx.resume();
-    }).catch(()=>{});
-  }
-});
-setInterval(() => {
-  if (player.paused) player.play().catch(()=>{});
-}, 5000);
-
-// --- CONTADORES GLOBAIS (CountAPI corrigido) ---
-async function updateCounters() {
+async function tryPlay() {
   try {
-    const visit = await fetch("https://api.countapi.xyz/hit/beatapurado_radio/visitas").then(r => r.json());
-    document.getElementById("visitas").textContent = visit.value;
-
-    const online = await fetch("https://api.countapi.xyz/hit/beatapurado_radio/online").then(r => r.json());
-    document.getElementById("online").textContent = online.value;
-  } catch (e) {
-    console.log("Erro CountAPI:", e);
+    await player.play();
+    setupVisualizer();
+    playButton.style.display = "none";
+  } catch (err) {
+    playButton.style.display = "inline-block";
   }
 }
-updateCounters();
-setInterval(updateCounters, 10000);
+
+playButton.addEventListener("click", () => {
+  tryPlay();
+});
+
+// Tenta tocar automaticamente
+setTimeout(tryPlay, 1000);
+
+// --- CONTADORES GLOBAIS ---
+async function updateCounter(id, endpoint) {
+  try {
+    const res = await fetch(`https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/${endpoint}`);
+    const data = await res.json();
+    document.getElementById(id).textContent = data.value;
+  } catch (e) {
+    console.log("Erro contador:", e);
+  }
+}
+
+updateCounter("visitas", "visitas");
+updateCounter("online", "online");
+setInterval(() => updateCounter("online", "online"), 8000);
 </script>
 </body>
 </html>
