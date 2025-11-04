@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nave Beat Apurado 👽🚀</title>
+<title>Rádio Beat Apurado 🚀</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
@@ -80,21 +80,6 @@ section {
   color: #ff00de;
   text-shadow: 0 0 10px #ff00de;
 }
-#playBtn {
-  background-color: #2ecc71;
-  border: none;
-  color: white;
-  padding: 15px 40px;
-  font-size: 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 0 20px #39ff14;
-}
-#playBtn:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-}
 
 /* VISUALIZADOR DE ÁUDIO */
 #visualizer {
@@ -140,6 +125,28 @@ section {
   box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
 }
 
+/* BOTÃO WHATSAPP */
+#whatsapp-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  box-shadow: 0 0 20px #25d366;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+#whatsapp-btn:hover {
+  transform: scale(1.1);
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -155,7 +162,7 @@ footer {
 <body>
 
 <header>
-  <h1>👽 Nave Beat Apurado 🚀</h1>
+  <h1>📻 Rádio Beat Apurado</h1>
   <p>Sons do underground direto do espaço sideral</p>
 </header>
 
@@ -182,16 +189,20 @@ footer {
       Seu navegador não suporta o player de áudio.
     </audio>
 
-    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">
+    <div class="visualizer" id="visualizer">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
 
+	
 
-      🔊 Se o som não iniciar automaticamente, clique em “Play”.
-    </p>
+    <canvas id="visualizer"></canvas>
+    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Play”.</p>
   </section>
 
   <!-- FLYER -->
   <section class="flyer">
-    <h2>📡 Flyer da Semana</h2>
+    <h2>📡 Anúncios</h2>
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg" alt="Flyer Beat Apurado">
   </section>
 
@@ -219,56 +230,24 @@ footer {
     <h2>💬 Chat Intergaláctico</h2>
     <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
   </section>
-
 </div>
+
+<!-- BOTÃO WHATSAPP -->
+<a id="whatsapp-btn" href="https://wa.me/5511998683830" target="_blank" title="Fale conosco no WhatsApp">💬</a>
 
 <footer>
   © 2025 Beat Apurado - DJ Jordan 🚀 Conectando galáxias pelo som
 </footer>
 
 <script>
-// --- PLAYER ---
-const btn = document.getElementById("playBtn");
-const player = document.getElementById("radioPlayer");
-const statusEl = document.getElementById("status");
-let isPlaying = false;
-
-// Tenta tocar o player
-btn.addEventListener("click", () => {
-  if (isPlaying) {
-    player.pause();
-    btn.textContent = "▶️ Play";
-    isPlaying = false;
-  } else {
-    player.play().then(() => {
-      btn.textContent = "⏸️ Pause";
-      isPlaying = true;
-    }).catch(err => {
-      console.log("Erro ao iniciar áudio:", err);
-      statusEl.textContent = "❌ Falha no áudio (verifique o link)";
-      statusEl.style.color = "#ff4444";
-    });
-  }
-});
-
-// --- STATUS ONLINE/OFFLINE ---
-async function checkStream() {
-  try {
-    const response = await fetch(player.src, { method: 'HEAD', mode: 'no-cors' });
-    statusEl.textContent = "🟢 Online";
-    statusEl.style.color = "#39ff14";
-  } catch {
-    statusEl.textContent = "🔴 Offline";
-    statusEl.style.color = "#ff4444";
-  }
-}
-setInterval(checkStream, 10000);
-checkStream();
-
-// --- VISUALIZADOR DE ÁUDIO ---
+// --- PLAYER VISUALIZER ---
+const player = document.getElementById("beat-player");
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
+
 let audioCtx, analyser, source, dataArray;
+canvas.width = window.innerWidth * 0.8;
+canvas.height = 100;
 
 function setupVisualizer() {
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -288,9 +267,7 @@ function setupVisualizer() {
     let x = 0;
     for (let i = 0; i < bufferLength; i++) {
       const barHeight = dataArray[i] / 2;
-      const r = 57;
-      const g = 255;
-      const b = 20 + (barHeight / 2);
+      const r = 57, g = 255, b = 20 + (barHeight / 2);
       ctx.fillStyle = `rgb(${r},${g},${b})`;
       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
       x += barWidth + 1;
@@ -298,48 +275,34 @@ function setupVisualizer() {
   }
   draw();
 }
-
-canvas.width = window.innerWidth * 0.8;
-canvas.height = 100;
 player.addEventListener("play", () => {
   if (!audioCtx) setupVisualizer();
 });
 
-// --- CONTADOR DE VISITAS ---
-function updateVisitas() {
-  let visitas = parseInt(localStorage.getItem('total_visitas')) || 0;
-  if (!sessionStorage.getItem('visit_counted')) {
-    visitas++;
-    localStorage.setItem('total_visitas', visitas);
-    sessionStorage.setItem('visit_counted', 'true');
+// --- CONTADORES GLOBAIS COM COUNTAPI ---
+async function updateVisitas() {
+  try {
+    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/visitas");
+    const data = await res.json();
+    document.getElementById("visitas").textContent = data.value;
+  } catch (e) {
+    console.log("Erro ao contar visitas:", e);
   }
-  document.getElementById("visitas").textContent = visitas;
 }
 
-// --- CONTADOR DE ONLINE ---
-function updateOnline() {
-  let sessionId = sessionStorage.getItem('session_id');
-  if (!sessionId) {
-    sessionId = Math.random().toString(36).substr(2, 9);
-    sessionStorage.setItem('session_id', sessionId);
+async function updateOnline() {
+  try {
+    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/online");
+    const data = await res.json();
+    document.getElementById("online").textContent = data.value;
+  } catch (e) {
+    console.log("Erro ao contar online:", e);
   }
-  let onlineUsers = JSON.parse(localStorage.getItem('online_users')) || [];
-  const currentTime = Date.now();
-  onlineUsers = onlineUsers.filter(user => currentTime - user.timestamp < 30000);
-  const currentUserIndex = onlineUsers.findIndex(user => user.id === sessionId);
-  if (currentUserIndex > -1) {
-    onlineUsers[currentUserIndex].timestamp = currentTime;
-  } else {
-    onlineUsers.push({ id: sessionId, timestamp: currentTime });
-  }
-  localStorage.setItem('online_users', JSON.stringify(onlineUsers));
-  document.getElementById("online").textContent = onlineUsers.length;
 }
 
 updateVisitas();
 updateOnline();
 setInterval(updateOnline, 5000);
 </script>
-
 </body>
 </html>
