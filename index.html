@@ -183,20 +183,13 @@ footer {
       🚀 Visitas totais: <span id="visitas">0</span>
     </div>
 
-    <!-- Player HTML5 funcional -->
     <audio id="beat-player" controls autoplay>
-      <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
+      <source src="https://cors-proxy.fringe.zone/https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
       Seu navegador não suporta o player de áudio.
     </audio>
 
-    <div class="visualizer" id="visualizer">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-
-	
-
     <canvas id="visualizer"></canvas>
+
     <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Play”.</p>
   </section>
 
@@ -275,6 +268,7 @@ function setupVisualizer() {
   }
   draw();
 }
+
 player.addEventListener("play", () => {
   if (!audioCtx) setupVisualizer();
 });
@@ -282,7 +276,7 @@ player.addEventListener("play", () => {
 // --- CONTADORES GLOBAIS COM COUNTAPI ---
 async function updateVisitas() {
   try {
-    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/visitas");
+    const res = await fetch("https://api.countapi.xyz/hit/beatapurado_radio/visitas");
     const data = await res.json();
     document.getElementById("visitas").textContent = data.value;
   } catch (e) {
@@ -292,7 +286,7 @@ async function updateVisitas() {
 
 async function updateOnline() {
   try {
-    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/online");
+    const res = await fetch("https://api.countapi.xyz/update/beatapurado_radio/online?amount=1");
     const data = await res.json();
     document.getElementById("online").textContent = data.value;
   } catch (e) {
@@ -302,7 +296,7 @@ async function updateOnline() {
 
 updateVisitas();
 updateOnline();
-setInterval(updateOnline, 5000);
+setInterval(updateOnline, 8000);
 </script>
 </body>
 </html>
