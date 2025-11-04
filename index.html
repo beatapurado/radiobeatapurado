@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beat Apurado - Rádio Estável (Final)</title>
+    <title>Beat Apurado - Abrir Player</title>
     <style>
-        /* Estilos básicos para centralizar o player e melhorar a aparência */
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -30,41 +29,35 @@
             color: #0056b3;
             margin-bottom: 20px;
         }
-        audio {
-            width: 100%;
-            margin-top: 15px;
+        .btn-radio {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+        .btn-radio:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✅ Beat Apurado Rádio (Online) ✅</h1>
-        <p>Clique no botão de **play** abaixo para ouvir a transmissão.</p>
+        <h1>📻 Abrir Player Beat Apurado</h1>
+        <p>Clique no botão para abrir o player de áudio em uma nova aba e ouvir a transmissão.</p>
         
-        <audio id="audioPlayer" controls preload="none">
-            <source src="https://beat-apurado.underjordan.workers.dev/" type="audio/mpeg">
-            Seu navegador não suporta o elemento de áudio.
-        </audio>
+        <a 
+            href="http://jordao.on-air.fm/free/" 
+            target="_blank" 
+            class="btn-radio"
+        >
+            ▶️ OUVIR AGORA
+        </a>
         
-        <p><small>Proxy via Cloudflare Workers</small></p>
+        <p style="margin-top: 20px;"><small>O player será aberto em uma nova janela/aba.</small></p>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const audio = document.getElementById('audioPlayer');
-
-            // Função que força o carregamento e play após o clique do usuário (solução para 4G)
-            function handlePlayAttempt() {
-                audio.load();
-                audio.play().catch(error => {
-                    console.error("Tentativa de reprodução bloqueada:", error);
-                    alert("Atenção: O navegador está bloqueando o início. Por favor, clique novamente no botão 'Play'.");
-                });
-            }
-
-            // Ouve o evento 'play' (disparado pelo clique no player) uma única vez.
-            audio.addEventListener('play', handlePlayAttempt, { once: true });
-        });
-    </script>
 </body>
 </html>
