@@ -183,14 +183,14 @@ footer {
       🚀 Visitas totais: <span id="visitas">0</span>
     </div>
 
-    <!-- Player HTML5 com proxy HTTPS -->
+    <!-- Player HTML5 funcional -->
     <audio id="beat-player" controls autoplay>
-      <source src="https://ssl-proxy.streamproxy.net/?url=http://uk25freenew.listen2myradio.com:30119/stream" type="audio/mpeg">
+      <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
       Seu navegador não suporta o player de áudio.
     </audio>
 
     <canvas id="visualizer"></canvas>
-    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, toque em “Play”.</p>
+    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, toque na tela.</p>
   </section>
 
   <!-- FLYER -->
@@ -237,11 +237,10 @@ footer {
 const player = document.getElementById("beat-player");
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
-
-let audioCtx, analyser, source, dataArray;
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 100;
 
+let audioCtx, analyser, source, dataArray;
 function setupVisualizer() {
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   analyser = audioCtx.createAnalyser();
@@ -249,19 +248,17 @@ function setupVisualizer() {
   source.connect(analyser);
   analyser.connect(audioCtx.destination);
   analyser.fftSize = 256;
-  const bufferLength = analyser.frequencyBinCount;
-  dataArray = new Uint8Array(bufferLength);
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
 
   function draw() {
     requestAnimationFrame(draw);
     analyser.getByteFrequencyData(dataArray);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const barWidth = (canvas.width / bufferLength) * 2.5;
+    const barWidth = (canvas.width / dataArray.length) * 2.5;
     let x = 0;
-    for (let i = 0; i < bufferLength; i++) {
+    for (let i = 0; i < dataArray.length; i++) {
       const barHeight = dataArray[i] / 2;
-      const r = 57, g = 255, b = 20 + (barHeight / 2);
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fillStyle = `rgb(57,255,${20 + barHeight / 2})`;
       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
       x += barWidth + 1;
     }
@@ -272,32 +269,32 @@ player.addEventListener("play", () => {
   if (!audioCtx) setupVisualizer();
 });
 
-// --- CONTADORES GLOBAIS COM COUNTAPI ---
-const API_NAMESPACE = "beatapurado_radiobeatapurado";
+// --- AUTO FIX 4G (autoplay bloqueado) ---
+document.body.addEventListener("click", () => {
+  if (player.paused) {
+    player.play().then(() => {
+      if (audioCtx) audioCtx.resume();
+    }).catch(()=>{});
+  }
+});
+setInterval(() => {
+  if (player.paused) player.play().catch(()=>{});
+}, 5000);
 
-async function updateVisitas() {
+// --- CONTADORES GLOBAIS (CountAPI corrigido) ---
+async function updateCounters() {
   try {
-    const res = await fetch(`https://api.countapi.xyz/hit/${API_NAMESPACE}/visitas`);
-    const data = await res.json();
-    document.getElementById("visitas").textContent = data.value;
+    const visit = await fetch("https://api.countapi.xyz/hit/beatapurado_radio/visitas").then(r => r.json());
+    document.getElementById("visitas").textContent = visit.value;
+
+    const online = await fetch("https://api.countapi.xyz/hit/beatapurado_radio/online").then(r => r.json());
+    document.getElementById("online").textContent = online.value;
   } catch (e) {
-    console.log("Erro ao contar visitas:", e);
+    console.log("Erro CountAPI:", e);
   }
 }
-
-async function updateOnline() {
-  try {
-    const res = await fetch(`https://api.countapi.xyz/hit/${API_NAMESPACE}/online`);
-    const data = await res.json();
-    document.getElementById("online").textContent = data.value;
-  } catch (e) {
-    console.log("Erro ao contar online:", e);
-  }
-}
-
-updateVisitas();
-updateOnline();
-setInterval(updateOnline, 5000);
+updateCounters();
+setInterval(updateCounters, 10000);
 </script>
 </body>
 </html>
