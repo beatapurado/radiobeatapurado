@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reprodutor de Áudio ao Vivo</title>
+    <title>Beat Apurado - Rádio Estável 4G</title>
     <style>
+        /* Estilos básicos para centralizar o player e melhorar a aparência */
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -22,6 +23,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            width: 90%;
+            max-width: 450px;
         }
         h1 {
             color: #0056b3;
@@ -29,51 +32,44 @@
         }
         audio {
             width: 100%;
-            max-width: 400px;
             margin-top: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎵 Reprodutor de Áudio ao Vivo 🎵</h1>
+        <h1>🎧 Beat Apurado Rádio 🎧</h1>
         <p>Clique no botão de **play** abaixo para ouvir a transmissão.</p>
         
         <audio id="audioPlayer" controls preload="none">
-            <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
+            <source src="http://207.244.245.140:19184/;" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
         
-        <p><small>Link da fonte: <a href="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" target="_blank">Acessar stream</a></small></p>
+        <p><small>Fonte: My Radio Stream</small></p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const audio = document.getElementById('audioPlayer');
 
+            // Esta função garante que o navegador tente carregar o stream
+            // somente após o clique do usuário no botão de Play.
             function handlePlayAttempt() {
-                // Tenta carregar a fonte (necessário para streams em mobile, especialmente com preload="none")
+                // Tenta carregar a fonte (essencial com preload="none")
                 audio.load();
                 
-                // Tenta iniciar a reprodução.
                 audio.play().then(() => {
                     console.log("Reprodução iniciada com sucesso!");
                 }).catch(error => {
-                    // O erro de rejeição de Promise significa que o navegador bloqueou.
+                    // Se o navegador ainda bloquear (raro após interação), avisa o usuário.
                     console.error("Tentativa de reprodução bloqueada:", error);
-                    // O controle nativo do <audio> geralmente faz uma segunda tentativa.
+                    alert("Atenção: O navegador está bloqueando o início. Por favor, clique novamente no botão 'Play'.");
                 });
             }
 
-            // Ouve o clique do usuário no player
+            // Ouve o evento 'play' (disparado pelo clique no player) uma única vez.
             audio.addEventListener('play', handlePlayAttempt, { once: true });
-            
-            // Adiciona um listener para 'canplay' para garantir que o player nativo esteja ativo
-            // Este evento é disparado assim que o navegador consegue carregar metadados suficientes para o play.
-            audio.addEventListener('canplay', () => {
-                console.log("Player pronto para o play (canplay).");
-                // Em alguns casos, simplesmente chamar .play() aqui pode ajudar, se o usuário já interagiu.
-            });
         });
     </script>
 </body>
