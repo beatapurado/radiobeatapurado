@@ -81,6 +81,15 @@ section {
   text-shadow: 0 0 10px #ff00de;
 }
 
+/* VISUALIZADOR DE ÁUDIO */
+#visualizer {
+  width: 100%;
+  height: 120px;
+  background: transparent;
+  display: block;
+  margin-top: 25px;
+}
+
 /* PROGRAMAÇÃO */
 .programacao {
   display: grid;
@@ -174,18 +183,20 @@ footer {
       🚀 Visitas totais: <span id="visitas">0</span>
     </div>
 
-    <!-- EMBED DO PLAYER ON-AIR (ajustado e sem scroll) -->
-    <div style="width:100%; height:90px; overflow:hidden; border:none; border-radius:12px; box-shadow:0 0 20px rgba(57,255,20,0.4);">
-      <iframe 
-        src="http://jordao.on-air.fm/free/" 
-        width="100%" 
-        height="500" 
-        style="border:none; margin-top:-410px; overflow:hidden;" 
-        scrolling="no"
-        allow="autoplay">
-      </iframe>
+    <!-- Player HTML5 funcional -->
+    <audio id="beat-player" controls autoplay>
+      <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
+      Seu navegador não suporta o player de áudio.
+    </audio>
+
+    <div class="visualizer" id="visualizer">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
 
+	
+
+    <canvas id="visualizer"></canvas>
     <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Play”.</p>
   </section>
 
@@ -229,6 +240,45 @@ footer {
 </footer>
 
 <script>
+// --- PLAYER VISUALIZER ---
+const player = document.getElementById("beat-player");
+const canvas = document.getElementById("visualizer");
+const ctx = canvas.getContext("2d");
+
+let audioCtx, analyser, source, dataArray;
+canvas.width = window.innerWidth * 0.8;
+canvas.height = 100;
+
+function setupVisualizer() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = audioCtx.createAnalyser();
+  source = audioCtx.createMediaElementSource(player);
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  analyser.fftSize = 256;
+  const bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
+
+  function draw() {
+    requestAnimationFrame(draw);
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let x = 0;
+    for (let i = 0; i < bufferLength; i++) {
+      const barHeight = dataArray[i] / 2;
+      const r = 57, g = 255, b = 20 + (barHeight / 2);
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+      x += barWidth + 1;
+    }
+  }
+  draw();
+}
+player.addEventListener("play", () => {
+  if (!audioCtx) setupVisualizer();
+});
+
 // --- CONTADORES GLOBAIS COM COUNTAPI ---
 async function updateVisitas() {
   try {
