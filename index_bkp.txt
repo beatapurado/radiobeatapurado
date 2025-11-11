@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rádio Beat Apurado 🚀</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Audiowide', cursive;
+  background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #cfcff5;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 15px;
+  background: rgba(0, 0, 0, 0.85);
+}
+h1 {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  color: #39ff14;
+  text-shadow: 0 0 20px #39ff14, 0 0 40px #ff00de;
+  margin: 0;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.9);
+}
+nav a {
+  color: #39ff14;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+nav a:hover {
+  color: #cfcff5;
+  text-shadow: 0 0 10px #cfcff5;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  display: grid;
+  gap: 25px;
+}
+section {
+  background: rgba(10, 10, 20, 0.9);
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
+}
+
+/* PLAYER */
+.player-box {
+  text-align: center;
+}
+.online-counter {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #39ff14;
+  text-shadow: 0 0 15px #39ff14;
+}
+.status {
+  font-size: 1rem;
+  margin-top: 5px;
+  color: #ff00de;
+  text-shadow: 0 0 10px #ff00de;
+}
+
+/* VISUALIZADOR DE ÁUDIO */
+#visualizer {
+  width: 100%;
+  height: 120px;
+  background: transparent;
+  display: block;
+  margin-top: 25px;
+}
+
+/* PROGRAMAÇÃO */
+.programacao {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.programacao .card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  color: #cfcff5;
+  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+/* CHAT */
+.chat-frame {
+  width: 100%;
+  height: 400px;
+  border: none;
+  border-radius: 10px;
+  background: #050505;
+  box-shadow: 0 0 15px #ff00de;
+}
+
+/* FLYER */
+.flyer {
+  text-align: center;
+}
+.flyer img {
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+}
+
+/* BOTÃO WHATSAPP */
+#whatsapp-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  box-shadow: 0 0 20px #25d366;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+#whatsapp-btn:hover {
+  transform: scale(1.1);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.95);
+  margin-top: 30px;
+  color: #666;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>📻 Rádio Beat Apurado</h1>
+  <p>Sons do underground direto do espaço sideral</p>
+</header>
+
+<nav>
+  <a href="#player">Ao Vivo</a>
+  <a href="#programacao">Programação</a>
+  <a href="#produtos">Produtos</a>
+  <a href="#chat">Chat</a>
+</nav>
+
+<div class="container">
+
+  <!-- PLAYER -->
+  <section id="player" class="player-box">
+    <h2>▶️ Ao Vivo</h2>
+    <div class="online-counter">
+      🌍 Terráqueos online: <span id="online">0</span><br>
+      🚀 Visitas totais: <span id="visitas">0</span>
+    </div>
+
+    <!-- Player HTML5 funcional -->
+    <audio id="beat-player" controls autoplay>
+      <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
+      Seu navegador não suporta o player de áudio.
+    </audio>
+
+    <div class="visualizer" id="visualizer">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+	
+
+    <canvas id="visualizer"></canvas>
+    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Play”.</p>
+  </section>
+
+  <!-- FLYER -->
+  <section class="flyer">
+    <h2>📡 Anúncios</h2>
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg" alt="Flyer Beat Apurado">
+  </section>
+
+  <!-- PROGRAMAÇÃO -->
+  <section id="programacao">
+    <h2>📅 Programação da Semana</h2>
+    <div class="programacao">
+      <div class="card">🎧 Segunda – Sessão Underground (20h - 22h)</div>
+      <div class="card">🎧 Quarta – Jazz Rap Vibes (21h - 23h)</div>
+      <div class="card">🎧 Sexta – Slow Jams Night (22h - 00h)</div>
+      <div class="card">🎧 Sábado – Beat Apurado com DJ Jordan (21h - 23h)</div>
+      <div class="card">🎧 Domingo – Samba & Rock Classics (18h - 20h)</div>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section id="produtos">
+    <h2>🛒 Produtos</h2>
+    <p>Confira camisetas, bonés e vinis exclusivos do Beat Apurado:</p>
+    <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14;font-weight:bold;">👉 Acesse nossa loja</a>
+  </section>
+
+  <!-- CHAT -->
+  <section id="chat">
+    <h2>💬 Chat Intergaláctico</h2>
+    <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
+  </section>
+</div>
+
+<!-- BOTÃO WHATSAPP -->
+<a id="whatsapp-btn" href="https://wa.me/5511998683830" target="_blank" title="Fale conosco no WhatsApp">💬</a>
+
+<footer>
+  © 2025 Beat Apurado - DJ Jordan 🚀 Conectando galáxias pelo som
+</footer>
+
+<script>
+// --- PLAYER VISUALIZER ---
+const player = document.getElementById("beat-player");
+const canvas = document.getElementById("visualizer");
+const ctx = canvas.getContext("2d");
+
+let audioCtx, analyser, source, dataArray;
+canvas.width = window.innerWidth * 0.8;
+canvas.height = 100;
+
+function setupVisualizer() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = audioCtx.createAnalyser();
+  source = audioCtx.createMediaElementSource(player);
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  analyser.fftSize = 256;
+  const bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
+
+  function draw() {
+    requestAnimationFrame(draw);
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let x = 0;
+    for (let i = 0; i < bufferLength; i++) {
+      const barHeight = dataArray[i] / 2;
+      const r = 57, g = 255, b = 20 + (barHeight / 2);
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+      x += barWidth + 1;
+    }
+  }
+  draw();
+}
+player.addEventListener("play", () => {
+  if (!audioCtx) setupVisualizer();
+});
+
+// --- CONTADORES GLOBAIS COM COUNTAPI ---
+async function updateVisitas() {
+  try {
+    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/visitas");
+    const data = await res.json();
+    document.getElementById("visitas").textContent = data.value;
+  } catch (e) {
+    console.log("Erro ao contar visitas:", e);
+  }
+}
+
+async function updateOnline() {
+  try {
+    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/online");
+    const data = await res.json();
+    document.getElementById("online").textContent = data.value;
+  } catch (e) {
+    console.log("Erro ao contar online:", e);
+  }
+}
+
+updateVisitas();
+updateOnline();
+setInterval(updateOnline, 5000);
+</script>
+</body>
+</html>

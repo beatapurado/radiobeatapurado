@@ -1,0 +1,8 @@
+link: https://www.listen2myradio.com/
+
+
+password: McLsJZ4wdRNCRj6dj
+link: https://beatapurado.radiostream123.com/
+Hostname: uk22freenew.listen2myradio.com
+IP Address: 95.154.196.37
+Port: 29977
