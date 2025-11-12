@@ -1,165 +1,60 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rádio Beat Apurado 🚀🚀</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rádio Beat Apurado 🚀</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
-body {
-  margin: 0;
-  font-family: 'Audiowide', cursive;
-  background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') no-repeat center center fixed;
-  background-size: cover;
-  color: #cfcff5;
-}
+body { margin: 0; font-family: 'Audiowide', cursive; background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') no-repeat center center fixed; background-size: cover; color: #cfcff5; }
 
-/* HEADER */
-header {
-  text-align: center;
-  padding: 40px 15px;
-  background: rgba(0, 0, 0, 0.85);
-}
-h1 {
-  font-size: 3.5rem;
-  text-transform: uppercase;
-  color: #39ff14;
-  text-shadow: 0 0 20px #39ff14, 0 0 40px #ff00de;
-  margin: 0;
-}
+/* Header */
+header { text-align:center; padding:40px 15px; background: rgba(0,0,0,0.85); }
+h1 { font-size:3.5rem; text-transform:uppercase; color:#39ff14; text-shadow:0 0 20px #39ff14, 0 0 40px #ff00de; margin:0; }
 
-/* NAVBAR */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.9);
-}
-nav a {
-  color: #39ff14;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-nav a:hover {
-  color: #cfcff5;
-  text-shadow: 0 0 10px #cfcff5;
-}
+/* Nav */
+nav { display:flex; justify-content:center; gap:25px; padding:15px; background: rgba(0,0,0,0.9); }
+nav a { color:#39ff14; text-decoration:none; font-weight:bold; transition:0.3s; }
+nav a:hover { color:#cfcff5; text-shadow:0 0 10px #cfcff5; }
 
-/* CONTAINER */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  display: grid;
-  gap: 25px;
-}
-section {
-  background: rgba(10, 10, 20, 0.9);
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
-}
+/* Container */
+.container { max-width:1200px; margin:auto; padding:20px; display:grid; gap:25px; }
+section { background: rgba(10,10,20,0.9); padding:25px; border-radius:18px; box-shadow:0 0 25px rgba(255,0,200,0.4); }
 
-/* PLAYER */
-.player-box {
-  text-align: center;
-}
-.online-counter {
-  font-size: 1.4rem;
-  margin-bottom: 15px;
-  color: #39ff14;
-  text-shadow: 0 0 15px #39ff14;
-}
-.status {
-  font-size: 1rem;
-  margin-top: 5px;
-  color: #ff00de;
-  text-shadow: 0 0 10px #ff00de;
-}
+/* Player */
+.player-box { text-align:center; position:relative; }
+.online-counter { font-size:1.1rem; margin-bottom:12px; color:#39ff14; text-shadow:0 0 12px #39ff14; }
+.status { font-size:0.95rem; margin-top:6px; color:#ff00de; text-shadow:0 0 10px #ff00de; }
 
-/* VISUALIZADOR DE ÁUDIO */
-#visualizer {
-  width: 100%;
-  height: 120px;
-  background: transparent;
-  display: block;
-  margin-top: 25px;
-}
+/* Visualizer */
+#visualizer-canvas { width:100%; height:120px; background:transparent; display:block; margin-top:18px; border-radius:8px; }
 
-/* PROGRAMAÇÃO */
-.programacao {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-.programacao .card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  color: #cfcff5;
-  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.5);
-}
+/* Flyer */
+.flyer { text-align:center; }
+.flyer img { max-width:100%; border-radius:15px; box-shadow:0 0 25px rgba(57,255,20,0.6); }
 
-/* CHAT */
-.chat-frame {
-  width: 100%;
-  height: 400px;
-  border: none;
-  border-radius: 10px;
-  background: #050505;
-  box-shadow: 0 0 15px #ff00de;
-}
+/* Programacao */
+.programacao { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+.programacao .card { background: rgba(255,255,255,0.05); padding:15px; border-radius:12px; text-align:center; color:#cfcff5; box-shadow: inset 0 0 15px rgba(57,255,20,0.5); }
 
-/* FLYER */
-.flyer {
-  text-align: center;
-}
-.flyer img {
-  max-width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
-}
+/* Chat */
+.chat-frame { width:100%; height:400px; border:none; border-radius:10px; background:#050505; box-shadow:0 0 15px #ff00de; }
 
-/* BOTÃO WHATSAPP */
-#whatsapp-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background: #25d366;
-  color: white;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  box-shadow: 0 0 20px #25d366;
-  text-decoration: none;
-  transition: transform 0.3s;
-}
-#whatsapp-btn:hover {
-  transform: scale(1.1);
-}
+/* WhatsApp */
+#whatsapp-btn { position:fixed; bottom:25px; right:25px; background:#25d366; color:white; border-radius:50%; width:60px; height:60px; display:flex; justify-content:center; align-items:center; font-size:30px; box-shadow:0 0 20px #25d366; text-decoration:none; transition:transform .3s; }
+#whatsapp-btn:hover { transform:scale(1.05); }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-  background: rgba(0, 0, 0, 0.95);
-  margin-top: 30px;
-  color: #666;
-}
+/* Footer */
+footer { text-align:center; padding:20px; font-size:0.9rem; background: rgba(0,0,0,0.95); margin-top:30px; color:#666; }
+
+/* Big Play overlay */
+#play-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+#play-btn { pointer-events:auto; background:linear-gradient(90deg,#39ff14,#ff00de); border:none; color:#000; padding:18px 32px; border-radius:999px; font-weight:700; font-size:1.1rem; cursor:pointer; box-shadow:0 8px 30px rgba(255,0,200,0.25); }
+.small-note { font-size:0.9rem; color:#ccc; margin-top:8px; }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -179,26 +74,31 @@ footer {
   <!-- PLAYER -->
   <section id="player" class="player-box">
     <h2>▶️ Ao Vivo</h2>
+
     <div class="online-counter">
-      🌍 Terráqueos online: <span id="online">0</span><br>
-      🚀 Visitas totais: <span id="visitas">0</span>
+      🌍 Terráqueos online: <span id="online">0</span> &nbsp; • &nbsp; 🚀 Visitas totais: <span id="visitas">0</span>
     </div>
 
-    <!-- Player HTML5 funcional -->
-    <audio id="beat-player" controls autoplay>
-      <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
+    <div id="status" class="status">🛰️ Verificando streaming…</div>
+
+    <!-- HTML5 audio element - usaremos crossOrigin para análise -->
+    <audio id="beat-player" controls preload="none" crossorigin="anonymous">
+      <!-- URL primária (MyRadioStream TLS). Se você tiver outra URL HTTPS fornecida pelo MyRadioStream coloque aqui -->
+      <source id="source-stream" src="https://s12.myradiostream.com/19184/stream" type="audio/mpeg">
       Seu navegador não suporta o player de áudio.
     </audio>
 
-    <div class="visualizer" id="visualizer">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    <!-- Canvas visualizer -->
+    <canvas id="visualizer-canvas"></canvas>
+
+    <div id="play-overlay">
+      <div style="text-align:center;">
+        <button id="play-btn">Iniciar Player</button>
+        <div class="small-note">Se o navegador bloqueou autoplay, clique em "Iniciar Player".</div>
+      </div>
     </div>
 
-	
-
-    <canvas id="visualizer"></canvas>
-    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Play”.</p>
+    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Iniciar Player”. O player tenta o stream online e, se falhar, reproduz o arquivo Supabase (fallback).</p>
   </section>
 
   <!-- FLYER -->
@@ -231,6 +131,7 @@ footer {
     <h2>💬 Chat Intergaláctico</h2>
     <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
   </section>
+
 </div>
 
 <!-- BOTÃO WHATSAPP -->
@@ -241,379 +142,417 @@ footer {
 </footer>
 
 <script>
-// --- PLAYER VISUALIZER ---
-const player = document.getElementById("beat-player");
-const canvas = document.getElementById("visualizer");
-const ctx = canvas.getContext("2d");
+/* ============================
+   CONFIGURAÇÕES
+   ============================ */
+// Fallback (Supabase público que você passou)
+const FALLBACK_MP3 = 'https://qsxtulxbgdlodcwdsgle.supabase.co/storage/v1/object/public/radio/10.4%20Rog%20-%20Sidewalking.mp3';
 
-let audioCtx, analyser, source, dataArray;
-canvas.width = window.innerWidth * 0.8;
-canvas.height = 100;
+// Stream principal (MyRadioStream TLS) - ajuste se tiver outra URL HTTPS da sua conta
+const PRIMARY_STREAM = 'https://s12.myradiostream.com/19184/stream';
 
-function setupVisualizer() {
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  analyser = audioCtx.createAnalyser();
-  source = audioCtx.createMediaElementSource(player);
-  source.connect(analyser);
-  analyser.connect(audioCtx.destination);
-  analyser.fftSize = 256;
-  const bufferLength = analyser.frequencyBinCount;
-  dataArray = new Uint8Array(bufferLength);
+// CountAPI namespace/keys (mantive seu formato)
+const VISITAS_KEY = 'beatapurado.github.io/radiobeatapurado/visitas';
+const ONLINE_KEY = 'beatapurado.github.io/radiobeatapurado/online';
 
-  function draw() {
-    requestAnimationFrame(draw);
-    analyser.getByteFrequencyData(dataArray);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const barWidth = (canvas.width / bufferLength) * 2.5;
-    let x = 0;
-    for (let i = 0; i < bufferLength; i++) {
-      const barHeight = dataArray[i] / 2;
-      const r = 57, g = 255, b = 20 + (barHeight / 2);
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
-      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-      x += barWidth + 1;
-    }
+/* ============================
+   ELEMENTOS
+   ============================ */
+const audioEl = document.getElementById('beat-player');
+const srcEl = document.getElementById('source-stream');
+const canvas = document.getElementById('visualizer-canvas');
+const ctx = canvas.getContext('2d');
+const statusEl = document.getElementById('status');
+const visitasEl = document.getElementById('visitas');
+const onlineEl = document.getElementById('online');
+const playOverlay = document.getElementById('play-overlay');
+const playBtn = document.getElementById('play-btn');
+
+/* ============================
+   ESTADO
+   ============================ */
+let audioCtx = null;
+let analyser = null;
+let sourceNode = null;
+let dataArray = null;
+let bufferLength = 0;
+let visualizerActive = false;
+let fallbackActive = false;
+let playKeepAliveInterval = null;
+let onlineHeartbeatInterval = null;
+
+/* ============================
+   UTILIDADES CONTADORES (CountAPI)
+   ============================ */
+async function hitCount(key) {
+  try {
+    const res = await fetch(`https://api.countapi.xyz/hit/${key}`);
+    return await res.json();
+  } catch (e) {
+    console.warn('CountAPI hit failed', e);
+    return null;
   }
-  draw();
 }
-player.addEventListener("play", () => {
-  if (!audioCtx) setupVisualizer();
+async function getCount(key) {
+  try {
+    const res = await fetch(`https://api.countapi.xyz/get/${key}`);
+    return await res.json();
+  } catch (e) {
+    console.warn('CountAPI get failed', e);
+    return null;
+  }
+}
+
+/* Inicializa visitas (incrementa visitas totais uma vez no load) */
+async function initVisitas() {
+  const r = await hitCount(VISITAS_KEY);
+  if (r && r.value != null) visitasEl.textContent = r.value;
+  else visitasEl.textContent = '0';
+}
+
+/* Atualiza contador online (faz hit quando a reprodução começa).
+   Nota: CountAPI não fornece decremento automático. Aqui cada start de play
+   incrementa o contador global "online" — é a mesma lógica que você vinha usando. */
+async function markOnlineHit() {
+  const r = await hitCount(ONLINE_KEY);
+  if (r && r.value != null) onlineEl.textContent = r.value;
+}
+
+/* Puxa valores atuais (caso queira apenas ler) */
+async function refreshCounts() {
+  const v = await getCount(VISITAS_KEY);
+  const o = await getCount(ONLINE_KEY);
+  if (v && v.value != null) visitasEl.textContent = v.value;
+  if (o && o.value != null) onlineEl.textContent = o.value;
+}
+
+/* ============================
+   AUDIO + FALLBACK LOGIC
+   ============================ */
+
+function setStatus(txt) {
+  statusEl.textContent = txt;
+}
+
+/* Set source to primary stream and try play */
+async function tryPrimaryAndPlay() {
+  fallbackActive = false;
+  setStatus('🛰️ Tentando stream principal (MyRadioStream)…');
+  // define source
+  srcEl.src = PRIMARY_STREAM;
+  // ensure audioElement reloads the source
+  audioEl.load();
+
+  // try to play (handle autoplay-block)
+  try {
+    await playAudioWithTimeout(6000);
+    // sucesso
+    setStatus('✅ Tocando (stream online).');
+    markOnlineHit();
+    startVisualizerSafe();
+    startOnlineHeartbeat();
+    playOverlay.style.display = 'none';
+    return true;
+  } catch (err) {
+    console.warn('Primary stream failed:', err);
+    setStatus('❌ Stream principal indisponível. Usando fallback (Supabase).');
+    // tenta fallback
+    await useFallbackAndPlay();
+    return false;
+  }
+}
+
+/* Fallback para Supabase MP3 */
+async function useFallbackAndPlay() {
+  fallbackActive = true;
+  srcEl.src = FALLBACK_MP3;
+  audioEl.load();
+  try {
+    await playAudioWithTimeout(6000);
+    setStatus('🎧 Tocando fallback (arquivo Supabase).');
+    markOnlineHit();
+    startVisualizerSafe();
+    startOnlineHeartbeat();
+    playOverlay.style.display = 'none';
+    return true;
+  } catch (err) {
+    console.error('Fallback failed:', err);
+    setStatus('⚠️ Erro ao tentar reproduzir (fallback também falhou). Verifique conexão.');
+    playOverlay.style.display = 'block';
+    return false;
+  }
+}
+
+/* Promise que tenta tocar e resolve se tocar dentro do timeout.
+   rejeita se play promise falha ou se evento error disparar. */
+function playAudioWithTimeout(timeoutMs = 6000) {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    // event handlers
+    function onCanPlay() {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve();
+    }
+    function onPlay() {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve();
+    }
+    function onError(e) {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error('audio error'));
+    }
+    function onTimeout() {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      // try to detect if it's playing by checking currentTime
+      if (!audioEl.paused && audioEl.currentTime > 0) resolve();
+      else reject(new Error('play timeout'));
+    }
+    function cleanup() {
+      audioEl.removeEventListener('canplay', onCanPlay);
+      audioEl.removeEventListener('play', onPlay);
+      audioEl.removeEventListener('error', onError);
+      clearTimeout(timer);
+    }
+
+    audioEl.addEventListener('canplay', onCanPlay);
+    audioEl.addEventListener('play', onPlay);
+    audioEl.addEventListener('error', onError);
+
+    // try to call play()
+    const p = audioEl.play();
+    if (p !== undefined) {
+      p.then(() => {
+        // some browsers resolve but audio might still buffer; wait for play/canplay events or timeout
+      }).catch(err => {
+        // autoplay blocked or immediate failure
+        console.warn('play() promise rejected:', err);
+        // still wait a short time for events, but if autoplay blocked, reject quickly
+      });
+    }
+
+    const timer = setTimeout(onTimeout, timeoutMs);
+  });
+}
+
+/* Reconexão simples: tenta primary; se falhar, tenta fallback. */
+async function ensurePlaying() {
+  if (!audioEl.paused && audioEl.currentTime > 0) return;
+  // attempt primary first
+  await tryPrimaryAndPlay();
+}
+
+/* Start heartbeat: increment online every 30s while playing to approximate "still online" */
+function startOnlineHeartbeat() {
+  stopOnlineHeartbeat();
+  // we already called one hit when started; now keep hitting periodically while playing (this increments the CountAPI key repeatedly)
+  onlineHeartbeatInterval = setInterval(() => {
+    // only hit if player is playing
+    if (!audioEl.paused) {
+      hitCount(ONLINE_KEY).then(res => {
+        if (res && res.value != null) onlineEl.textContent = res.value;
+      }).catch(()=>{});
+    }
+  }, 30000); // 30s
+}
+function stopOnlineHeartbeat() {
+  if (onlineHeartbeatInterval) { clearInterval(onlineHeartbeatInterval); onlineHeartbeatInterval = null; }
+}
+
+/* Tentativa de reconectar se stream cair (watcher simples) */
+function setupAutoReconnect() {
+  // quando elemento der erro -> tenta fallback
+  audioEl.addEventListener('error', async () => {
+    console.warn('audio event error, tentando fallback/reload');
+    setStatus('⚠️ Erro no stream — tentando reconectar/fallback...');
+    // primeiro tenta recarregar primary uma vez
+    if (!fallbackActive) {
+      tryPrimaryAndPlay();
+    } else {
+      // se já estava em fallback, tenta recarregar fallback
+      try { audioEl.load(); audioEl.play(); } catch(e){ console.warn(e); }
+    }
+  });
+
+  // detecta stall (currentTime não avança)
+  let lastTime = 0;
+  setInterval(() => {
+    if (!audioEl.paused && !audioEl.seeking) {
+      if (audioEl.currentTime <= lastTime) {
+        // stalled
+        console.warn('Detected stall, reloading source');
+        setStatus('⚠️ Conexão estagnada — tentando reconectar...');
+        // if on primary, try to reload primary; otherwise reload fallback
+        if (!fallbackActive) {
+          tryPrimaryAndPlay();
+        } else {
+          useFallbackAndPlay();
+        }
+      }
+      lastTime = audioEl.currentTime;
+    }
+  }, 7000);
+}
+
+/* ============================
+   VISUALIZADOR (Web Audio API)
+   ============================ */
+function startVisualizerSafe() {
+  // if already running, ignore
+  if (visualizerActive) return;
+
+  // create AudioContext and analyser
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    // create source from the media element
+    try {
+      sourceNode = audioCtx.createMediaElementSource(audioEl);
+      sourceNode.connect(analyser);
+      analyser.connect(audioCtx.destination);
+    } catch (err) {
+      console.warn('createMediaElementSource failed (CORS maybe):', err);
+      // Even if analyser fails, audio may play. We'll abort visualizer.
+      setStatus(prev => prev + ' (visualizador indisponível por CORS)');
+      return;
+    }
+
+    visualizerActive = true;
+    resizeCanvas();
+    drawVisualizer();
+  } catch (err) {
+    console.warn('AudioContext init failed:', err);
+  }
+}
+function stopVisualizer() {
+  visualizerActive = false;
+  if (audioCtx && typeof audioCtx.close === 'function') {
+    audioCtx.close().catch(()=>{});
+    audioCtx = null;
+  }
+}
+function resizeCanvas() {
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = Math.floor(canvas.clientWidth * ratio);
+  canvas.height = Math.floor(100 * ratio); // fixed height of 100 CSS px scaled by ratio
+}
+window.addEventListener('resize', resizeCanvas);
+
+function drawVisualizer() {
+  if (!visualizerActive) return;
+  requestAnimationFrame(drawVisualizer);
+  analyser.getByteFrequencyData(dataArray);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const barCount = 64; // draw a fixed number of bars
+  const slice = Math.floor(bufferLength / barCount);
+  const barWidth = (canvas.width / barCount) * 0.9;
+  let x = 0;
+  for (let i = 0; i < barCount; i++) {
+    // average slice
+    let sum = 0;
+    for (let j = 0; j < slice; j++) sum += dataArray[i*slice + j] || 0;
+    const v = sum / slice;
+    const h = (v / 255) * canvas.height;
+    // color gradient neon green -> magenta
+    const r = Math.floor(57 + (v/255)*198);
+    const g = Math.floor(255 - (v/255)*200);
+    const b = Math.floor(20 + (v/255)*180);
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    const y = canvas.height - h;
+    ctx.fillRect(x, y, barWidth, h);
+    x += barWidth + 2;
+  }
+}
+
+/* ============================
+   UI / Autoplay handling
+   ============================ */
+async function startPlaybackFlow() {
+  playOverlay.style.display = 'none';
+  setStatus('⏳ Iniciando player — tentando stream principal...');
+  // set crossorigin (important for analyser when fallback is CORS-enabled)
+  audioEl.crossOrigin = "anonymous";
+  // try primary, fallback handled inside
+  await tryPrimaryAndPlay();
+}
+
+/* Se autoplay for bloqueado, exibimos overlay com botão play (já estamos mostrando) */
+playBtn.addEventListener('click', () => {
+  startPlaybackFlow();
 });
 
-// --- CONTADORES GLOBAIS COM COUNTAPI ---
-async function updateVisitas() {
-  try {
-    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/visitas");
-    const data = await res.json();
-    document.getElementById("visitas").textContent = data.value;
-  } catch (e) {
-    console.log("Erro ao contar visitas:", e);
-  }
-}
-
-async function updateOnline() {
-  try {
-    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/online");
-    const data = await res.json();
-    document.getElementById("online").textContent = data.value;
-  } catch (e) {
-    console.log("Erro ao contar online:", e);
-  }
-}
-
-updateVisitas();
-updateOnline();
-setInterval(updateOnline, 5000);
-</script>
-</body>
-
-=======
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rádio Beat Apurado 🚀🚀🚀🚀🚀🚀🚀🚀🚀</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Audiowide', cursive;
-  background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') no-repeat center center fixed;
-  background-size: cover;
-  color: #cfcff5;
-}
-
-/* HEADER */
-header {
-  text-align: center;
-  padding: 40px 15px;
-  background: rgba(0, 0, 0, 0.85);
-}
-h1 {
-  font-size: 3.5rem;
-  text-transform: uppercase;
-  color: #39ff14;
-  text-shadow: 0 0 20px #39ff14, 0 0 40px #ff00de;
-  margin: 0;
-}
-
-/* NAVBAR */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.9);
-}
-nav a {
-  color: #39ff14;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-nav a:hover {
-  color: #cfcff5;
-  text-shadow: 0 0 10px #cfcff5;
-}
-
-/* CONTAINER */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  display: grid;
-  gap: 25px;
-}
-section {
-  background: rgba(10, 10, 20, 0.9);
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
-}
-
-/* PLAYER */
-.player-box {
-  text-align: center;
-}
-.online-counter {
-  font-size: 1.4rem;
-  margin-bottom: 15px;
-  color: #39ff14;
-  text-shadow: 0 0 15px #39ff14;
-}
-.status {
-  font-size: 1rem;
-  margin-top: 5px;
-  color: #ff00de;
-  text-shadow: 0 0 10px #ff00de;
-}
-
-/* VISUALIZADOR DE ÁUDIO */
-#visualizer {
-  width: 100%;
-  height: 120px;
-  background: transparent;
-  display: block;
-  margin-top: 25px;
-}
-
-/* PROGRAMAÇÃO */
-.programacao {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-.programacao .card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  color: #cfcff5;
-  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.5);
-}
-
-/* CHAT */
-.chat-frame {
-  width: 100%;
-  height: 400px;
-  border: none;
-  border-radius: 10px;
-  background: #050505;
-  box-shadow: 0 0 15px #ff00de;
-}
-
-/* FLYER */
-.flyer {
-  text-align: center;
-}
-.flyer img {
-  max-width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
-}
-
-/* BOTÃO WHATSAPP */
-#whatsapp-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background: #25d366;
-  color: white;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  box-shadow: 0 0 20px #25d366;
-  text-decoration: none;
-  transition: transform 0.3s;
-}
-#whatsapp-btn:hover {
-  transform: scale(1.1);
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-  background: rgba(0, 0, 0, 0.95);
-  margin-top: 30px;
-  color: #666;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>📻 Rádio Beat Apurado</h1>
-  <p>Sons do underground direto do espaço sideral</p>
-</header>
-
-<nav>
-  <a href="#player">Ao Vivo</a>
-  <a href="#programacao">Programação</a>
-  <a href="#produtos">Produtos</a>
-  <a href="#chat">Chat</a>
-</nav>
-
-<div class="container">
-
-  <!-- PLAYER -->
-  <section id="player" class="player-box">
-    <h2>▶️ Ao Vivo</h2>
-    <div class="online-counter">
-      🌍 Terráqueos online: <span id="online">0</span><br>
-      🚀 Visitas totais: <span id="visitas">0</span>
-    </div>
-
-    <!-- Player HTML5 funcional -->
-    <audio id="beat-player" controls autoplay>
-      <source src="https://uk25freenew.listen2myradio.com/live.mp3?typeportmount=s1_30119_stream_570097994" type="audio/mpeg">
-      Seu navegador não suporta o player de áudio teste.
-    </audio>
-
-    <div class="visualizer" id="visualizer">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-
-	
-
-    <canvas id="visualizer"></canvas>
-    <p style="font-size:0.9rem;color:#ccc;margin-top:10px;">🔊 Se o som não iniciar automaticamente, clique em “Play”.</p>
-  </section>
-
-  <!-- FLYER -->
-  <section class="flyer">
-    <h2>📡 Anúncios</h2>
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg" alt="Flyer Beat Apurado">
-  </section>
-
-  <!-- PROGRAMAÇÃO -->
-  <section id="programacao">
-    <h2>📅 Programação da Semana</h2>
-    <div class="programacao">
-      <div class="card">🎧 Segunda – Sessão Underground (20h - 22h)</div>
-      <div class="card">🎧 Quarta – Jazz Rap Vibes (21h - 23h)</div>
-      <div class="card">🎧 Sexta – Slow Jams Night (22h - 00h)</div>
-      <div class="card">🎧 Sábado – Beat Apurado com DJ Jordan (21h - 23h)</div>
-      <div class="card">🎧 Domingo – Samba & Rock Classics (18h - 20h)</div>
-    </div>
-  </section>
-
-  <!-- PRODUTOS -->
-  <section id="produtos">
-    <h2>🛒 Produtos</h2>
-    <p>Confira camisetas, bonés e vinis exclusivos do Beat Apurado:</p>
-    <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14;font-weight:bold;">👉 Acesse nossa loja</a>
-  </section>
-
-  <!-- CHAT -->
-  <section id="chat">
-    <h2>💬 Chat Intergaláctico</h2>
-    <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
-  </section>
-</div>
-
-<!-- BOTÃO WHATSAPP -->
-<a id="whatsapp-btn" href="https://wa.me/5511998683830" target="_blank" title="Fale conosco no WhatsApp">💬</a>
-
-<footer>
-  © 2025 Beat Apurado - DJ Jordan 🚀 Conectando galáxias pelo som
-</footer>
-
-<script>
-// --- PLAYER VISUALIZER ---
-const player = document.getElementById("beat-player");
-const canvas = document.getElementById("visualizer");
-const ctx = canvas.getContext("2d");
-
-let audioCtx, analyser, source, dataArray;
-canvas.width = window.innerWidth * 0.8;
-canvas.height = 100;
-
-function setupVisualizer() {
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  analyser = audioCtx.createAnalyser();
-  source = audioCtx.createMediaElementSource(player);
-  source.connect(analyser);
-  analyser.connect(audioCtx.destination);
-  analyser.fftSize = 256;
-  const bufferLength = analyser.frequencyBinCount;
-  dataArray = new Uint8Array(bufferLength);
-
-  function draw() {
-    requestAnimationFrame(draw);
-    analyser.getByteFrequencyData(dataArray);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const barWidth = (canvas.width / bufferLength) * 2.5;
-    let x = 0;
-    for (let i = 0; i < bufferLength; i++) {
-      const barHeight = dataArray[i] / 2;
-      const r = 57, g = 255, b = 20 + (barHeight / 2);
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
-      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-      x += barWidth + 1;
+/* Se o usuário interagir com a página (touch/click) podemos tentar iniciar automaticamente */
+['click','touchstart','keydown'].forEach(evt =>
+  document.addEventListener(evt, function onceInteraction() {
+    // only once: if overlay visible, start
+    if (playOverlay.style.display !== 'none') {
+      startPlaybackFlow();
     }
-  }
-  draw();
-}
-player.addEventListener("play", () => {
-  if (!audioCtx) setupVisualizer();
-});
+    document.removeEventListener(evt, onceInteraction);
+  }, {passive:true})
+);
 
-// --- CONTADORES GLOBAIS COM COUNTAPI ---
-async function updateVisitas() {
-  try {
-    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/visitas");
-    const data = await res.json();
-    document.getElementById("visitas").textContent = data.value;
-  } catch (e) {
-    console.log("Erro ao contar visitas:", e);
-  }
-}
+/* ============================
+   Inicialização
+   ============================ */
+(async function init() {
+  // set initial display states
+  playOverlay.style.display = 'flex';
+  // set primary source initially (already set in markup) but ensure crossOrigin
+  audioEl.crossOrigin = "anonymous";
 
-async function updateOnline() {
-  try {
-    const res = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/online");
-    const data = await res.json();
-    document.getElementById("online").textContent = data.value;
-  } catch (e) {
-    console.log("Erro ao contar online:", e);
-  }
-}
+  // init counters
+  await initVisitas();
+  await refreshCounts();
 
-updateVisitas();
-updateOnline();
-setInterval(updateOnline, 5000);
+  // try to auto-play right away (some browsers allow autoplay on desktop)
+  tryPrimaryAndPlay().then(ok => {
+    if (!ok) {
+      // If primary didn't play automatically, leave overlay visible for manual start (or fallback played)
+      playOverlay.style.display = 'flex';
+    } else {
+      playOverlay.style.display = 'none';
+    }
+  });
+
+  // setup reconnect watcher
+  setupAutoReconnect();
+
+  // when user manually pauses/plays, manage visualizer on play
+  audioEl.addEventListener('play', () => {
+    markOnlineHit(); // mark an online hit each time user starts playback
+    startVisualizerSafe();
+    startOnlineHeartbeat();
+    playOverlay.style.display = 'none';
+    setStatus(fallbackActive ? '🎧 Tocando (fallback)' : '✅ Tocando (stream online)');
+  });
+  audioEl.addEventListener('pause', () => {
+    setStatus('⏸️ Pausado');
+  });
+
+  // keep attempts to ensure playing when page regains focus
+  window.addEventListener('focus', () => {
+    ensurePlaying();
+  });
+
+  // when user leaves, clear heartbeat
+  window.addEventListener('beforeunload', () => {
+    stopOnlineHeartbeat();
+    // note: CountAPI doesn't support decrement here in this setup
+  });
+
+})();
 </script>
 </body>
->>>>>>> 1e61231 (commit 02)
 </html>
