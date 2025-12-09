@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rádio Beat Apurado 🚀🚀</title>
+<title>Estação Underground Rap 🚀🚀</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
@@ -129,6 +129,41 @@ section {
   transform: scale(1.1);
 }
 
+/* ============================================================
+   🔴 CÍRCULO DJ AO VIVO — FUNDO TRANSPARENTE (NOVO)
+============================================================ */
+#dj-live {
+  position: fixed;
+  bottom: 30px;
+  left: 25px;
+  width: 80px;
+  height: 80px;
+  border: 0px solid #39ff14;
+  border-radius: 50%;
+  background: transparent; /* ✔ fundo transparente */
+  box-shadow: 0 0 25px #39ff14;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 1.5s infinite;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#dj-live img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 15px #39ff14; }
+  50% { transform: scale(1.15); box-shadow: 0 0 40px #ff00ff; }
+  100% { transform: scale(1); box-shadow: 0 0 15px #39ff14; }
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -144,7 +179,7 @@ footer {
 <body>
 
 <header>
-  <h1>📻 Rádio Beat Apurado</h1>
+  <h1>📻 Estação Underground Rap </h1>
   <p>Sons do underground direto do espaço sideral</p>
 </header>
 
@@ -153,6 +188,7 @@ footer {
   <a href="#programacao">Programação</a>
   <a href="#produtos">Produtos</a>
   <a href="#chat">Chat</a>
+  <a href="#anuncio">Anuncie</a>
 </nav>
 
 <div class="container">
@@ -162,11 +198,9 @@ footer {
     <h2>▶️ Ao Vivo</h2>
 
     <div class="online-counter">
-      🌍 Terráqueos online: <span id="online">0</span><br>
-      🚀 Visitas totais: <span id="visitas">0</span>
+      🚀 Visitas totais: <span id="visitCount">0</span>
     </div>
 
-    <!-- PLAYER OFICIAL (iframe) -->
     <iframe 
       src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
       height="110"
@@ -178,7 +212,7 @@ footer {
   </section>
 
   <!-- FLYER -->
-  <section class="flyer" style="text-align:center;">
+  <section id="anuncio" class="flyer" style="text-align:center;">
     <h2>📡 Anúncios</h2>
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg" 
          alt="Flyer Beat Apurado">
@@ -213,33 +247,78 @@ footer {
 
 </div>
 
+<!-- BOTÃO WHATSAPP -->
 <a id="whatsapp-btn" href="https://wa.me/5511998683830" target="_blank">💬</a>
 
+<!-- CÍRCULO DJ AO VIVO -->
+<div id="dj-live">
+  <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/dj_jordan.jpg">
+</div>
+
 <footer>
-  © 2025 Beat Apurado - DJ Jordan 🚀 Conectando galáxias pelo som
+  © 2025 Estação Underground Rap - DJ Jordan 🚀 Conectando galáxias pelo som
 </footer>
 
 <script>
-// ========================= COUNT API =========================
-async function updateVisitas() {
-  try {
-    const req = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/visitas");
-    const data = await req.json();
-    document.getElementById("visitas").textContent = data.value;
-  } catch (e) { console.log("Erro visitas:", e); }
+/* ======================================================
+   CONTADOR DE VISITAS – FUNCIONA LOCAL E ONLINE
+====================================================== */
+function updateCounter() {
+  let count = localStorage.getItem("nb_counter");
+
+  if (count === null) {
+    count = 1;
+  } else {
+    count = parseInt(count) + 1;
+  }
+
+  localStorage.setItem("nb_counter", count);
+  document.getElementById("visitCount").textContent = count;
+}
+updateCounter();
+
+/* ======================================================
+   LÓGICA DE DJ AO VIVO — EDITÁVEL
+====================================================== */
+function checkLive() {
+
+  const agora = new Date();
+  const dia = agora.getDay();
+  const hora = agora.getHours();
+  const min = agora.getMinutes();
+
+  const programas = [
+    { dia: 1, hIni: 23, mIni: 0, hFim: 23, mFim: 59, dj: "dj_jordan.jpg" },
+    { dia: 6, hIni: 21, mIni: 0, hFim: 23, mFim: 0, dj: "dj_jordan.jpg" }
+  ];
+
+  let aoVivo = false;
+  let djFoto = "";
+
+  programas.forEach(p => {
+    const inicio = p.hIni * 60 + p.mIni;
+    const fim = p.hFim * 60 + p.mFim;
+    const agoraMin = hora * 60 + min;
+
+    if (dia === p.dia && agoraMin >= inicio && agoraMin <= fim) {
+      aoVivo = true;
+      djFoto = p.dj;
+    }
+  });
+
+  const badge = document.getElementById("dj-live");
+
+  if (aoVivo) {
+    badge.style.display = "flex";
+    badge.querySelector("img").src =
+      "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/" + djFoto;
+  } else {
+    badge.style.display = "none";
+  }
 }
 
-async function updateOnline() {
-  try {
-    const req = await fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado/online");
-    const data = await req.json();
-    document.getElementById("online").textContent = data.value;
-  } catch (e) { console.log("Erro online:", e); }
-}
-
-updateVisitas();
-updateOnline();
-setInterval(updateOnline, 5000);
+setInterval(checkLive, 20000);
+checkLive();
 </script>
 
 </body>
