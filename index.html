@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estação Underground Rap 🚀🚀</title>
+<title>Nave Underground Rap 🚀🚀</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
@@ -130,7 +130,7 @@ section {
 }
 
 /* ============================================================
-   🔴 CÍRCULO DJ AO VIVO — FUNDO TRANSPARENTE (NOVO)
+   🔴 CÍRCULO DJ AO VIVO — FUNDO TRANSPARENTE
 ============================================================ */
 #dj-live {
   position: fixed;
@@ -140,7 +140,7 @@ section {
   height: 80px;
   border: 0px solid #39ff14;
   border-radius: 50%;
-  background: transparent; /* ✔ fundo transparente */
+  background: transparent;
   box-shadow: 0 0 25px #39ff14;
   display: none;
   justify-content: center;
@@ -179,7 +179,7 @@ footer {
 <body>
 
 <header>
-  <h1>📻 Estação Underground Rap </h1>
+  <h1>📻 Nave Underground Rap </h1>
   <p>Sons do underground direto do espaço sideral</p>
 </header>
 
@@ -223,7 +223,7 @@ footer {
     <h2>📅 Programação da Semana</h2>
     <div class="programacao">
       <div class="card">🎧 Segunda – Sessão Underground (20h - 22h)</div>
-      <div class="card">🎧 Quarta – Jazz Rap Vides (21h - 23h)</div>
+      <div class="card">🎧 Quarta – Jazz Rap Vibes (21h - 23h)</div>
       <div class="card">🎧 Sexta – Slow Jams Night (22h - 00h)</div>
       <div class="card">🎧 Sábado – Beat Apurado com DJ Jordan (21h - 23h)</div>
       <div class="card">🎧 Domingo – Samba & Rock Classics (18h - 20h)</div>
@@ -256,26 +256,25 @@ footer {
 </div>
 
 <footer>
-  © 2025 Estação Underground Rap - DJ Jordan 🚀 Conectando galáxias pelo som
+  © 2025 Nave Underground Rap - DJ Jordan 🚀 Conectando galáxias pelo som
 </footer>
 
 <script>
 /* ======================================================
-   CONTADOR DE VISITAS – FUNCIONA LOCAL E ONLINE
+   🔥 CONTADOR GLOBAL REAL — COUNTAPI
 ====================================================== */
-function updateCounter() {
-  let count = localStorage.getItem("nb_counter");
-
-  if (count === null) {
-    count = 1;
-  } else {
-    count = parseInt(count) + 1;
+async function updateUniversalCounter() {
+  try {
+    const req = await fetch(
+      "https://api.countapi.xyz/hit/naveundergroundrap/contador"
+    );
+    const data = await req.json();
+    document.getElementById("visitCount").textContent = data.value;
+  } catch (e) {
+    console.log("Erro contador:", e);
   }
-
-  localStorage.setItem("nb_counter", count);
-  document.getElementById("visitCount").textContent = count;
 }
-updateCounter();
+updateUniversalCounter();
 
 /* ======================================================
    LÓGICA DE DJ AO VIVO — EDITÁVEL
@@ -283,13 +282,16 @@ updateCounter();
 function checkLive() {
 
   const agora = new Date();
-  const dia = agora.getDay();
+  const dia = agora.getDay(); // 0 domingo
   const hora = agora.getHours();
   const min = agora.getMinutes();
 
   const programas = [
-    { dia: 1, hIni: 23, mIni: 0, hFim: 23, mFim: 59, dj: "dj_jordan.jpg" },
-    { dia: 6, hIni: 21, mIni: 0, hFim: 23, mFim: 0, dj: "dj_jordan.jpg" }
+    { dia: 1, hIni: 20, mIni: 0, hFim: 22, mFim: 0, dj: "dj_jordan.jpg" },
+    { dia: 3, hIni: 21, mIni: 0, hFim: 23, mFim: 0, dj: "dj_jordan.jpg" },
+    { dia: 5, hIni: 22, mIni: 0, hFim: 23, mFim: 59, dj: "dj_jordan.jpg" },
+    { dia: 6, hIni: 21, mIni: 0, hFim: 23, mFim: 0, dj: "dj_jordan.jpg" },
+    { dia: 0, hIni: 18, mIni: 0, hFim: 20, mFim: 0, dj: "dj_jordan.jpg" }
   ];
 
   let aoVivo = false;
