@@ -129,16 +129,13 @@ section {
   transform: scale(1.1);
 }
 
-/* ============================================================
-   🔴 CÍRCULO DJ AO VIVO — FUNDO TRANSPARENTE
-============================================================ */
+/* 🔴 CÍRCULO DJ AO VIVO — FUNDO TRANSPARENTE */
 #dj-live {
   position: fixed;
   bottom: 30px;
   left: 25px;
   width: 80px;
   height: 80px;
-  border: 0px solid #39ff14;
   border-radius: 50%;
   background: transparent;
   box-shadow: 0 0 25px #39ff14;
@@ -261,28 +258,29 @@ footer {
 
 <script>
 /* ======================================================
-   🔥 CONTADOR GLOBAL REAL — COUNTAPI
+   🔥 CONTADOR GLOBAL REAL — COUNTAPI (CORRIGIDO)
 ====================================================== */
 async function updateUniversalCounter() {
   try {
     const req = await fetch(
-      "https://api.countapi.xyz/hit/naveundergroundrap/contador"
+      "https://api.countapi.xyz/hit/naveundergroundrap.github/visitas"
     );
     const data = await req.json();
     document.getElementById("visitCount").textContent = data.value;
   } catch (e) {
+    document.getElementById("visitCount").textContent = "Erro";
     console.log("Erro contador:", e);
   }
 }
 updateUniversalCounter();
 
 /* ======================================================
-   LÓGICA DE DJ AO VIVO — EDITÁVEL
+   🔴 LÓGICA DJ AO VIVO — MANTIDA
 ====================================================== */
 function checkLive() {
 
   const agora = new Date();
-  const dia = agora.getDay(); // 0 domingo
+  const dia = agora.getDay();
   const hora = agora.getHours();
   const min = agora.getMinutes();
 
