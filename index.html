@@ -15,7 +15,7 @@ body {
   min-height: 100vh;
 }
 
-/* BACKGROUND RESPONSIVO REAL */
+/* BACKGROUND */
 body::before {
   content: "";
   position: fixed;
@@ -25,7 +25,7 @@ body::before {
   z-index: -1;
 }
 
-/* GARANTE CONTEÚDO ACIMA */
+/* CONTEÚDO */
 header, nav, .container, footer {
   position: relative;
   z-index: 1;
@@ -110,10 +110,11 @@ section {
   border-radius: 10px;
 }
 
-/* ===== FLYER SLIDER ===== */
+/* FLYER */
 .flyer-container {
   position: relative;
   max-width: 100%;
+  min-height: 250px;
 }
 
 .flyer-container img {
@@ -122,8 +123,7 @@ section {
   box-shadow: 0 0 25px rgba(57,255,20,0.6);
   opacity: 0;
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
   transition: opacity 1.2s ease-in-out;
 }
 
@@ -132,7 +132,7 @@ section {
   position: relative;
 }
 
-/* WHATSAPP */
+/* WHATSAPP – SEMPRE NA FRENTE */
 #whatsapp-btn {
   position: fixed;
   bottom: 25px;
@@ -147,10 +147,11 @@ section {
   justify-content: center;
   font-size: 30px;
   text-decoration: none;
-  box-shadow: 0 0 20px #25d366;
+  box-shadow: 0 0 25px #25d366;
+  z-index: 9999;
 }
 
-/* 🔴 DJ AO VIVO — NEON */
+/* DJ AO VIVO – NEON */
 #dj-live {
   position: fixed;
   bottom: 30px;
@@ -164,6 +165,7 @@ section {
   animation: pulse 1.5s infinite;
   box-shadow: 0 0 25px #39ff14;
   overflow: hidden;
+  z-index: 9998;
 }
 
 #dj-live img {
@@ -192,7 +194,7 @@ footer {
 
 <header>
   <h1>📻 BEAT APURADO RADIO</h1>
-  <p><marquee>🛸</marquee> </p>
+  <p><marquee>🛸 </marquee></p>
 </header>
 
 <nav>
@@ -225,7 +227,8 @@ footer {
     <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_02_.png">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
-	<img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_04_.png">
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_04_.png">
+	<img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
   </div>
 </section>
 
@@ -261,16 +264,23 @@ footer {
 </div>
 
 <footer>
-  <marquee> © 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som🚀 </marquee>
+  <marquee>© 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som</marquee>
 </footer>
 
 <script>
-/* CONTADOR GLOBAL */
-fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado")
-  .then(r => r.json())
-  .then(d => document.getElementById("visitCount").textContent = d.value);
+/* CONTADOR GLOBAL – ESTÁVEL */
+const counterEl = document.getElementById("visitCount");
 
-/* SLIDER DE FLYER */
+fetch("https://api.countapi.xyz/hit/beatapurado_radio/visitas")
+  .then(res => res.json())
+  .then(data => {
+    counterEl.textContent = data.value;
+  })
+  .catch(() => {
+    counterEl.textContent = "—";
+  });
+
+/* SLIDER */
 let flyerIndex = 0;
 const flyers = document.querySelectorAll(".flyer-container img");
 
@@ -287,8 +297,8 @@ function checkLive() {
   const minNow = now.getHours()*60 + now.getMinutes();
 
   const programas = [
-    {dia:1, ini:20*60, fim:22*60},
-    {dia:6, ini:21*60, fim:23*60}
+    {dia:1, ini:20*60, fim:22*60}, // Segunda
+    {dia:6, ini:21*60, fim:23*60}  // Sábado
   ];
 
   const live = programas.some(p =>
@@ -301,13 +311,6 @@ function checkLive() {
 setInterval(checkLive, 20000);
 checkLive();
 </script>
-
-<div align="center" style="margin-top: 20px; font-family: Arial, sans-serif;">
-    <p style="font-size: 14px; color: #666;">Total de visitas:</p>
-    <a href="https://hits.seeyoufarm.com">
-        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbeatapurado.github.io%2Fradiobeatapurado%2F&count_bg=%23E01E1E&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false"/>
-    </a>
-</div>
 
 </body>
 </html>
