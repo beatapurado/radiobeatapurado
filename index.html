@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nave Underground Rap 🚀🚀</title>
+<title>Beat Apurado Radio 🚀</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
@@ -11,42 +11,58 @@
 body {
   margin: 0;
   font-family: 'Audiowide', cursive;
-  background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') no-repeat center center fixed;
-  background-size: cover;
   color: #cfcff5;
+  min-height: 100vh;
+}
+
+/* BACKGROUND RESPONSIVO REAL */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png')
+              no-repeat center center / cover;
+  z-index: -1;
+}
+
+/* GARANTE CONTEÚDO ACIMA */
+header, nav, .container, footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* HEADER */
 header {
   text-align: center;
   padding: 40px 15px;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0,0,0,0.85);
 }
+
 h1 {
-  font-size: 3.5rem;
-  text-transform: uppercase;
+  font-size: 3rem;
   color: #39ff14;
   text-shadow: 0 0 20px #39ff14, 0 0 40px #ff00de;
   margin: 0;
 }
 
-/* NAVBAR */
+/* NAV */
 nav {
   display: flex;
   justify-content: center;
   gap: 25px;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0,0,0,0.9);
+  flex-wrap: wrap;
 }
+
 nav a {
   color: #39ff14;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.3s;
 }
+
 nav a:hover {
-  color: #cfcff5;
-  text-shadow: 0 0 10px #cfcff5;
+  color: #fff;
 }
 
 /* CONTAINER */
@@ -57,37 +73,37 @@ nav a:hover {
   display: grid;
   gap: 25px;
 }
+
 section {
-  background: rgba(10, 10, 20, 0.9);
+  background: rgba(10,10,20,0.9);
   padding: 25px;
   border-radius: 18px;
-  box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
+  box-shadow: 0 0 25px rgba(255,0,200,0.4);
 }
 
 /* PLAYER */
 .player-box {
   text-align: center;
 }
+
 .online-counter {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin-bottom: 15px;
   color: #39ff14;
-  text-shadow: 0 0 15px #39ff14;
 }
 
-/* PROGRAMACAO */
+/* PROGRAMAÇÃO */
 .programacao {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
   gap: 20px;
 }
+
 .programacao .card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255,255,255,0.05);
   padding: 15px;
   border-radius: 12px;
-  text-align: center;
-  color: #cfcff5;
-  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.5);
+  box-shadow: inset 0 0 15px rgba(57,255,20,0.5);
 }
 
 /* CHAT */
@@ -96,15 +112,13 @@ section {
   height: 400px;
   border: none;
   border-radius: 10px;
-  background: #050505;
-  box-shadow: 0 0 15px #ff00de;
 }
 
 /* FLYER */
 .flyer img {
   max-width: 100%;
   border-radius: 15px;
-  box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+  box-shadow: 0 0 25px rgba(57,255,20,0.6);
 }
 
 /* WHATSAPP */
@@ -113,23 +127,19 @@ section {
   bottom: 25px;
   right: 25px;
   background: #25d366;
-  color: white;
-  border-radius: 50%;
+  color: #fff;
   width: 60px;
   height: 60px;
+  border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   font-size: 30px;
-  box-shadow: 0 0 20px #25d366;
   text-decoration: none;
-  transition: transform 0.3s;
-}
-#whatsapp-btn:hover {
-  transform: scale(1.1);
+  box-shadow: 0 0 20px #25d366;
 }
 
-/* 🔴 CÍRCULO DJ AO VIVO — FUNDO TRANSPARENTE */
+/* 🔴 DJ AO VIVO — NEON */
 #dj-live {
   position: fixed;
   bottom: 30px;
@@ -138,12 +148,11 @@ section {
   height: 80px;
   border-radius: 50%;
   background: transparent;
-  box-shadow: 0 0 25px #39ff14;
   display: none;
   justify-content: center;
   align-items: center;
   animation: pulse 1.5s infinite;
-  cursor: pointer;
+  box-shadow: 0 0 25px #39ff14;
   overflow: hidden;
 }
 
@@ -152,7 +161,6 @@ section {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  opacity: 0.9;
 }
 
 @keyframes pulse {
@@ -165,10 +173,8 @@ section {
 footer {
   text-align: center;
   padding: 20px;
+  background: rgba(0,0,0,0.95);
   font-size: 0.9rem;
-  background: rgba(0, 0, 0, 0.95);
-  margin-top: 30px;
-  color: #666;
 }
 </style>
 </head>
@@ -176,7 +182,7 @@ footer {
 <body>
 
 <header>
-  <h1>📻 Nave Underground Rap </h1>
+  <h1>📻 Beat Apurado Radio</h1>
   <p>Sons do underground direto do espaço sideral</p>
 </header>
 
@@ -190,131 +196,82 @@ footer {
 
 <div class="container">
 
-  <!-- PLAYER -->
-  <section id="player" class="player-box">
-    <h2>▶️ Ao Vivo</h2>
+<section id="player" class="player-box">
+  <h2>▶️ Ao Vivo</h2>
+  <div class="online-counter">
+    🚀 Visitas totais: <span id="visitCount">0</span>
+  </div>
 
-    <div class="online-counter">
-      🚀 Visitas totais: <span id="visitCount">0</span>
-    </div>
+  <iframe
+    src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
+    height="110"
+    width="100%"
+    style="border:none;max-width:500px">
+  </iframe>
+</section>
 
-    <iframe 
-      src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
-      height="110"
-      width="100%"
-      scrolling="no"
-      style="border:none;max-width:500px;">
-    </iframe>
+<section id="anuncio" class="flyer" style="text-align:center;">
+  <h2>📡 Anúncios</h2>
+  <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg">
+</section>
 
-  </section>
+<section id="programacao">
+  <h2>📅 Programação</h2>
+  <div class="programacao">
+    <div class="card">Segunda – Sessão Underground (20h–22h)</div>
+    <div class="card">Quarta – Jazz Rap Vibes (21h–23h)</div>
+    <div class="card">Sexta – Slow Jams Night (22h–00h)</div>
+    <div class="card">Sábado – Beat Apurado (21h–23h)</div>
+    <div class="card">Domingo – Samba & Rock (18h–20h)</div>
+  </div>
+</section>
 
-  <!-- FLYER -->
-  <section id="anuncio" class="flyer" style="text-align:center;">
-    <h2>📡 Anúncios</h2>
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg" 
-         alt="Flyer Beat Apurado">
-  </section>
+<section id="produtos">
+  <h2>🛒 Produtos</h2>
+  <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14">
+    👉 Acesse nossa loja
+  </a>
+</section>
 
-  <!-- PROGRAMAÇÃO -->
-  <section id="programacao">
-    <h2>📅 Programação da Semana</h2>
-    <div class="programacao">
-      <div class="card">🎧 Segunda – Sessão Underground (20h - 22h)</div>
-      <div class="card">🎧 Quarta – Jazz Rap Vibes (21h - 23h)</div>
-      <div class="card">🎧 Sexta – Slow Jams Night (22h - 00h)</div>
-      <div class="card">🎧 Sábado – Beat Apurado com DJ Jordan (21h - 23h)</div>
-      <div class="card">🎧 Domingo – Samba & Rock Classics (18h - 20h)</div>
-    </div>
-  </section>
-
-  <!-- PRODUTOS -->
-  <section id="produtos">
-    <h2>🛒 Produtos</h2>
-    <p>Confira camisetas, bonés e vinis exclusivos do Beat Apurado:</p>
-    <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14;font-weight:bold;">
-      👉 Acesse nossa loja
-    </a>
-  </section>
-
-  <!-- CHAT -->
-  <section id="chat">
-    <h2>💬 Chat Intergaláctico</h2>
-    <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
-  </section>
+<section id="chat">
+  <h2>💬 Chat</h2>
+  <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
+</section>
 
 </div>
 
-<!-- BOTÃO WHATSAPP -->
 <a id="whatsapp-btn" href="https://wa.me/5511998683830" target="_blank">💬</a>
 
-<!-- CÍRCULO DJ AO VIVO -->
 <div id="dj-live">
   <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/dj_jordan.jpg">
 </div>
 
 <footer>
-  © 2025 Nave Underground Rap - DJ Jordan 🚀 Conectando galáxias pelo som
+  © 2025 Beat Apurado Radio 🚀
 </footer>
 
 <script>
-/* ======================================================
-   🔥 CONTADOR GLOBAL REAL — COUNTAPI (CORRIGIDO)
-====================================================== */
-async function updateUniversalCounter() {
-  try {
-    const req = await fetch(
-      "https://api.countapi.xyz/hit/naveundergroundrap.github/visitas"
-    );
-    const data = await req.json();
-    document.getElementById("visitCount").textContent = data.value;
-  } catch (e) {
-    document.getElementById("visitCount").textContent = "Erro";
-    console.log("Erro contador:", e);
-  }
-}
-updateUniversalCounter();
+/* CONTADOR GLOBAL REAL */
+fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado")
+  .then(r => r.json())
+  .then(d => document.getElementById("visitCount").textContent = d.value);
 
-/* ======================================================
-   🔴 LÓGICA DJ AO VIVO — MANTIDA
-====================================================== */
+/* DJ AO VIVO */
 function checkLive() {
-
-  const agora = new Date();
-  const dia = agora.getDay();
-  const hora = agora.getHours();
-  const min = agora.getMinutes();
+  const now = new Date();
+  const day = now.getDay();
+  const minNow = now.getHours()*60 + now.getMinutes();
 
   const programas = [
-    { dia: 1, hIni: 20, mIni: 0, hFim: 22, mFim: 0, dj: "dj_jordan.jpg" },
-    { dia: 3, hIni: 21, mIni: 0, hFim: 23, mFim: 0, dj: "dj_jordan.jpg" },
-    { dia: 5, hIni: 22, mIni: 0, hFim: 23, mFim: 59, dj: "dj_jordan.jpg" },
-    { dia: 6, hIni: 21, mIni: 0, hFim: 23, mFim: 0, dj: "dj_jordan.jpg" },
-    { dia: 0, hIni: 18, mIni: 0, hFim: 20, mFim: 0, dj: "dj_jordan.jpg" }
+    {dia:1, ini:20*60, fim:22*60},
+    {dia:6, ini:21*60, fim:23*60}
   ];
 
-  let aoVivo = false;
-  let djFoto = "";
+  const live = programas.some(p =>
+    day === p.dia && minNow >= p.ini && minNow <= p.fim
+  );
 
-  programas.forEach(p => {
-    const inicio = p.hIni * 60 + p.mIni;
-    const fim = p.hFim * 60 + p.mFim;
-    const agoraMin = hora * 60 + min;
-
-    if (dia === p.dia && agoraMin >= inicio && agoraMin <= fim) {
-      aoVivo = true;
-      djFoto = p.dj;
-    }
-  });
-
-  const badge = document.getElementById("dj-live");
-
-  if (aoVivo) {
-    badge.style.display = "flex";
-    badge.querySelector("img").src =
-      "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/" + djFoto;
-  } else {
-    badge.style.display = "none";
-  }
+  document.getElementById("dj-live").style.display = live ? "flex" : "none";
 }
 
 setInterval(checkLive, 20000);
