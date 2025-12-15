@@ -61,10 +61,6 @@ nav a {
   font-weight: bold;
 }
 
-nav a:hover {
-  color: #fff;
-}
-
 /* CONTAINER */
 .container {
   max-width: 1200px;
@@ -114,11 +110,26 @@ section {
   border-radius: 10px;
 }
 
-/* FLYER */
-.flyer img {
+/* ===== FLYER SLIDER ===== */
+.flyer-container {
+  position: relative;
   max-width: 100%;
+}
+
+.flyer-container img {
+  width: 100%;
   border-radius: 15px;
   box-shadow: 0 0 25px rgba(57,255,20,0.6);
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.flyer-container img.active {
+  opacity: 1;
+  position: relative;
 }
 
 /* WHATSAPP */
@@ -147,7 +158,6 @@ section {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: transparent;
   display: none;
   justify-content: center;
   align-items: center;
@@ -160,7 +170,6 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 @keyframes pulse {
@@ -210,9 +219,14 @@ footer {
   </iframe>
 </section>
 
-<section id="anuncio" class="flyer" style="text-align:center;">
+<section id="anuncio" style="text-align:center;">
   <h2>📡 Anúncios</h2>
-  <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.jpg">
+  <div class="flyer-container">
+    <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_02_.png">
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
+	<img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_04_.png">
+  </div>
 </section>
 
 <section id="programacao">
@@ -247,14 +261,24 @@ footer {
 </div>
 
 <footer>
-  © 2025 Beat Apurado Radio 🚀
+  © 2026 Beat Apurado Radio 🚀
 </footer>
 
 <script>
-/* CONTADOR GLOBAL REAL */
+/* CONTADOR GLOBAL */
 fetch("https://api.countapi.xyz/hit/beatapurado.github.io/radiobeatapurado")
   .then(r => r.json())
   .then(d => document.getElementById("visitCount").textContent = d.value);
+
+/* SLIDER DE FLYER */
+let flyerIndex = 0;
+const flyers = document.querySelectorAll(".flyer-container img");
+
+setInterval(() => {
+  flyers[flyerIndex].classList.remove("active");
+  flyerIndex = (flyerIndex + 1) % flyers.length;
+  flyers[flyerIndex].classList.add("active");
+}, 6000);
 
 /* DJ AO VIVO */
 function checkLive() {
