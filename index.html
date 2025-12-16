@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beat Apurado Radio</title>
 
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
@@ -110,6 +114,18 @@ section {
   border-radius: 10px;
 }
 
+.chat-btn {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  background: #39ff14;
+  color: #000;
+  border-radius: 25px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
 /* FLYER */
 .flyer-container {
   position: relative;
@@ -132,7 +148,7 @@ section {
   position: relative;
 }
 
-/* WHATSAPP – SEMPRE NA FRENTE */
+/* WHATSAPP */
 #whatsapp-btn {
   position: fixed;
   bottom: 25px;
@@ -151,7 +167,7 @@ section {
   z-index: 9999;
 }
 
-/* DJ AO VIVO – NEON */
+/* DJ AO VIVO */
 #dj-live {
   position: fixed;
   bottom: 30px;
@@ -175,9 +191,24 @@ section {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 15px #39ff14; }
-  50% { transform: scale(1.15); box-shadow: 0 0 40px #ff00ff; }
-  100% { transform: scale(1); box-shadow: 0 0 15px #39ff14; }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* BOTÃO INSTALAR */
+#installBtn {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  background: #39ff14;
+  color: #000;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  display: none;
+  cursor: pointer;
+  z-index: 9999;
 }
 
 /* FOOTER */
@@ -213,12 +244,8 @@ footer {
     🚀 Visitas totais: <span id="visitCount">0</span>
   </div>
 
-  <iframe
-    src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
-    height="110"
-    width="100%"
-    style="border:none;max-width:500px">
-  </iframe>
+  <iframe src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
+    height="110" width="100%" style="border:none;max-width:500px"></iframe>
 </section>
 
 <section id="anuncio" style="text-align:center;">
@@ -228,7 +255,7 @@ footer {
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_02_.png">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_04_.png">
-	<img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
   </div>
 </section>
 
@@ -253,6 +280,9 @@ footer {
 <section id="chat">
   <h2>💬 Chat</h2>
   <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
+  <a class="chat-btn" id="chatExternal" href="https://tlk.io/beatapurado" target="_blank">
+    👉 Abrir Chat
+  </a>
 </section>
 
 </div>
@@ -263,27 +293,47 @@ footer {
   <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/dj_jordan.jpg">
 </div>
 
+<div id="installBtn">📲 Instalar App</div>
+
 <footer>
   <marquee>© 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som</marquee>
 </footer>
 
 <script>
-/* CONTADOR GLOBAL – ESTÁVEL */
-const counterEl = document.getElementById("visitCount");
+/* SERVICE WORKER */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
 
+/* CHAT FIX PARA PWA */
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  document.querySelector('.chat-frame').style.display = 'none';
+  document.getElementById('chatExternal').style.display = 'block';
+}
+
+/* BOTÃO INSTALAR */
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block";
+});
+
+installBtn.onclick = () => {
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.finally(() => installBtn.style.display = "none");
+};
+
+/* CONTADOR */
 fetch("https://api.countapi.xyz/hit/beatapurado_radio/visitas")
   .then(res => res.json())
-  .then(data => {
-    counterEl.textContent = data.value;
-  })
-  .catch(() => {
-    counterEl.textContent = "—";
-  });
+  .then(data => document.getElementById("visitCount").textContent = data.value);
 
 /* SLIDER */
 let flyerIndex = 0;
 const flyers = document.querySelectorAll(".flyer-container img");
-
 setInterval(() => {
   flyers[flyerIndex].classList.remove("active");
   flyerIndex = (flyerIndex + 1) % flyers.length;
@@ -297,15 +347,13 @@ function checkLive() {
   const minNow = now.getHours()*60 + now.getMinutes();
 
   const programas = [
-    {dia:1, ini:20*60, fim:22*60}, // Segunda
-    {dia:6, ini:21*60, fim:23*60}  // Sábado
+    {dia:1, ini:20*60, fim:22*60},
+    {dia:6, ini:21*60, fim:23*60}
   ];
 
-  const live = programas.some(p =>
-    day === p.dia && minNow >= p.ini && minNow <= p.fim
-  );
-
-  document.getElementById("dj-live").style.display = live ? "flex" : "none";
+  document.getElementById("dj-live").style.display =
+    programas.some(p => day===p.dia && minNow>=p.ini && minNow<=p.fim)
+    ? "flex" : "none";
 }
 
 setInterval(checkLive, 20000);
