@@ -219,6 +219,20 @@ footer {
   font-size: 0.9rem;
 }
 </style>
+
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNLZVJ995"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LTNLZVJ995', {
+    send_page_view: true
+  });
+</script>
+
+
 </head>
 
 <body>
@@ -240,10 +254,6 @@ footer {
 
 <section id="player" class="player-box">
   <h2>▶️ Ao Vivo</h2>
-  <div class="online-counter">
-    🚀 Visitas totais: <span id="visitCount">0</span>
-  </div>
-
   <iframe src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
     height="110" width="100%" style="border:none;max-width:500px"></iframe>
 </section>
