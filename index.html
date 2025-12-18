@@ -86,12 +86,6 @@ section {
   text-align: center;
 }
 
-.online-counter {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  color: #39ff14;
-}
-
 /* PROGRAMAÇÃO */
 .programacao {
   display: grid;
@@ -208,7 +202,7 @@ section {
   font-weight: bold;
   display: none;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 10000;
 }
 
 /* FOOTER */
@@ -223,16 +217,11 @@ footer {
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNLZVJ995"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LTNLZVJ995', {
-    send_page_view: true
-  });
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LTNLZVJ995');
 </script>
-
-
 </head>
 
 <body>
@@ -280,11 +269,22 @@ footer {
   </div>
 </section>
 
-<section id="produtos">
-  <h2>🛒 Produtos</h2>
-  <a href="https://www.mercadolivre.com.br" target="_blank" style="color:#39ff14">
-    👉 Acesse nossa loja
-  </a>
+<section id="produtos" style="text-align:center;">
+  <h2>🛒 Recomendações do Beat Apurado</h2>
+  <div style="max-width:320px;margin:auto;">
+    <a id="produto-link" href="https://mercadolivre.com/sec/1Q8hDBN" target="_blank">
+      <img id="produto-img"
+        src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png"
+        style="width:100%;border-radius:15px;box-shadow:0 0 20px #39ff14;">
+    </a>
+    <a id="produto-btn"
+      href="https://mercadolivre.com/sec/1Q8hDBN"
+      target="_blank"
+      style="display:block;margin-top:12px;background:#39ff14;color:#000;
+             padding:10px;border-radius:25px;font-weight:bold;text-decoration:none;">
+      👉 Ver no Mercado Livre
+    </a>
+  </div>
 </section>
 
 <section id="chat">
@@ -315,13 +315,13 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 
-/* CHAT FIX PARA PWA */
+/* CHAT FIX PWA */
 if (window.matchMedia('(display-mode: standalone)').matches) {
   document.querySelector('.chat-frame').style.display = 'none';
   document.getElementById('chatExternal').style.display = 'block';
 }
 
-/* BOTÃO INSTALAR */
+/* BOTÃO INSTALAR — DEFINITIVO */
 let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
 
@@ -331,17 +331,23 @@ window.addEventListener("beforeinstallprompt", e => {
   installBtn.style.display = "block";
 });
 
-installBtn.onclick = () => {
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.finally(() => installBtn.style.display = "none");
-};
+installBtn.addEventListener("click", () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(() => installBtn.style.display = "none");
+  }
+});
 
-/* CONTADOR */
-fetch("https://api.countapi.xyz/hit/beatapurado_radio/visitas")
-  .then(res => res.json())
-  .then(data => document.getElementById("visitCount").textContent = data.value);
+/* FALLBACK (caso evento não dispare) */
+window.addEventListener("load", () => {
+  if (!window.matchMedia('(display-mode: standalone)').matches) {
+    setTimeout(() => {
+      installBtn.style.display = "block";
+    }, 3000);
+  }
+});
 
-/* SLIDER */
+/* SLIDER ANÚNCIOS */
 let flyerIndex = 0;
 const flyers = document.querySelectorAll(".flyer-container img");
 setInterval(() => {
@@ -349,6 +355,20 @@ setInterval(() => {
   flyerIndex = (flyerIndex + 1) % flyers.length;
   flyers[flyerIndex].classList.add("active");
 }, 6000);
+
+/* PRODUTOS ROTATIVO */
+const produtos = [{
+  img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",
+  link: "https://mercadolivre.com/sec/1Q8hDBN"
+}];
+
+let produtoIndex = 0;
+setInterval(() => {
+  produtoIndex = (produtoIndex + 1) % produtos.length;
+  produtoImg.src = produtos[produtoIndex].img;
+  produtoLink.href = produtos[produtoIndex].link;
+  produtoBtn.href = produtos[produtoIndex].link;
+}, 5000);
 
 /* DJ AO VIVO */
 function checkLive() {
@@ -361,11 +381,10 @@ function checkLive() {
     {dia:6, ini:21*60, fim:23*60}
   ];
 
-  document.getElementById("dj-live").style.display =
+  djLive.style.display =
     programas.some(p => day===p.dia && minNow>=p.ini && minNow<=p.fim)
     ? "flex" : "none";
 }
-
 setInterval(checkLive, 20000);
 checkLive();
 </script>
