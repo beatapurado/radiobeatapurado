@@ -49,6 +49,60 @@ h1 {
   margin: 0;
 }
 
+/* ===== TÍTULO ANIMADO BEAT APURADO ===== */
+.title-wrap {
+  display: inline-block;
+  position: relative;
+}
+
+.title-main {
+  font-size: 3rem;
+  color: #39ff14;
+  text-shadow:
+    0 0 10px #39ff14,
+    0 0 25px #39ff14,
+    0 0 45px #ff00de;
+  animation: pulseNeon 2.5s infinite;
+}
+
+.title-glitch {
+  position: absolute;
+  inset: 0;
+  color: #ff00de;
+  opacity: 0.8;
+  animation: glitch 1.8s infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseNeon {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); opacity: .8; }
+  20% { transform: translate(-2px,2px); }
+  40% { transform: translate(2px,-2px); }
+  60% { transform: translate(-1px,1px); }
+  80% { transform: translate(1px,-1px); }
+  100% { transform: translate(0); }
+}
+
+.subtitle-scroll {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #39ff14;
+  letter-spacing: 3px;
+  animation: slide 12s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes slide {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
 /* NAV */
 nav {
   display: flex;
@@ -238,6 +292,27 @@ footer {
   background: rgba(0,0,0,0.95);
   font-size: 0.9rem;
 }
+
+.title-main {
+  font-size: 20rem;
+  margin: 0;
+  color: #39ff14;
+  text-shadow: 0 0 10px #39ff14, 0 0 25px #39ff14, 0 0 45px #ff00de;
+  animation: pulseNeon 2.5s infinite;
+  
+  /* NOVAS REGRAS DE ALINHAMENTO */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* Espaço entre a imagem e o texto */
+}
+
+.title-main img {
+  height: 1.2em; /* Faz a imagem acompanhar o tamanho da fonte automaticamente */
+  width: auto;   /* Mantém a proporção da imagem */
+  vertical-align: middle;
+}
+
 </style>
 
 <!-- Google Analytics GA4 -->
@@ -253,8 +328,14 @@ gtag('config', 'G-LTNLZVJ995');
 <body>
 
 <header>
-  <h1>📻 BEAT APURADO RADIO</h1>
-  <p><marquee>🛸 </marquee></p>
+
+  <div class="title-wrap">
+    <div class="title-main"> <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bn01.png"> </div>
+  </div>
+
+  <div class="subtitle-scroll">
+    🛸 RAP NACIONAL • UNDERGROUND HIP HOP • JAZZ RAP • NEOSOUL • R&B • SLOW JAMZ • BRASILIDADES • TRANSMISSÃO INTERGALÁCTICA 
+  </div>
 </header>
 
 <nav>
@@ -338,7 +419,9 @@ gtag('config', 'G-LTNLZVJ995');
 </div>
 
 <footer>
-  <marquee>© 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som</marquee>
+<div class="subtitle-scroll">
+  © 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som
+  </div>
 </footer>
 
 <script>
