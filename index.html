@@ -56,7 +56,7 @@ h1 {
 }
 
 .title-main {
-  font-size: 1rem;
+  font-size: 3rem;
   color: #39ff14;
   text-shadow:
     0 0 10px #39ff14,
@@ -426,13 +426,14 @@ gtag('config', 'G-LTNLZVJ995');
 <section id="produtos" style="text-align:center;">
   <h2>🛒 Recomendações do Beat Apurado</h2>
   <div style="max-width:320px;margin:auto;">
-    <a id="produto-link" href="https://mercadolivre.com/sec/1Q8hDBN" target="_blank">
+    <a id="produto-link" href="#" target="_blank">
       <img id="produto-img"
-        src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png"
+        src=""
+        alt="Produto Beat Apurado"
         style="width:100%;border-radius:15px;box-shadow:0 0 20px #39ff14;">
     </a>
     <a id="produto-btn"
-      href="https://mercadolivre.com/sec/1Q8hDBN"
+      href="#"
       target="_blank"
       style="display:block;margin-top:12px;background:#39ff14;color:#000;
              padding:10px;border-radius:25px;font-weight:bold;text-decoration:none;">
@@ -440,6 +441,7 @@ gtag('config', 'G-LTNLZVJ995');
     </a>
   </div>
 </section>
+
 
 <section id="chat">
   <h2>💬 Chat</h2>
@@ -518,18 +520,54 @@ setInterval(() => {
 }, 6000);
 
 /* PRODUTOS ROTATIVO */
-const produtos = [{
-  img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",
-  link: "https://mercadolivre.com/sec/1Q8hDBN"
-}];
+const produtos = [
+  {
+    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",
+    link: "https://mercadolivre.com/sec/1Q8hDBN"
+  },
+  {
+    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png",
+    link: "https://mercadolivre.com/sec/1J5NsnW"
+  },
+  {
+    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png",
+    link: "https://mercadolivre.com/sec/1Z6u8hn"
+  },
+    {
+    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta02.png",
+    link: "https://mercadolivre.com/sec/1nM9Ewh"
+  },
+      {
+    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta03.png",
+    link: "https://mercadolivre.com/sec/2a4saWr"
+  },
+        {
+    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png",
+    link: "https://mercadolivre.com/sec/2RsbWgK"
+  }
+];
+
+const produtoImg = document.getElementById("produto-img");
+const produtoLink = document.getElementById("produto-link");
+const produtoBtn = document.getElementById("produto-btn");
 
 let produtoIndex = 0;
-setInterval(() => {
+
+function trocarProduto() {
+  const produto = produtos[produtoIndex];
+  produtoImg.src = produto.img;
+  produtoLink.href = produto.link;
+  produtoBtn.href = produto.link;
+
   produtoIndex = (produtoIndex + 1) % produtos.length;
-  produtoImg.src = produtos[produtoIndex].img;
-  produtoLink.href = produtos[produtoIndex].link;
-  produtoBtn.href = produtos[produtoIndex].link;
-}, 5000);
+}
+
+// Inicia já com o primeiro
+trocarProduto();
+
+// Troca a cada 10 segundos
+setInterval(trocarProduto, 10000);
+
 
 /* DJ AO VIVO */
 function checkLive() {
