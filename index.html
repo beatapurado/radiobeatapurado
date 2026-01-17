@@ -177,19 +177,26 @@ section {
 /* FLYER */
 .flyer-container {
   position: relative;
-  max-width: 100%;
-  min-height: 250px;
+  width: 100%;
+  max-width: 600px;
+  height: 300px; /* ALTURA FIXA */
+  margin: auto;
+  overflow: hidden;
 }
 
+
 .flyer-container img {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
+  object-fit: contain; /* NÃO DISTORCE */
   border-radius: 15px;
   box-shadow: 0 0 25px rgba(57,255,20,0.6);
   opacity: 0;
-  position: absolute;
-  inset: 0;
   transition: opacity 1.2s ease-in-out;
 }
+
 
 .flyer-container img.active {
   opacity: 1;
@@ -352,6 +359,33 @@ footer {
   filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.5));
 }
 
+.produto-box {
+  width: 100%;
+  max-width: 320px;
+  height: 320px; /* TAMANHO FIXO */
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.produto-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* mantém proporção */
+  border-radius: 15px;
+  box-shadow: 0 0 20px #39ff14;
+}
+
+@media (max-width: 600px) {
+  .flyer-container {
+    height: 220px;
+  }
+
+  .produto-box {
+    height: 260px;
+  }
+}
+
 
 </style>
 
@@ -425,13 +459,10 @@ gtag('config', 'G-LTNLZVJ995');
 
 <section id="produtos" style="text-align:center;">
   <h2>🛒 Recomendações do Beat Apurado</h2>
-  <div style="max-width:320px;margin:auto;">
-    <a id="produto-link" href="#" target="_blank">
-      <img id="produto-img"
-        src=""
-        alt="Produto Beat Apurado"
-        style="width:100%;border-radius:15px;box-shadow:0 0 20px #39ff14;">
-    </a>
+  <div class="produto-box">
+   <a id="produto-link" href="#" target="_blank">
+    <img id="produto-img" alt="Produto Beat Apurado">
+  </a>
     <a id="produto-btn"
       href="#"
       target="_blank"
