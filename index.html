@@ -392,6 +392,63 @@ footer {
   </div>  
 </footer>
 
+<div class="beat-social-float">
+  <div class="beat-social-links" id="beatSocial">
+    <a href="https://wa.me/?text=🎧%20Escuta%20agora%20a%20Beat%20Apurado%20Radio!%20🚀%20https://beatapurado.github.io/radiobeatapurado/"
+       target="_blank" class="whatsapp" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="javascript:void(0)" class="instagram" title="Copiar link para Instagram" onclick="copyBeatLink()">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://beatapurado.github.io/radiobeatapurado/"
+       target="_blank" class="facebook" title="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
+  <button class="beat-main-btn" onclick="toggleBeatSocial()" title="Compartilhar Beat Apurado Radio">
+    <i class="fas fa-share-alt"></i>
+  </button>
+</div>
+
+<style>
+/* ESTILO DO BOTÃO COMPARTILHAR */
+.beat-social-float { position: fixed; left: 20px; bottom: 20px; z-index: 9999; }
+.beat-main-btn {
+  width: 62px; height: 62px; border-radius: 50%;
+  background: radial-gradient(circle, #00ff99, #006644);
+  border: none; font-size: 22px; color: #000; cursor: pointer;
+  box-shadow: 0 0 22px #00ff99; transition: transform 0.2s;
+}
+.beat-social-links { display: none; flex-direction: column; margin-bottom: 12px; }
+.beat-social-links a {
+  width: 50px; height: 50px; margin: 6px 0; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: #fff; text-decoration: none;
+  box-shadow: 0 0 14px #00ff99; transition: transform 0.2s;
+}
+.whatsapp { background: #25D366; }
+.instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285AEB); }
+.facebook { background: #1877f2; }
+</style>
+
+<script>
+/* LÓGICA DO COMPARTILHAMENTO */
+function toggleBeatSocial() {
+  const box = document.getElementById("beatSocial");
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+}
+
+function copyBeatLink() {
+  const link = "https://beatapurado.github.io/radiobeatapurado/";
+  navigator.clipboard.writeText(link).then(() => {
+    alert("Link copiado! 🚀 Cole no seu Story ou Bio 👽");
+  });
+}
+
+/* MANTENHA O RESTANTE DO SEU SCRIPT DE SLIDER E PWA ABAIXO */
+</script>
+
 <script>
 /* SERVICE WORKER */
 if ("serviceWorker" in navigator) {
