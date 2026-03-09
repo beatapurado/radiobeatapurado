@@ -436,6 +436,24 @@ gtag('js', new Date());
 gtag('config', 'G-LTNLZVJ995');
 </script>
 
+<script>
+
+// 🚀 COLE O NOVO TRECHO AQUI ABAIXO:
+document.addEventListener('DOMContentLoaded', function() {
+  const playerIframe = document.querySelector('iframe[src*="stream3.svrdedicado.org"]');
+  if (playerIframe) {
+    playerIframe.addEventListener('click', function() {
+      gtag('event', 'play_radio', {
+        'event_category': 'Interação',
+        'event_label': 'Beat Apurado Ao Vivo',
+        'value': 1
+      });
+    });
+  }
+});
+</script>
+
+
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
  
 </head>
