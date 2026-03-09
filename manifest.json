@@ -1,7 +1,7 @@
 {
   "name": "Beat Apurado Radio",
   "short_name": "Beat Apurado",
-  "start_url": ".",
+  "start_url": "/radiobeatapurado/?utm_source=pwa&utm_medium=app",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
