@@ -5,15 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beat Apurado Radio</title>
 <meta name="description" content="Acesse a Beat Apurado Rádio. O melhor do Rap Nacional, Underground Hip Hop, Jazz Rap e Neo Soul com curadoria de DJ Jordan. Sintonize na nossa estética cósmica!">
-
 <meta name="keywords" content="Beat Apurado, rádio rap, hip hop underground, jazz rap, DJ Jordan, Rap Nacional, rádio online">
-
 <meta property="og:title" content="Beat Apurado Rádio">
 <meta property="og:description" content="Sintonize na frequência underground e cósmica do DJ Jordan.">
 <meta property="og:url" content="https://beatapurado.github.io/radiobeatapurado/">
 <meta property="og:type" content="website">
 
-<!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#000000">
 
@@ -37,13 +34,11 @@ body::before {
   z-index: -1;
 }
 
-/* CONTEÚDO */
 header, nav, .container, footer {
   position: relative;
   z-index: 1;
 }
 
-/* HEADER */
 header {
   text-align: center;
   padding: 40px 15px;
@@ -57,29 +52,28 @@ h1 {
   margin: 0;
 }
 
-/* ===== TÍTULO ANIMADO BEAT APURADO ===== */
 .title-wrap {
-  display: inline-block;
-  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .title-main {
-  font-size: 3rem;
-  color: #39ff14;
-  text-shadow:
-    0 0 10px #39ff14,
-    0 0 25px #39ff14,
-    0 0 45px #ff00de;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
   animation: pulseNeon 2.5s infinite;
 }
 
-.title-glitch {
-  position: absolute;
-  inset: 0;
-  color: #ff00de;
-  opacity: 0.8;
-  animation: glitch 1.8s infinite;
-  pointer-events: none;
+.title-main img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.5));
 }
 
 @keyframes pulseNeon {
@@ -87,31 +81,6 @@ h1 {
   50% { transform: scale(1.05); }
 }
 
-@keyframes glitch {
-  0% { transform: translate(0); opacity: .8; }
-  20% { transform: translate(-2px,2px); }
-  40% { transform: translate(2px,-2px); }
-  60% { transform: translate(-1px,1px); }
-  80% { transform: translate(1px,-1px); }
-  100% { transform: translate(0); }
-}
-
-.subtitle-scroll {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #39ff14;
-  letter-spacing: 3px;
-  animation: slide 12s linear infinite;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-@keyframes slide {
-  from { transform: translateX(100%); }
-  to { transform: translateX(-100%); }
-}
-
-/* NAV */
 nav {
   display: flex;
   justify-content: center;
@@ -127,7 +96,6 @@ nav a {
   font-weight: bold;
 }
 
-/* CONTAINER */
 .container {
   max-width: 1200px;
   margin: auto;
@@ -143,12 +111,8 @@ section {
   box-shadow: 0 0 25px rgba(255,0,200,0.4);
 }
 
-/* PLAYER */
-.player-box {
-  text-align: center;
-}
+.player-box { text-align: center; }
 
-/* PROGRAMAÇÃO */
 .programacao {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
@@ -162,7 +126,6 @@ section {
   box-shadow: inset 0 0 15px rgba(57,255,20,0.5);
 }
 
-/* CHAT */
 .chat-frame {
   width: 100%;
   height: 400px;
@@ -193,40 +156,35 @@ section {
   text-align: center;
   text-decoration: none;
   width: 100%;
-  max-width: 260px;   /* 🔥 controla a largura */
+  max-width: 260px;
 }
 
-
-/* FLYER */
 .flyer-container {
   position: relative;
   width: 100%;
   max-width: 600px;
-  height: 300px; /* ALTURA FIXA */
+  height: 300px;
   margin: auto;
   overflow: hidden;
 }
-
 
 .flyer-container img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* NÃO DISTORCE */
+  object-fit: contain;
   border-radius: 15px;
   box-shadow: 0 0 25px rgba(57,255,20,0.6);
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
 }
 
-
 .flyer-container img.active {
   opacity: 1;
   position: relative;
 }
 
-/* WHATSAPP */
 #whatsapp-btn {
   position: fixed;
   bottom: 25px;
@@ -245,36 +203,6 @@ section {
   z-index: 9999;
 }
 
-/* DJ AO VIVO */
-#dj-live {
-  position: fixed;
-  bottom: 30px;
-  left: 25px;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  animation: pulse 1.5s infinite;
-  box-shadow: 0 0 25px #39ff14;
-  overflow: hidden;
-  z-index: 9998;
-}
-
-#dj-live img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-/* BOTÃO INSTALAR */
 #installBtn {
   position: fixed;
   bottom: 300px;
@@ -284,15 +212,15 @@ section {
   padding: 12px 18px;
   border-radius: 30px;
   font-weight: bold;
-  display: none;
+  display: none; 
   cursor: pointer;
   z-index: 10000;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.7);
 }
 
-/* PIX FLUTUANTE */
 #pix-float {
   position: fixed;
-  bottom: 100px; /* acima do botão instalar */
+  bottom: 100px;
   right: 20px;
   background: rgba(0,0,0,0.85);
   padding: 10px;
@@ -314,33 +242,11 @@ section {
   color: #39ff14;
 }
 
-
-/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   background: rgba(0,0,0,0.95);
   font-size: 0.9rem;
-}
-
-.title-main {
-  font-size: 13rem;
-  margin: 0;
-  color: #39ff14;
-  text-shadow: 0 0 10px #39ff14, 0 0 25px #39ff14, 0 0 45px #ff00de;
-  animation: pulseNeon 2.5s infinite;
-  
-  /* NOVAS REGRAS DE ALINHAMENTO */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px; /* Espaço entre a imagem e o texto */
-}
-
-.title-main img {
-  height: 1.2em; /* Faz a imagem acompanhar o tamanho da fonte automaticamente */
-  width: auto;   /* Mantém a proporção da imagem */
-  vertical-align: middle;
 }
 
 .footer-content {
@@ -350,36 +256,6 @@ footer {
   color: #39ff14;
   text-shadow: 0 0 5px #39ff14;
   letter-spacing: 2px;
-  animation: footerSlide 15s linear infinite;
-}
-
-
-.title-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center;     /* Centraliza verticalmente se houver altura */
-  padding: 0;
-  margin: 0;
-  overflow: hidden;        /* Evita que a imagem crie barra de rolagem se for grande */
-}
-
-.title-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;       /* Limite opcional para telas muito grandes */
-}
-
-.title-main img {
-  max-width: 100%;         /* Faz a imagem ser responsiva no celular */
-  height: auto;
-  display: block;
-  margin: 0 auto;          /* Reforça a centralização */
-  
-  /* Se quiser manter o efeito de brilho/pulso na imagem, adicione aqui: */
-  filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.5));
 }
 
 .produto-box {
@@ -404,75 +280,48 @@ footer {
   object-fit: contain;
 }
 
-#produto-btn {
-  display: block;
-  background: #39ff14;
-  color: #000;
-  padding: 12px 22px;
-  border-radius: 25px;
-  font-weight: bold;
-  text-decoration: none;
-  z-index: 2;
-}
-
 @media (max-width: 600px) {
-  .produto-frame {
-    height: 260px;
-  }
-
-  #produtos {
-    margin-bottom: 40px;
-  }
+  .produto-frame { height: 260px; }
+  #produtos { margin-bottom: 40px; }
 }
-
 </style>
 
-<!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNLZVJ995"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-LTNLZVJ995');
-</script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LTNLZVJ995');
 
-<script>
-
-// 🚀 COLE O NOVO TRECHO AQUI ABAIXO:
-document.addEventListener('DOMContentLoaded', function() {
-  const playerIframe = document.querySelector('iframe[src*="stream3.svrdedicado.org"]');
-  if (playerIframe) {
-    playerIframe.addEventListener('click', function() {
-      gtag('event', 'play_radio', {
-        'event_category': 'Interação',
-        'event_label': 'Beat Apurado Ao Vivo',
-        'value': 1
+  // Evento de Engajamento do Player
+  document.addEventListener('DOMContentLoaded', function() {
+    const playerIframe = document.querySelector('iframe[src*="stream3.svrdedicado.org"]');
+    if (playerIframe) {
+      playerIframe.addEventListener('click', function() {
+        gtag('event', 'play_radio', {
+          'event_category': 'Interação',
+          'event_label': 'Beat Apurado Ao Vivo',
+          'value': 1
+        });
       });
-    });
-  }
-});
+    }
+  });
 </script>
 
-
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
- 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
 </head>
 
 <body>
 
 <header>
-
-<div class="title-wrap">
-  <div class="title-main">
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bn01.png" alt="Beat Apurado Logo">
+  <div class="title-wrap">
+    <div class="title-main">
+      <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bn01.png" alt="Beat Apurado Logo">
+    </div>
   </div>
-</div>
-  
-
   <div class="footer-content">
-	<marquee>
-    🛸 RAP NACIONAL • UNDERGROUND HIP HOP • JAZZ RAP • NEOSOUL • R&B • SLOW JAMZ • BRASILIDADES • INFORMAÇÕES JDR NEWS </marquee></div>
-
+    <marquee>🛸 RAP NACIONAL • UNDERGROUND HIP HOP • JAZZ RAP • NEOSOUL • R&B • SLOW JAMZ • BRASILIDADES • INFORMAÇÕES JDR NEWS </marquee>
+  </div>
 </header>
 
 <nav>
@@ -484,82 +333,63 @@ document.addEventListener('DOMContentLoaded', function() {
 </nav>
 
 <div class="container">
+  <section id="player" class="player-box">
+    <h2>▶️ Ao Vivo</h2>
+    <iframe src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
+      height="110" width="100%" style="border:none;max-width:500px"></iframe>
+  </section>
 
-<section id="player" class="player-box">
-  <h2>▶️ Ao Vivo</h2>
-  <iframe src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
-    height="110" width="100%" style="border:none;max-width:500px"></iframe>
-</section>
+  <section id="anuncio" style="text-align:center;">
+    <h2>📡 Anúncios</h2>
+    <div class="flyer-container">
+      <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
+      <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
+      <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
+    </div>
+  </section>
 
-<section id="anuncio" style="text-align:center;">
-  <h2>📡 Anúncios</h2>
-  <div class="flyer-container">
-    <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
-  </div>
-</section>
+  <section id="programacao">
+    <h2>📅 Programação</h2>
+    <div class="programacao">
+      <div class="card">Segunda – Sessão Underground (20h–22h)</div>
+      <div class="card">Quarta – Jazz Rap Vibes (21h–23h)</div>
+      <div class="card">Sexta – Slow Jams Night (00h–01h)</div>
+      <div class="card">Sábado – Beat Apurado com DJ Jordan (21h–23h)</div>
+      <div class="card">Domingo – Samba & Rock (10h–12h)</div>
+    </div>
+  </section>
 
-<section id="programacao">
-  <h2>📅 Programação</h2>
-  <div class="programacao">
-    <div class="card">Segunda – Sessão Underground (20h–22h)</div>
-    <div class="card">Quarta – Jazz Rap Vibes (21h–23h)</div>
-    <div class="card">Sexta – Slow Jams Night (00h–01h)</div>
-    <div class="card">Sábado – Beat Apurado com DJ Jordan (21h–23h)</div>
-    <div class="card">Domingo – Samba & Rock (10h–12h)</div>
-  </div>
-</section>
+  <section id="produtos" style="text-align:center;">
+    <h2>🛒 Recomendações</h2>
+    <div class="produto-box">
+      <a id="produto-link" href="#" target="_blank">
+        <div class="produto-frame">
+          <img id="produto-img" alt="Produto Beat Apurado">
+        </div>
+      </a>
+      <a id="produto-btn" href="#" target="_blank" class="btn-neon">👉 Comprar</a>
+    </div>
+  </section>
 
-<section id="produtos" style="text-align:center;">
-  <h2>🛒 Recomendações do Beat Apurado</h2>
-  <div class="produto-box">
-<a id="produto-link" href="#" target="_blank">
-  <div class="produto-frame">
-    <img id="produto-img" alt="Produto Beat Apurado">
-  </div>
-</a>
-
-<a id="produto-btn"
-   href="#"
-   target="_blank"
-   class="btn-neon">
-   👉 Comprar
-</a>
-
-  </div>
-</section>
-
-
-<section id="chat">
-  <h2>💬 Chat</h2>
-  <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
-  <a class="chat-btn" id="chatExternal" href="https://tlk.io/beatapurado" target="_blank">
-    👉 Abrir Chat
-  </a>
-</section>
-
+  <section id="chat">
+    <h2>💬 Chat</h2>
+    <iframe class="chat-frame" src="https://tlk.io/beatapurado"></iframe>
+    <a class="chat-btn" id="chatExternal" href="https://tlk.io/beatapurado" target="_blank">👉 Abrir Chat</a>
+  </section>
 </div>
 
 <a id="whatsapp-btn" href="https://wa.me/5511998683830" target="_blank">💬</a>
-
-<div id="dj-live">
-  <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/dj_jordan.jpg">
-</div>
-
 <div id="installBtn">📲 Instalar App</div>
 
 <div id="pix-float">
-  <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/pix-beat-apurado.png"
-       alt="Apoie a Beat Apurado Radio via PIX">
+  <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/pix-beat-apurado.png" alt="Apoie via PIX">
   <span>💚 Apoie via PIX</span>  
 </div>
 
 <footer>
   <div class="footer-content"> 
-  <marquee>© 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som </marquee></div>  
+    <marquee>© 2026 Beat Apurado Radio | DJ Jordan 👽 Conectando galáxias pelo som </marquee>
+  </div>  
 </footer>
 
 <script>
@@ -568,15 +398,10 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 
-/* CHAT FIX PWA */
-if (window.matchMedia('(display-mode: standalone)').matches) {
-  document.querySelector('.chat-frame').style.display = 'none';
-  document.getElementById('chatExternal').style.display = 'block';
-}
-
-/* BOTÃO INSTALAR — DEFINITIVO */
+/* BOTÃO INSTALAR INTELIGENTE */
 let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
@@ -585,22 +410,26 @@ window.addEventListener("beforeinstallprompt", e => {
 });
 
 installBtn.addEventListener("click", () => {
-  if (deferredPrompt) {
+  if (isIOS) {
+    alert("No iPhone, clique no ícone 'Compartilhar' (quadrado com seta) e selecione 'Adicionar à Tela de Início'! 🚀");
+  } else if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.finally(() => installBtn.style.display = "none");
   }
 });
 
-/* FALLBACK (caso evento não dispare) */
 window.addEventListener("load", () => {
-  if (!window.matchMedia('(display-mode: standalone)').matches) {
-    setTimeout(() => {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if (!isStandalone) {
+    if (isIOS) {
       installBtn.style.display = "block";
-    }, 3000);
+    } else {
+      setTimeout(() => { if (!deferredPrompt) installBtn.style.display = "block"; }, 3000);
+    }
   }
 });
 
-/* SLIDER ANÚNCIOS */
+/* SLIDER E PRODUTOS */
 let flyerIndex = 0;
 const flyers = document.querySelectorAll(".flyer-container img");
 setInterval(() => {
@@ -609,207 +438,34 @@ setInterval(() => {
   flyers[flyerIndex].classList.add("active");
 }, 6000);
 
-/* PRODUTOS ROTATIVO */
 const produtos = [
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",
-    link: "https://mercadolivre.com/sec/1Q8hDBN"
-  },
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png",
-    link: "https://mercadolivre.com/sec/1J5NsnW"
-  },
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png",
-    link: "https://mercadolivre.com/sec/1Z6u8hn"
-  },
-    {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta02.png",
-    link: "https://mercadolivre.com/sec/1nM9Ewh"
-  },
-    {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png",
-    link: "https://mercadolivre.com/sec/2RsbWgK"
-  }
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png", link: "https://mercadolivre.com/sec/1Q8hDBN" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png", link: "https://mercadolivre.com/sec/1J5NsnW" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png", link: "https://mercadolivre.com/sec/1Z6u8hn" }
 ];
-
-const produtoImg = document.getElementById("produto-img");
-const produtoLink = document.getElementById("produto-link");
-const produtoBtn = document.getElementById("produto-btn");
-
-let produtoIndex = 0;
-
+let prodIdx = 0;
 function trocarProduto() {
-  const produto = produtos[produtoIndex];
-  produtoImg.src = produto.img;
-  produtoLink.href = produto.link;
-  produtoBtn.href = produto.link;
-
-  produtoIndex = (produtoIndex + 1) % produtos.length;
+  const p = produtos[prodIdx];
+  document.getElementById("produto-img").src = p.img;
+  document.getElementById("produto-link").href = p.link;
+  document.getElementById("produto-btn").href = p.link;
+  prodIdx = (prodIdx + 1) % produtos.length;
 }
-
-// Inicia já com o primeiro
 trocarProduto();
-
-// Troca a cada 3 segundos
 setInterval(trocarProduto, 3000);
-
-
-/* DJ AO VIVO */
-function checkLive() {
-  const now = new Date();
-  const day = now.getDay();
-  const minNow = now.getHours()*60 + now.getMinutes();
-
-  const programas = [
-    {dia:1, ini:20*60, fim:22*60},
-    {dia:6, ini:21*60, fim:23*60}
-  ];
-
-  djLive.style.display =
-    programas.some(p => day===p.dia && minNow>=p.ini && minNow<=p.fim)
-    ? "flex" : "none";
-}
-setInterval(checkLive, 20000);
-checkLive();
 </script>
 
-<!-- BOTÃO FLUTUANTE COMPARTILHAR - BEAT APURADO RADIO -->
-<div class="beat-social-float">
-
-  <div class="beat-social-links" id="beatSocial">
-
-    <!-- WhatsApp -->
-    <a href="https://wa.me/?text=🎧%20Escuta%20agora%20a%20Beat%20Apurado%20Radio!%20🚀%20https://beatapurado.github.io/radiobeatapurado/"
-       target="_blank" class="whatsapp" title="WhatsApp">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Instagram -->
-<a href="javascript:void(0)"
-   class="instagram"
-   title="Compartilhar no Instagram"
-   onclick="copyBeatLink()">
-  <i class="fab fa-instagram"></i>
-</a>
-
-
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://beatapurado.github.io/radiobeatapurado/"
-       target="_blank" class="facebook" title="Facebook">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-
-    <!-- X / Twitter -->
-    <a href="https://twitter.com/intent/tweet?text=🎶%20Beat%20Apurado%20Radio%20no%20ar!&url=https://beatapurado.github.io/radiobeatapurado/"
-       target="_blank" class="twitter" title="X">
-      <i class="fab fa-x-twitter"></i>
-    </a>
-
-  </div>
-
-  <button class="beat-main-btn" onclick="toggleBeatSocial()" title="Compartilhar Beat Apurado Radio">
-    <i class="fas fa-share-alt"></i>
-  </button>
-</div>
-
-<style>
-.beat-social-float {
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
-  z-index: 9999;
-}
-
-.beat-main-btn {
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #00ff99, #006644);
-  border: none;
-  font-size: 22px;
-  color: #000;
-  cursor: pointer;
-  box-shadow: 0 0 22px #00ff99;
-  transition: transform 0.2s;
-}
-
-.beat-main-btn:hover {
-  transform: scale(1.1);
-}
-
-.beat-social-links {
-  display: none;
-  flex-direction: column;
-  margin-bottom: 12px;
-}
-
-.beat-social-links a {
-  width: 50px;
-  height: 50px;
-  margin: 6px 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  color: #fff;
-  text-decoration: none;
-  box-shadow: 0 0 14px #00ff99;
-  transition: transform 0.2s;
-}
-
-.beat-social-links a:hover {
-  transform: scale(1.15);
-}
-
-/* CORES DAS REDES */
-.whatsapp { background: #25D366; }
-.instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285AEB); }
-.facebook { background: #1877f2; }
-.twitter { background: #000; }
-</style>
-
 <script>
+/* COMPARTILHAMENTO */
 function toggleBeatSocial() {
   const box = document.getElementById("beatSocial");
   box.style.display = box.style.display === "flex" ? "none" : "flex";
 }
-</script>
-
-<script>
 function copyBeatLink() {
-  const link = "https://beatapurado.github.io/radiobeatapurado/";
-
-  navigator.clipboard.writeText(link).then(() => {
-    showBeatToast("Link da Beat Apurado Radio copiado! 🚀\nCole no seu Story ou Bio 👽");
+  navigator.clipboard.writeText("https://beatapurado.github.io/radiobeatapurado/").then(() => {
+    alert("Link copiado! 🚀 Cole no seu Story ou Bio 👽");
   });
 }
-
-function showBeatToast(msg) {
-  const toast = document.createElement("div");
-  toast.innerText = msg;
-  toast.style.position = "fixed";
-  toast.style.bottom = "100px";
-  toast.style.left = "20px";
-  toast.style.background = "rgba(0,0,0,0.9)";
-  toast.style.color = "#39ff14";
-  toast.style.padding = "12px 18px";
-  toast.style.borderRadius = "20px";
-  toast.style.boxShadow = "0 0 20px #39ff14";
-  toast.style.fontSize = "0.9rem";
-  toast.style.zIndex = "10000";
-  toast.style.whiteSpace = "pre-line";
-
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.remove();
-  }, 3500);
-}
 </script>
-
-
-
 </body>
 </html>
