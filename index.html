@@ -178,11 +178,15 @@ section {
   box-shadow: 0 0 25px rgba(57,255,20,0.6);
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
+
+  pointer-events: none;
 }
 
 .flyer-container img.active {
   opacity: 1;
   position: relative;
+
+  pointer-events: auto;
 }
 
 #whatsapp-btn {
@@ -337,16 +341,21 @@ footer {
     <h2>▶️ Ao Vivo</h2>
     <iframe src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
       height="110" width="100%" style="border:none;max-width:500px"></iframe>
-  </section>
+  </section>  
+  
+<section id="anuncio" style="text-align:center;">
+  <h2>📡 Anúncios</h2>
+  <div class="flyer-container">
+    <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
 
-  <section id="anuncio" style="text-align:center;">
-    <h2>📡 Anúncios</h2>
-    <div class="flyer-container">
-      <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
-      <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
-      <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
-    </div>
-  </section>
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_04_.png" 
+         onclick="window.open('https://go.cloudskillsboost.google/arcade', '_blank')" 
+         style="cursor:pointer;">
+
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
+  </div>
+</section>
 
   <section id="programacao">
     <h2>📅 Programação</h2>
@@ -488,7 +497,8 @@ window.addEventListener("load", () => {
 
 /* SLIDER E PRODUTOS */
 let flyerIndex = 0;
-const flyers = document.querySelectorAll(".flyer-container img");
+
+const flyers = document.querySelectorAll(".flyer-container img, .flyer-container a");
 setInterval(() => {
   flyers[flyerIndex].classList.remove("active");
   flyerIndex = (flyerIndex + 1) % flyers.length;
