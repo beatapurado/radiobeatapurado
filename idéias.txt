@@ -1,0 +1,19 @@
+ações
+
+* botao flutuando compartilhar
+* qrcode link da rádio
+
+lojas
+* link bonés
+* link camisetas
+* link toca com aba
+
+corregir bug
+* play nao toca no IOS
+
+vinhetas
+* novas vinhetas
+
+
+
+

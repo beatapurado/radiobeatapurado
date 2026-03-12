@@ -1,0 +1,235 @@
+(function ($) {
+
+	$.fn.flatie = function ( extras ) {
+
+		// Try parseJSON
+		try {
+
+			var options = $.parseJSON( $( this ).find( '.playerData' ).text() );
+
+		} catch ( err ) {
+
+			// console.log( 'JSON parse ERROR, fall back to JS!' );
+
+		}
+
+		// Merge settings, set variables etc
+		var player   = $( this );
+		var settings = $.extend( extras, options );
+
+		var HTMLContent = $( '<div id="unique-container-' + generateID( 1 ) + '" class="jPlayer-container"></div>\
+			</div>\
+			<div class="controls">\
+			<div class="controlset left">\
+			<a tabindex="1" href="#" class="play smooth"><i class="icon-play"></i></a>\
+			<a tabindex="1" href="#" class="pause smooth"><i class="icon-pause"></i></a>\
+			</div>\
+			<div class="controlset right-volume">\
+			<a tabindex="1" href="#" class="mute smooth"><i class="icon-volume"></i></a>\
+			<a tabindex="1" href="#" class="unmute smooth"><i class="icon-mute"></i></a>\
+			</div>\
+			<div class="volumeblock">\
+			<div class="volume-control"><div class="volume-value"></div></div>\
+			</div>\
+			<div class="controlset right">\
+			<a href="#" tabindex="1" class="fullscreen smooth"><i class="icon-fullscreen"></i></a>\
+			<a href="#" tabindex="1" class="smallscreen smooth"><i class="icon-fullscreen-exit"></i></a>\
+			</div>\
+			<div class="progress-block">\
+			<div class="timer current"></div>\
+			<div class="timer duration"></div>\
+			<div class="progress"><div class="seekBar"><div class="playBar"></div></div></div>\
+			</div></div>' );
+
+		$( this ).find( '.playerData' ).remove();
+		$( this ).append( HTMLContent );
+
+		// Get supplied media from MEDIA array
+		var supplied = new Array;
+		$.each( settings.media, function ( key, value ) { if ( key != 'poster' ) { supplied.push( key ); } });
+		formats = supplied.join( ', ' );
+
+		// Get volume from Cookie
+		var cVolume = getcookie( 'jplayer-volume' );
+		var options = {
+
+			ready: function ( event ) {
+
+				if ( event.jPlayer.status.noVolume ) {
+					// Add a class and then CSS rules deal with it.
+					$( player ).find( ".controls .progress-block" ).css( { margin: '0 10px 0 45px' } );
+				}
+
+				$( this ).jPlayer( "setMedia", settings.media );
+				if ( settings.autoplay != null ) { $( this ).jPlayer( 'play' ); }
+			},
+
+			// Extra Settings
+			swfPath          : "skin/jquery.jplayer.swf",
+			supplied         : formats,
+			solution         : 'html, flash',
+			volume           : ((cVolume != null) ? cVolume : '0.5'),
+			smoothPlayBar    : false,
+			keyEnabled       : true,
+			remainingDuration: false,
+			toggleDuration   : false,
+			errorAlerts      : false,
+			warningAlerts    : false,
+
+			// CSS Selectors
+			size: {
+				width : "100%",
+				height: "auto"
+			},
+
+			cssSelectorAncestor: '#' + $( player ).attr( 'id' ),
+			cssSelector        : {
+				videoPlay     : ".video-play",
+				play          : ".play",
+				pause         : ".pause",
+				seekBar       : ".seekBar",
+				playBar       : ".playBar",
+				mute          : ".right-volume .mute",
+				unmute        : ".right-volume .unmute",
+				volumeBar     : ".volume-control",
+				volumeBarValue: ".volume-control .volume-value",
+				currentTime   : ".timer.current",
+				duration      : ".timer.duration",
+				fullScreen    : ".fullscreen",
+				restoreScreen : ".smallscreen",
+				gui           : ".controls",
+				noSolution    : ".noSolution"
+			},
+
+			error: function ( event ) {
+				if ( event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET ) {
+					// Setup the media stream again and play it.
+					$( this ).jPlayer( "setMedia", settings.media ).jPlayer( 'play' );
+				}
+			},
+
+			play: function () {
+				$( player ).find( '.playerScreen .video-play' ).stop( true, true ).fadeOut( 150 );
+				$( this ).on( 'click', function () { $( this ).jPlayer( 'pause' );} );
+				$( this ).jPlayer( "pauseOthers" );
+				jplayer_responsive();
+			},
+
+			pause: function () {
+				$( player ).find( '.playerScreen .video-play' ).stop( true, true ).fadeIn( 350 );
+				$( this ).unbind( 'click' );
+			},
+
+			ended: function () {
+				$( this ).jPlayer( "setMedia", settings.media );
+			},
+
+			volumechange: function ( event ) {
+				setcookie( 'jplayer-volume', event.jPlayer.options.volume );
+			}
+
+		};
+
+		// Create the volume slider control
+		$( player ).find( '.volumeblock' ).mousedown( function () {
+
+			parent = $( player ).find( '.volumeblock' );
+
+			$( player ).find( '.volumeblock' ).mousemove( function ( e ) {
+
+				$( player ).find( '.volume-control .volume-value' ).css( { 'width': e.pageX - $( parent ).offset().left } );
+
+				var total = $( player ).find( '.volume-control' ).width();
+				$( player ).find( '.jPlayer-container' ).jPlayer( "option", "muted", false );
+				$( player ).find( '.jPlayer-container' ).jPlayer( "option", "volume", (e.pageX - $( parent ).offset().left) / total );
+
+				return false;
+
+			});
+
+			return false;
+
+		} );
+
+
+		// Create the progress slider mouse move event
+		$( player ).find( '.progress' ).mousedown( function () {
+
+			parent = $( player ).find( '.progress .seekBar' );
+
+			$( player ).find( '.progress' ).mousemove( function ( e ) {
+
+				var total = $( player ).find( '.progress .seekBar' ).width();
+				var perc  = (((e.pageX - $( parent ).offset().left) / total) * 100);
+
+				$( player ).find( '.progress .seekBar .playBar' ).css( { 'width': perc + '%' } );
+				$( player ).find( '.jPlayer-container' ).jPlayer( "playHead", perc );
+
+				return false;
+			});
+
+			return false;
+
+		});
+
+		$( document ).mouseup( function () { $( '.progress, .volumeblock' ).unbind( 'mousemove' ); } );
+		$.extend( options, settings );
+
+		// Initialize Player
+		$( this ).find( '.jPlayer-container' ).jPlayer( options );
+		$( window ).on( 'resize', jplayer_responsive );
+	}
+
+
+})( jQuery );
+
+// Simple function to write cookie
+function setcookie( name, value, expires, path, domain, secure ) {
+
+	var today = new Date();
+	today.setTime( today.getTime() );
+
+	if ( expires ) { expires = expires * 1000 * 60 * 60 * 24; }
+
+	var expires_date = new Date( today.getTime() + (expires) );
+
+	document.cookie = name + '=' + escape( value ) +
+		((expires) ? ';expires=' + expires_date.toGMTString() : '') + //expires.toGMTString()
+		((path) ? ';path=' + path : '') +
+		((domain) ? ';domain=' + domain : '') +
+		((secure) ? ';secure' : '');
+
+}
+
+// Read cookievalue
+function getcookie( name ) {
+
+	var start = document.cookie.indexOf( name + "=" );
+	var len   = start + name.length + 1;
+
+	if ( (!start) && (name != document.cookie.substring( 0, name.length )) ) { return null; }
+	if ( start == -1 ) return null;
+
+	var end = document.cookie.indexOf( ';', len );
+
+	if ( end == -1 ) end = document.cookie.length;
+	return unescape( document.cookie.substring( len, end ) );
+
+}
+
+// Responsive Flash
+function jplayer_responsive() {
+
+	$( '.jPlayer[class!=audioPlayer] object' ).each( function () {
+
+		var width = $( this ).width();
+		$( this ).height( width / 1.778 );
+
+	} );
+
+}
+
+var globalIdCounter = 0;
+function generateID( baseStr ) {
+	return (baseStr + globalIdCounter++);
+}

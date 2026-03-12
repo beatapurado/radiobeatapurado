@@ -1,0 +1,31 @@
+link: https://www.listen2myradio.com/
+
+
+password: McLsJZ4wdRNCRj6dj
+link: https://beatapurado.radiostream123.com/
+Hostname: uk22freenew.listen2myradio.com
+IP Address: 95.154.196.37
+Port: 29977
+================================= // ===============================
+site: https://atmunhost.com.br/
+senha: JFH609uvDLI,
+
+
+» INFORMAÇÕES DE ACESSO (Painel Administrativo)
+
+URL de acesso: https://stream3.svrdedicado.org
+Usuário: jbo78_7525
+Senha: 8Y3VB6ZRT3MJ
+
+================================= // ===============================
+
+https://stream3.svrdedicado.org:2080/
+
+Nome de usuário da conexão DJ: beatapurado
+Senha de conexão do DJ: FEJBEDHKEJC
+Porta de conexão para DJ: 4684
+IP da conexão de fluxo: stream3.svrdedicado.org
+URL de login do painel do DJ: https://stream3.svrdedicado.org:2080
+
+================================= // ===============================
+
