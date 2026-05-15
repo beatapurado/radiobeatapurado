@@ -30,6 +30,31 @@ body {
   min-height: 100vh;
 }
 
+/* FUNDO CÓSMICO DO PLAYER */
+.player-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.player-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png')
+              center center / cover no-repeat;
+
+  opacity: 0.25;
+
+  z-index: 0;
+}
+
+/* CONTEÚDO FICA ACIMA */
+.player-bg * {
+  position: relative;
+  z-index: 1;
+}
+
 /* BACKGROUND */
 
 /* VIDEO BACKGROUND */
@@ -37,10 +62,18 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+
+  min-width: 100%;
+  min-height: 100%;
+
+  width: auto;
+  height: auto;
+
   object-fit: cover;
-  z-index: -2;
+
+  z-index: -999;
+
+  background-size: cover;
 }
 
 /* OVERLAY ESCURO */
@@ -48,8 +81,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: -1;
+  background: rgba(0,0,0,0.55);
+  z-index: -998;
 }
 
 header, nav, .container, footer {
@@ -333,6 +366,578 @@ footer {
 .whatsapp { background: #25D366; }
 .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285AEB); }
 .facebook { background: #1877f2; }
+
+
+/* PLAYER CUSTOM */
+
+.custom-player{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:30px;
+
+  flex-wrap:wrap;
+
+  background:rgba(0,0,0,0.55);
+
+  padding:25px;
+
+  border-radius:25px;
+
+  box-shadow:
+  0 0 25px rgba(57,255,20,0.25);
+}
+
+.radio-frame{
+  width:100%;
+  max-width:500px;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  box-shadow:
+  0 0 25px rgba(57,255,20,0.35);
+}
+
+/* EQUALIZER */
+
+.equalizer{
+  display:flex;
+  align-items:flex-end;
+
+  gap:6px;
+
+  height:90px;
+}
+
+.equalizer span{
+
+  width:10px;
+
+  border-radius:10px;
+
+  background:
+  linear-gradient(to top,
+  #39ff14,
+  #ff00ff);
+
+  animation:bounce 1s infinite ease-in-out;
+
+  box-shadow:
+  0 0 12px rgba(57,255,20,0.8);
+}
+
+/* ALTURAS DIFERENTES */
+
+.equalizer span:nth-child(1){
+  height:20px;
+  animation-delay:.1s;
+}
+
+.equalizer span:nth-child(2){
+  height:45px;
+  animation-delay:.2s;
+}
+
+.equalizer span:nth-child(3){
+  height:70px;
+  animation-delay:.3s;
+}
+
+.equalizer span:nth-child(4){
+  height:35px;
+  animation-delay:.4s;
+}
+
+.equalizer span:nth-child(5){
+  height:80px;
+  animation-delay:.5s;
+}
+
+.equalizer span:nth-child(6){
+  height:50px;
+  animation-delay:.6s;
+}
+
+.equalizer span:nth-child(7){
+  height:65px;
+  animation-delay:.7s;
+}
+
+.equalizer span:nth-child(8){
+  height:30px;
+  animation-delay:.8s;
+}
+
+.equalizer span:nth-child(9){
+  height:75px;
+  animation-delay:.9s;
+}
+
+.equalizer span:nth-child(10){
+  height:40px;
+  animation-delay:1s;
+}
+
+/* ANIMAÇÃO */
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:scaleY(.4);
+    opacity:.6;
+  }
+
+  50%{
+    transform:scaleY(1.4);
+    opacity:1;
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .custom-player{
+    flex-direction:column;
+  }
+
+  .equalizer{
+    height:70px;
+  }
+
+}
+
+/* PLAYER */
+
+.beat-player{
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:35px;
+
+  flex-wrap:wrap;
+
+  background:rgba(0,0,0,0.55);
+
+  padding:30px;
+
+  border-radius:25px;
+
+  box-shadow:
+  0 0 30px rgba(57,255,20,0.25);
+
+}
+
+/* CAPA */
+
+.cover-box{
+  width:100px;
+  height:100px;
+
+  border-radius:1px;
+  overflow:hidden;
+  box-shadow:
+  0 0 25px rgba(57,255,20,0.5);
+
+}
+
+
+/* ÁREA VISÍVEL */
+
+.cover-crop{
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+  position:relative;
+
+  border-radius:18px;
+
+}
+
+/* ENQUADRAMENTO REAL */
+.cover-iframe{
+  position:absolute;
+  border:none;
+  width:100px;
+  height:300px;
+  top:-0px;
+  left:-0px;
+}
+
+.cover-box img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+}
+
+/* CONTROLES */
+
+.player-controls-wrap{
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:20px;
+
+}
+
+/* CONTROLES */
+
+.player-controls-wrap{
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:20px;
+
+}
+
+.player-action-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:20px;
+
+}
+
+
+
+#playBtn:hover{
+
+  transform:scale(1.08);
+
+}
+
+/* EQUALIZER */
+
+.equalizer{
+
+  display:flex;
+  align-items:flex-end;
+
+  gap:6px;
+
+  height:90px;
+
+}
+
+.equalizer span{
+
+  width:10px;
+
+  border-radius:10px;
+
+  background:
+  linear-gradient(to top,
+  #39ff14,
+  #ff00ff);
+
+  animation:bounce 1s infinite ease-in-out;
+
+  box-shadow:
+  0 0 12px rgba(57,255,20,0.8);
+
+}
+
+/* BARRAS */
+
+.equalizer span:nth-child(1){height:20px;animation-delay:.1s;}
+.equalizer span:nth-child(2){height:45px;animation-delay:.2s;}
+.equalizer span:nth-child(3){height:70px;animation-delay:.3s;}
+.equalizer span:nth-child(4){height:35px;animation-delay:.4s;}
+.equalizer span:nth-child(5){height:80px;animation-delay:.5s;}
+.equalizer span:nth-child(6){height:50px;animation-delay:.6s;}
+.equalizer span:nth-child(7){height:65px;animation-delay:.7s;}
+.equalizer span:nth-child(8){height:30px;animation-delay:.8s;}
+.equalizer span:nth-child(9){height:75px;animation-delay:.9s;}
+.equalizer span:nth-child(10){height:40px;animation-delay:1s;}
+
+/* ANIMAÇÃO */
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:scaleY(.4);
+    opacity:.5;
+  }
+
+  50%{
+    transform:scaleY(1.4);
+    opacity:1;
+  }
+
+}
+
+/* STATUS */
+
+.status-player{
+
+  color:#39ff14;
+
+  font-size:.9rem;
+
+  letter-spacing:2px;
+
+  text-shadow:
+  0 0 10px #39ff14;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .beat-player{
+
+    flex-direction:column;
+
+  }
+
+}
+
+
+
+/* PLAYER ULTRA */
+
+.beat-player{
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+
+  flex-wrap:wrap;
+
+  background:rgba(0,0,0,0.55);
+
+  padding:35px;
+
+  border-radius:30px;
+
+  box-shadow:
+  0 0 35px rgba(57,255,20,0.25);
+
+  backdrop-filter:blur(8px);
+
+}
+
+.cover-box img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+}
+
+/* CONTROLES */
+
+.player-controls-wrap{
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:25px;
+
+}
+
+/* BOTÕES */
+
+.player-action-row{
+
+  display:flex;
+  align-items:center;
+
+  gap:25px;
+
+}
+
+#playBtn,
+#pauseBtn{
+
+  width:70px;
+  height:70px;
+
+  border:none;
+
+  border-radius:50%;
+
+  cursor:pointer;
+
+  font-size:1.4rem;
+
+  font-weight:bold;
+
+  transition:.3s;
+
+}
+
+#playBtn{
+
+  background:#39ff14;
+  color:#000;
+
+  box-shadow:
+  0 0 30px rgba(57,255,20,0.9);
+
+}
+
+#pauseBtn{
+
+  background:#ff00ff;
+  color:#fff;
+
+  box-shadow:
+  0 0 30px rgba(255,0,255,0.9);
+
+}
+
+#playBtn:hover,
+#pauseBtn:hover{
+
+  transform:scale(1.1);
+
+}
+
+/* EQUALIZER */
+
+.equalizer{
+
+  display:flex;
+  align-items:flex-end;
+
+  gap:5px;
+
+  height:70px;
+
+}
+
+.equalizer span{
+
+  width:8px;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(to top,
+  #39ff14,
+  #ff00ff);
+
+  animation:bounce 1s infinite ease-in-out;
+
+  animation-play-state:paused;
+
+}
+
+/* BARRAS */
+
+.equalizer span:nth-child(1){height:20px;animation-delay:.1s;}
+.equalizer span:nth-child(2){height:40px;animation-delay:.2s;}
+.equalizer span:nth-child(3){height:60px;animation-delay:.3s;}
+.equalizer span:nth-child(4){height:35px;animation-delay:.4s;}
+.equalizer span:nth-child(5){height:65px;animation-delay:.5s;}
+.equalizer span:nth-child(6){height:45px;animation-delay:.6s;}
+.equalizer span:nth-child(7){height:55px;animation-delay:.7s;}
+.equalizer span:nth-child(8){height:30px;animation-delay:.8s;}
+
+.equalizer.playing span{
+
+  animation-play-state:running;
+
+}
+
+/* STATUS */
+
+.status-player{
+
+  color:#39ff14;
+
+  font-size:1rem;
+
+  letter-spacing:3px;
+
+  text-shadow:
+  0 0 12px #39ff14;
+
+}
+
+/* VOLUME */
+
+.volume-wrap{
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  color:#39ff14;
+
+}
+
+#volumeControl{
+
+  width:180px;
+
+}
+
+/* ANIMAÇÕES */
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:scaleY(.4);
+    opacity:.4;
+  }
+
+  50%{
+    transform:scaleY(1.5);
+    opacity:1;
+  }
+
+}
+
+@keyframes spinSlow{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .beat-player{
+
+    flex-direction:column;
+
+  }
+
+}
+
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNLZVJ995"></script>
@@ -349,7 +954,7 @@ footer {
 <body>
 
 <video autoplay muted loop playsinline id="bg-video">
-  <source src="fundo.mp4" type="video/mp4">
+  <source src="https://beatapurado.github.io/radiobeatapurado/fundo.mp4" type="video/mp4">
 </video>
 
 <header>
@@ -370,13 +975,84 @@ footer {
   <a href="#chat">Chat</a>
   <a href="#anuncio">Anuncie</a>
 </nav>
-
 <div class="container">
-  <section id="player" class="player-box">
-    <h2>▶️ Ao Vivo</h2>
-    <iframe src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
-      height="110" width="100%" style="border:none;max-width:500px"></iframe>
-  </section>   
+
+<!-- PLAYER RADIO BEAT APURADO ULTRA -->
+
+<section id="player" class="player-box player-bg">
+
+<div class="beat-player">
+
+<!-- CAPA DINÂMICA -->
+<div class="cover-box">
+  <div class="cover-crop">
+    <iframe
+      src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
+      class="cover-iframe">
+    </iframe>
+  </div>
+</div>
+
+  <!-- CONTROLES -->
+  <div class="player-controls-wrap">
+
+    <div class="status-player" id="statusPlayer">
+      ● OFFLINE
+    </div>
+
+    <div class="player-action-row">
+
+      <!-- PLAY -->
+      <button id="playBtn">
+        ▶
+      </button>
+
+      <!-- PAUSE -->
+      <button id="pauseBtn">
+        ❚❚
+      </button>
+
+      <!-- EQUALIZER -->
+      <div class="equalizer" id="eq">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+
+    <!-- VOLUME -->
+    <div class="volume-wrap">
+
+      🔊
+
+      <input
+        type="range"
+        id="volumeControl"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1">
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ÁUDIO -->
+<audio id="radioAudio">
+  <source src="https://stream3.svrdedicado.org/8226/stream" type="audio/mpeg">
+</audio>
+
+</section>
+
+
   
 <section id="anuncio" style="text-align:center;">
   <h2>📡 Anúncios</h2>
@@ -552,6 +1228,97 @@ window.addEventListener('load', () => {
   syncDynamicInterface();
   trocarProduto();
   setInterval(trocarProduto, 3000);
+});
+
+
+
+
+const audio = document.getElementById("radioAudio");
+
+const playBtn = document.getElementById("playBtn");
+
+const pauseBtn = document.getElementById("pauseBtn");
+
+const eq = document.getElementById("eq");
+
+const volumeControl = document.getElementById("volumeControl");
+
+const statusPlayer = document.getElementById("statusPlayer");
+
+/* PLAY */
+
+playBtn.addEventListener("click", async () => {
+
+  try{
+
+    await audio.play();
+
+    eq.classList.add("playing");
+
+    statusPlayer.innerHTML = "● AO VIVO";
+
+    statusPlayer.style.color = "#39ff14";
+
+  }catch(err){
+
+    alert("Erro ao iniciar rádio");
+
+  }
+
+});
+
+/* PAUSE */
+
+pauseBtn.addEventListener("click", () => {
+
+  audio.pause();
+
+  eq.classList.remove("playing");
+
+  statusPlayer.innerHTML = "● PAUSADO";
+
+  statusPlayer.style.color = "#ff00ff";
+
+});
+
+/* VOLUME */
+
+volumeControl.addEventListener("input", () => {
+
+  audio.volume = volumeControl.value;
+
+});
+
+/* AUTO PLAY AO PRIMEIRO TOQUE */
+
+document.body.addEventListener("click", async () => {
+
+  try{
+
+    await audio.play();
+
+    eq.classList.add("playing");
+
+    statusPlayer.innerHTML = "● AO VIVO";
+
+  }catch(e){}
+
+}, { once:true });
+
+/* RECONNECT AUTO */
+
+audio.addEventListener("error", () => {
+
+  statusPlayer.innerHTML = "● RECONECTANDO...";
+
+  setTimeout(() => {
+
+    audio.load();
+
+    audio.play();
+
+  }, 3000);
+
 });
 </script>
 </body>
