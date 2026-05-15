@@ -950,9 +950,7 @@ footer {
 
 <body>
 
-<video autoplay muted loop playsinline id="bg-video">
-  <source src="https://beatapurado.github.io/radiobeatapurado/fundo.mp4" type="video/mp4">
-</video>
+<video autoplay muted playsinline id="bg-video"></video>
 
 <header>
   <div class="title-wrap">
@@ -1317,6 +1315,65 @@ audio.addEventListener("error", () => {
   }, 3000);
 
 });
+
+
+
+
+const bgVideo = document.getElementById("bg-video");
+
+/* PLAYLIST DE VÍDEOS */
+
+const videoPlaylist = [
+
+  "https://beatapurado.github.io/radiobeatapurado/fundo.mp4",
+
+  "https://beatapurado.github.io/radiobeatapurado/fundo2.mp4",
+
+  "https://beatapurado.github.io/radiobeatapurado/fundo3.mp4",
+
+  "https://beatapurado.github.io/radiobeatapurado/fundo4.mp4",
+
+  "https://beatapurado.github.io/radiobeatapurado/fundo5.mp4"
+
+];
+
+let currentVideo = 0;
+
+/* FUNÇÃO PLAY */
+
+function playVideo(index){
+
+  bgVideo.src = videoPlaylist[index];
+
+  bgVideo.load();
+
+  bgVideo.play();
+
+}
+
+/* PRIMEIRO VÍDEO */
+
+playVideo(currentVideo);
+
+/* QUANDO TERMINAR */
+
+bgVideo.addEventListener("ended", () => {
+
+  currentVideo++;
+
+  /* LOOP INFINITO */
+
+  if(currentVideo >= videoPlaylist.length){
+
+    currentVideo = 0;
+
+  }
+
+  playVideo(currentVideo);
+
+});
+
+
 </script>
 </body>
 </html>
