@@ -21,6 +21,13 @@
 <link rel="preload" as="image" href="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/pix-beat-apurado.png">
 
 <style>
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
 body {
@@ -84,7 +91,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.01);
+  background: rgba(0,0,0,0.35);
   z-index: -998;
 }
 
@@ -937,7 +944,8 @@ footer {
 
 }
 
-#bg-video-a, #bg-video-b {
+#bg-video-a,
+#bg-video-b {
   position: fixed;
   top: 0;
   left: 0;
@@ -945,11 +953,11 @@ footer {
   height: 100%;
   object-fit: cover;
   z-index: -999;
-  transition: opacity 1s ease;
-}
+  transition: opacity 1.2s ease-in-out;
 
-#bg-video-b {
-  opacity: 0;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 
@@ -1463,60 +1471,131 @@ audio.addEventListener("error", () => {
 
 });
 
+
 /* ===================================================== */
-/* BACKGROUND VÍDEO CINEMÁTICO */
-/* TRANSIÇÃO ULTRA SUAVE */
+/* BACKGROUND VÍDEO CINEMÁTICO ULTRA SMOOTH */
 /* ===================================================== */
 
 const videoA = document.getElementById("bg-video-a");
-
 const videoB = document.getElementById("bg-video-b");
-
-/* PLAYLIST */
 
 const playlist = [
 
   "https://beatapurado.github.io/radiobeatapurado/fundo.mp4",
-
   "https://beatapurado.github.io/radiobeatapurado/fundo2.mp4",
-
   "https://beatapurado.github.io/radiobeatapurado/fundo3.mp4",
-
   "https://beatapurado.github.io/radiobeatapurado/fundo4.mp4",
-
   "https://beatapurado.github.io/radiobeatapurado/fundo5.mp4"
 
 ];
 
-/* CONTROLE */
-
 let currentIndex = 0;
 
-let currentPlayer = videoA;
+let activeVideo = videoA;
+let nextVideo = videoB;
 
-let hiddenPlayer = videoB;
+let switching = false;
 
 /* CONFIG */
 
-videoA.muted = true;
-videoB.muted = true;
+[videoA, videoB].forEach(v => {
 
-videoA.playsInline = true;
-videoB.playsInline = true;
+  v.muted = true;
+  v.autoplay = true;
+  v.loop = false;
+  v.playsInline = true;
 
-/* PRIMEIRO VÍDEO */
+  /* MAIS IMPORTANTE */
+  v.preload = "auto";
 
-currentPlayer.src = playlist[currentIndex];
+  /* GPU */
+  v.style.transform = "translateZ(0)";
+  v.style.backfaceVisibility = "hidden";
+  v.style.willChange = "opacity";
 
-currentPlayer.play();
+});
 
-currentPlayer.style.opacity = 1;
+/* ===================================================== */
+/* CARREGA VÍDEO */
+/* ===================================================== */
 
-hiddenPlayer.style.opacity = 0;
+function loadVideo(video, src){
 
-/* TROCA */
+  return new Promise((resolve) => {
 
-function nextVideo() {
+    video.src = src;
+
+    video.load();
+
+    video.oncanplaythrough = () => {
+
+      resolve();
+
+    };
+
+  });
+
+}
+
+/* ===================================================== */
+/* START */
+/* ===================================================== */
+
+async function startBackground(){
+
+  await loadVideo(activeVideo, playlist[currentIndex]);
+
+  try {
+
+    await activeVideo.play();
+
+    activeVideo.style.opacity = 1;
+
+    scheduleTransition();
+
+  } catch(err){
+
+    console.log(err);
+
+  }
+
+}
+
+/* ===================================================== */
+/* AGENDA TROCA */
+/* ===================================================== */
+
+function scheduleTransition(){
+
+  const duration = activeVideo.duration;
+
+  if(!duration || !isFinite(duration)){
+
+    setTimeout(scheduleTransition, 1000);
+
+    return;
+
+  }
+
+  const transitionPoint = (duration * 1000) - 2000;
+
+  setTimeout(() => {
+
+    switchBackground();
+
+  }, transitionPoint);
+
+}
+
+/* ===================================================== */
+/* TROCA SUAVE */
+/* ===================================================== */
+
+async function switchBackground(){
+
+  if(switching) return;
+
+  switching = true;
 
   currentIndex++;
 
@@ -1526,67 +1605,62 @@ function nextVideo() {
 
   }
 
-  hiddenPlayer.src = playlist[currentIndex];
+  const nextSrc = playlist[currentIndex];
 
-  hiddenPlayer.load();
+  await loadVideo(nextVideo, nextSrc);
 
-  hiddenPlayer.oncanplay = async () => {
+  nextVideo.currentTime = 0;
 
-    try{
+  try {
 
-      await hiddenPlayer.play();
+    await nextVideo.play();
 
-      /* FADE */
+    /* CROSSFADE */
 
-      hiddenPlayer.style.opacity = 1;
+    nextVideo.style.opacity = 1;
+    activeVideo.style.opacity = 0;
 
-      currentPlayer.style.opacity = 0;
+    /* ESPERA TRANSIÇÃO */
 
-      /* TROCA REFERÊNCIA */
+    setTimeout(() => {
 
-      let temp = currentPlayer;
+      /* PARA ANTIGO */
 
-      currentPlayer = hiddenPlayer;
+      activeVideo.pause();
 
-      hiddenPlayer = temp;
+      /* LIMPA BUFFER ANTIGO */
 
-      /* PRÓXIMA TROCA */
+      activeVideo.removeAttribute("src");
+      activeVideo.load();
 
-      scheduleNext();
+      /* SWAP */
 
-    }catch(err){
+      const temp = activeVideo;
 
-      console.log(err);
+      activeVideo = nextVideo;
+      nextVideo = temp;
 
-    }
+      switching = false;
 
-  };
+      scheduleTransition();
 
-}
+    }, 1400);
 
-/* AGENDA TROCA */
+  } catch(err){
 
-function scheduleNext(){
+    console.log(err);
 
-  const duration =
-    (currentPlayer.duration || 8) * 1000;
+    switching = false;
 
-  setTimeout(() => {
-
-    nextVideo();
-
-  }, duration - 1200);
+  }
 
 }
 
-/* INICIA */
+/* START */
 
-currentPlayer.onloadedmetadata = () => {
+startBackground();
 
-  scheduleNext();
-
-};
-
+</script>
 
 </script>
 </body>
