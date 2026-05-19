@@ -23,12 +23,10 @@
 <style>
 
 h1, h2, .status-player, nav a {
-
   text-shadow:
     0 0 5px #39ff14,
     0 0 10px #39ff14,
     0 0 20px rgba(57,255,20,.6);
-
 }
 
 html, body {
@@ -41,23 +39,16 @@ html, body {
 
 body {
   margin: 0;
-
   font-family: 'Share Tech Mono', monospace;
-
   font-style: normal;
   font-weight: normal;
-
   letter-spacing: 1px;
-
   color: #7cff7c;
-
   min-height: 100vh;
-
   text-shadow: none;
 }
 
 /* REMOVE NEON GLOBAL */
-
 h1,
 h2,
 .status-player,
@@ -67,7 +58,6 @@ nav a {
 }
 
 /* REMOVE NEGRITO GLOBAL */
-
 * {
   font-weight: normal !important;
   font-style: normal !important;
@@ -76,6 +66,15 @@ nav a {
 /* REMOVE ITÁLICO GLOBAL */
 * {
   font-style: normal !important;
+}
+
+/* AJUSTE CRUCIAL: CORRIGE O FONT AWESOME PARA EXIBIR OS ÍCONES CORRETAMENTE */
+.beat-social-float i, 
+.beat-social-float fa-solid, 
+.beat-social-float fab,
+#whatsapp-btn i {
+  font-style: normal !important;
+  font-weight: 900 !important; /* Font Awesome 6 Solid exige peso 900 */
 }
 
 /* FUNDO CÓSMICO DO PLAYER */
@@ -88,12 +87,9 @@ nav a {
   content: "";
   position: absolute;
   inset: 0;
-
   background: url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png')
               center center / cover no-repeat;
-
   opacity: 0.25;
-
   z-index: 0;
 }
 
@@ -103,10 +99,7 @@ nav a {
   z-index: 1;
 }
 
-/* BACKGROUND */
-
 /* VIDEO BACKGROUND */
-
 #bg-video-a,
 #bg-video-b {
   position: fixed;
@@ -145,7 +138,7 @@ header {
   text-align: center;
   padding: 40px 15px;
   background: rgba(0,0,0,0.85);
-  overflow: hidden; /* Garante que o letreiro não escape */
+  overflow: hidden;
 }
 
 /* AJUSTE DO LETREIRO PARA FUNCIONAR SEMPRE */
@@ -154,17 +147,11 @@ header {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
-
   font-size: 0.9rem;
-
   color: #7cff7c;
-
   letter-spacing: 2px;
-
   margin-top: 10px;
-
   text-shadow: none;
-
   font-weight: normal;
 }
 
@@ -320,7 +307,7 @@ section {
   z-index: 9999;
 }
 
-/* BOTÕES DINÂMICOS SINCROIZADOS */
+/* BOTÕES DINÂMICOS SINCRONIZADOS */
 #installBtn, #pix-float, #bmc-float {
   position: fixed;
   display: none; 
@@ -413,6 +400,7 @@ footer {
   background: radial-gradient(circle, #00ff99, #006644);
   border: none; font-size: 22px; color: #000; cursor: pointer;
   box-shadow: 0 0 22px #00ff99; transition: transform 0.2s;
+  display: flex; align-items: center; justify-content: center;
 }
 .beat-social-links { display: none; flex-direction: column; margin-bottom: 12px; }
 .beat-social-links a {
@@ -425,201 +413,93 @@ footer {
 .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285AEB); }
 .facebook { background: #1877f2; }
 
-
 /* PLAYER CUSTOM */
-
 .custom-player{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:30px;
-
   flex-wrap:wrap;
-
   background:rgba(0,0,0,0.55);
-
   padding:25px;
-
   border-radius:25px;
-
-  box-shadow:
-  0 0 25px rgba(57,255,20,0.25);
+  box-shadow: 0 0 25px rgba(57,255,20,0.25);
 }
 
 .radio-frame{
   width:100%;
   max-width:500px;
-
   border-radius:18px;
-
   overflow:hidden;
-
-  box-shadow:
-  0 0 25px rgba(57,255,20,0.35);
+  box-shadow: 0 0 25px rgba(57,255,20,0.35);
 }
 
 /* EQUALIZER */
-
 .equalizer{
   display:flex;
   align-items:flex-end;
-
   gap:6px;
-
   height:90px;
 }
 
 .equalizer span{
-
   width:10px;
-
   border-radius:10px;
-
-  background:
-  linear-gradient(to top,
-  #39ff14,
-  #ff00ff);
-
+  background: linear-gradient(to top, #39ff14, #ff00ff);
   animation:bounce 1s infinite ease-in-out;
-
-  box-shadow:
-  0 0 12px rgba(57,255,20,0.8);
+  box-shadow: 0 0 12px rgba(57,255,20,0.8);
 }
 
-/* ALTURAS DIFERENTES */
-
-.equalizer span:nth-child(1){
-  height:20px;
-  animation-delay:.1s;
-}
-
-.equalizer span:nth-child(2){
-  height:45px;
-  animation-delay:.2s;
-}
-
-.equalizer span:nth-child(3){
-  height:70px;
-  animation-delay:.3s;
-}
-
-.equalizer span:nth-child(4){
-  height:35px;
-  animation-delay:.4s;
-}
-
-.equalizer span:nth-child(5){
-  height:80px;
-  animation-delay:.5s;
-}
-
-.equalizer span:nth-child(6){
-  height:50px;
-  animation-delay:.6s;
-}
-
-.equalizer span:nth-child(7){
-  height:65px;
-  animation-delay:.7s;
-}
-
-.equalizer span:nth-child(8){
-  height:30px;
-  animation-delay:.8s;
-}
-
-.equalizer span:nth-child(9){
-  height:75px;
-  animation-delay:.9s;
-}
-
-.equalizer span:nth-child(10){
-  height:40px;
-  animation-delay:1s;
-}
-
-/* ANIMAÇÃO */
+.equalizer span:nth-child(1){ height:20px; animation-delay:.1s; }
+.equalizer span:nth-child(2){ height:45px; animation-delay:.2s; }
+.equalizer span:nth-child(3){ height:70px; animation-delay:.3s; }
+.equalizer span:nth-child(4){ height:35px; animation-delay:.4s; }
+.equalizer span:nth-child(5){ height:80px; animation-delay:.5s; }
+.equalizer span:nth-child(6){ height:50px; animation-delay:.6s; }
+.equalizer span:nth-child(7){ height:65px; animation-delay:.7s; }
+.equalizer span:nth-child(8){ height:30px; animation-delay:.8s; }
+.equalizer span:nth-child(9){ height:75px; animation-delay:.9s; }
+.equalizer span:nth-child(10){ height:40px; animation-delay:1s; }
 
 @keyframes bounce{
-
-  0%,100%{
-    transform:scaleY(.4);
-    opacity:.6;
-  }
-
-  50%{
-    transform:scaleY(1.4);
-    opacity:1;
-  }
-
+  0%,100%{ transform:scaleY(.4); opacity:.6; }
+  50%{ transform:scaleY(1.4); opacity:1; }
 }
 
-/* MOBILE */
-
 @media(max-width:768px){
-
-  .custom-player{
-    flex-direction:column;
-  }
-
-  .equalizer{
-    height:70px;
-  }
-
+  .custom-player{ flex-direction:column; }
+  .equalizer{ height:70px; }
 }
 
 /* PLAYER */
-
 .beat-player{
-
   display:flex;
   align-items:center;
   justify-content:center;
   gap:35px;
-
   flex-wrap:wrap;
-
   background:rgba(0,0,0,0.55);
-
   padding:30px;
-
   border-radius:25px;
-
-  box-shadow:
-  0 0 30px rgba(57,255,20,0.25);
-
+  box-shadow: 0 0 30px rgba(57,255,20,0.25);
 }
-
-/* CAPA */
 
 .cover-box{
   width:100px;
   height:100px;
-
   border-radius:1px;
   overflow:hidden;
-  box-shadow:
-  0 0 25px rgba(57,255,20,0.5);
-
+  box-shadow: 0 0 25px rgba(57,255,20,0.5);
 }
-
-
-/* ÁREA VISÍVEL */
 
 .cover-crop{
-
   width:100%;
   height:100%;
-
   overflow:hidden;
-
   position:relative;
-
   border-radius:18px;
-
 }
 
-/* ENQUADRAMENTO REAL */
 .cover-iframe{
   position:absolute;
   border:none;
@@ -630,279 +510,76 @@ footer {
 }
 
 .cover-box img{
-
   width:100%;
   height:100%;
-
   object-fit:cover;
-
 }
 
-/* CONTROLES */
-
 .player-controls-wrap{
-
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-
   gap:20px;
-
-}
-
-/* CONTROLES */
-
-.player-controls-wrap{
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  gap:20px;
-
 }
 
 .player-action-row{
-
   display:flex;
-
   align-items:center;
-
   gap:20px;
-
 }
 
-
-
-#playBtn:hover{
-
-  transform:scale(1.08);
-
-}
-
-/* EQUALIZER */
-
-.equalizer{
-
-  display:flex;
-  align-items:flex-end;
-
-  gap:6px;
-
-  height:90px;
-
-}
-
-.equalizer span{
-
-  width:10px;
-
-  border-radius:10px;
-
-  background:
-  linear-gradient(to top,
-  #39ff14,
-  #ff00ff);
-
-  animation:bounce 1s infinite ease-in-out;
-
-  box-shadow:
-  0 0 12px rgba(57,255,20,0.8);
-
-}
-
-/* BARRAS */
-
-.equalizer span:nth-child(1){height:20px;animation-delay:.1s;}
-.equalizer span:nth-child(2){height:45px;animation-delay:.2s;}
-.equalizer span:nth-child(3){height:70px;animation-delay:.3s;}
-.equalizer span:nth-child(4){height:35px;animation-delay:.4s;}
-.equalizer span:nth-child(5){height:80px;animation-delay:.5s;}
-.equalizer span:nth-child(6){height:50px;animation-delay:.6s;}
-.equalizer span:nth-child(7){height:65px;animation-delay:.7s;}
-.equalizer span:nth-child(8){height:30px;animation-delay:.8s;}
-.equalizer span:nth-child(9){height:75px;animation-delay:.9s;}
-.equalizer span:nth-child(10){height:40px;animation-delay:1s;}
-
-/* ANIMAÇÃO */
-
-@keyframes bounce{
-
-  0%,100%{
-    transform:scaleY(.4);
-    opacity:.5;
-  }
-
-  50%{
-    transform:scaleY(1.4);
-    opacity:1;
-  }
-
-}
-
-/* STATUS */
+#playBtn:hover{ transform:scale(1.08); }
 
 .status-player{
-
-   color:#7cff7c;
-  text-shadow:none;
-
+  color:#7cff7c;
   font-size:.9rem;
-
   letter-spacing:2px;
-
-  text-shadow:
-  0 0 10px #39ff14;
-
+  text-shadow: 0 0 10px #39ff14;
 }
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-  .beat-player{
-
-    flex-direction:column;
-
-  }
-
-}
-
-
 
 /* PLAYER ULTRA */
-
 .beat-player{
-
   display:flex;
   align-items:center;
   justify-content:center;
   gap:40px;
-
   flex-wrap:wrap;
-
   background:transparent;
-
   padding:35px;
-
   border-radius:30px;
-
   box-shadow:none;
-
 }
 
-.cover-box img{
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-}
-
-/* CONTROLES */
-
-.player-controls-wrap{
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  gap:25px;
-
-}
-
-/* BOTÕES */
-
-.player-action-row{
-
-  display:flex;
-  align-items:center;
-
-  gap:25px;
-
-}
-
-#playBtn,
-#pauseBtn{
-
+#playBtn, #pauseBtn{
   width:52px;
   height:52px;
-
   border:none;
-
   border-radius:50%;
-
   cursor:pointer;
-
   font-size:1rem;
-
   font-weight:bold;
-
   transition:.3s;
-
 }
 
-#playBtn{
-
-  background:#39ff14;
-  color:#000;
-
-  box-shadow:
-  0 0 30px rgba(57,255,20,0.9);
-
-}
-
-#pauseBtn{
-
-  background:#ff00ff;
-  color:#fff;
-
-  box-shadow:
-  0 0 30px rgba(255,0,255,0.9);
-
-}
-
-#playBtn:hover,
-#pauseBtn:hover{
-
-  transform:scale(1.1);
-
-}
-
-/* EQUALIZER */
+#playBtn{ background:#39ff14; color:#000; box-shadow: 0 0 30px rgba(57,255,20,0.9); }
+#pauseBtn{ background:#ff00ff; color:#fff; box-shadow: 0 0 30px rgba(255,0,255,0.9); }
+#playBtn:hover, #pauseBtn:hover{ transform:scale(1.1); }
 
 .equalizer{
-
   display:flex;
   align-items:flex-end;
-
   gap:5px;
-
   height:70px;
-
 }
 
 .equalizer span{
-
   width:8px;
-
   border-radius:20px;
-
-  background:
-  linear-gradient(to top,
-  #39ff14,
-  #ff00ff);
-
+  background: linear-gradient(to top, #39ff14, #ff00ff);
   animation:bounce 1s infinite ease-in-out;
-
   animation-play-state:paused;
-
 }
-
-/* BARRAS */
 
 .equalizer span:nth-child(1){height:20px;animation-delay:.1s;}
 .equalizer span:nth-child(2){height:40px;animation-delay:.2s;}
@@ -913,88 +590,27 @@ footer {
 .equalizer span:nth-child(7){height:55px;animation-delay:.7s;}
 .equalizer span:nth-child(8){height:30px;animation-delay:.8s;}
 
-.equalizer.playing span{
-
-  animation-play-state:running;
-
-}
-
-/* STATUS */
-
-.status-player{
-
-  color:#39ff14;
-
-  font-size:1rem;
-
-  letter-spacing:3px;
-
-  text-shadow:
-  0 0 12px #39ff14;
-
-}
-
-/* VOLUME */
+.equalizer.playing span{ animation-play-state:running; }
 
 .volume-wrap{
-
   display:flex;
   align-items:center;
-
   gap:12px;
-
   color:#39ff14;
-
 }
 
-#volumeControl{
-
-  width:180px;
-
-}
-
-/* ANIMAÇÕES */
-
-@keyframes bounce{
-
-  0%,100%{
-    transform:scaleY(.4);
-    opacity:.4;
-  }
-
-  50%{
-    transform:scaleY(1.5);
-    opacity:1;
-  }
-
-}
+#volumeControl{ width:180px; }
 
 @keyframes spinSlow{
-
-  from{
-    transform:rotate(0deg);
-  }
-
-  to{
-    transform:rotate(360deg);
-  }
-
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
 }
-
-/* MOBILE */
 
 @media(max-width:768px){
-
-  .beat-player{
-
-    flex-direction:column;
-
-  }
-
+  .beat-player{ flex-direction:column; }
 }
 
-#bg-video-a,
-#bg-video-b {
+#bg-video-a, #bg-video-b {
   position: fixed;
   top: 0;
   left: 0;
@@ -1003,12 +619,10 @@ footer {
   object-fit: cover;
   z-index: -999;
   transition: opacity 1.2s ease-in-out;
-
   will-change: opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-
 
 </style>
 
@@ -1048,42 +662,28 @@ footer {
 </nav>
 <div class="container">
 
-<!-- PLAYER RADIO BEAT APURADO ULTRA -->
-
 <section id="player" class="player-box player-bg">
-
 <div class="beat-player">
 
-<!-- CAPA DINÂMICA -->
 <div class="cover-box">
   <div class="cover-crop">
     <iframe
       src="https://stream3.svrdedicado.org/cp/widgets/player/single/?p=8226"
       class="cover-iframe">
-    </iframe>
+     Pop</iframe>
   </div>
 </div>
 
-  <!-- CONTROLES -->
   <div class="player-controls-wrap">
-
     <div class="status-player" id="statusPlayer">
       ● APERTE O PLAY | PRESS PLAY
     </div>
 
     <div class="player-action-row">
+      <button id="playBtn">▶</button>
 
-      <!-- PLAY -->
-      <button id="playBtn">
-        ▶
-      </button>
+      <button id="pauseBtn">❚❚</button>
 
-      <!-- PAUSE -->
-      <button id="pauseBtn">
-        ❚❚
-      </button>
-
-      <!-- EQUALIZER -->
       <div class="equalizer" id="eq">
         <span></span>
         <span></span>
@@ -1094,14 +694,10 @@ footer {
         <span></span>
         <span></span>
       </div>
-
     </div>
 
-    <!-- VOLUME -->
     <div class="volume-wrap">
-
       🔊
-
       <input
         type="range"
         id="volumeControl"
@@ -1109,22 +705,15 @@ footer {
         max="1"
         step="0.01"
         value="1">
-
     </div>
-
   </div>
-
 </div>
 
-<!-- ÁUDIO -->
 <audio id="radioAudio">
   <source src="https://stream3.svrdedicado.org/8226/stream" type="audio/mpeg">
 </audio>
-
 </section>
 
-
-  
 <section id="anuncio" style="text-align:center;">
   <h2>📡 Anúncios</h2>
   <div class="flyer-container">
@@ -1199,48 +788,32 @@ footer {
       <i class="fab fa-facebook-f"></i>
     </a>
   </div>
+  
   <button class="beat-main-btn" onclick="toggleBeatSocial()" title="Compartilhar">
-    <i class="fas fa-share-alt"></i>
+    <i class="fa-solid fa-share-nodes"></i>
   </button>
 </div>
 
 <script>
 /* 1. SINCRONIZAÇÃO DE CONTEÚDO DINÂMICO */
-
 let deferredPrompt;
-
 const installBtn = document.getElementById("installBtn");
-
 const pixBox = document.getElementById('pix-float');
-
 const bmcBox = document.getElementById('bmc-float');
 
 async function syncDynamicInterface() {
-
   try {
-
     const response = await fetch('https://ipapi.co/json/');
-
     const data = await response.json();
-
     if (data.country_code === 'BR') {
-
       pixBox.style.display = 'block';
-
       bmcBox.style.display = 'none';
-
     } else {
-
       pixBox.style.display = 'none';
-
       bmcBox.style.display = 'block';
-
     }
-
   } catch (e) {
-
     pixBox.style.display = 'block';
-
   }
 
   const isStandalone =
@@ -1248,213 +821,130 @@ async function syncDynamicInterface() {
     window.navigator.standalone;
 
   if (!isStandalone) {
-
     const isIOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) &&
       !window.MSStream;
 
     if (isIOS || deferredPrompt) {
-
       installBtn.style.display = "block";
-
     } else {
-
       setTimeout(() => {
-
         installBtn.style.display = "block";
-
       }, 2000);
-
     }
-
   }
-
 }
 
 /* 2. LÓGICA PWA */
-
 window.addEventListener("beforeinstallprompt", e => {
-
   e.preventDefault();
-
   deferredPrompt = e;
-
 });
 
 installBtn.addEventListener("click", () => {
-
   const isIOS =
     /iPad|iPhone|iPod/.test(navigator.userAgent) &&
     !window.MSStream;
 
   if (isIOS) {
-
     alert("No iPhone, clique no ícone 'Compartilhar' e selecione 'Adicionar à Tela de Início'! 🚀");
-
   } else if (deferredPrompt) {
-
     deferredPrompt.prompt();
-
     deferredPrompt.userChoice.finally(() => {
-
       installBtn.style.display = "none";
-
     });
-
   }
-
 });
 
 /* 3. SOCIAL */
-
 function toggleBeatSocial() {
-
   const box = document.getElementById("beatSocial");
-
   box.style.display =
     box.style.display === "flex"
       ? "none"
       : "flex";
-
 }
 
 function copyBeatLink() {
-
   navigator.clipboard
     .writeText("https://beatapurado.github.io/radiobeatapurado/")
     .then(() => {
-
-      alert("Link copiado! 🚀");
-
+      alert("Link copied! 🚀");
     });
-
 }
 
 /* 4. SLIDER FLYERS */
-
 let flyerIndex = 0;
-
-const flyers =
-  document.querySelectorAll(".flyer-container img");
+const flyers = document.querySelectorAll(".flyer-container img");
 
 setInterval(() => {
-
   if (flyers.length > 0) {
-
     flyers[flyerIndex].classList.remove("active");
-
-    flyerIndex =
-      (flyerIndex + 1) % flyers.length;
-
+    flyerIndex = (flyerIndex + 1) % flyers.length;
     flyers[flyerIndex].classList.add("active");
-
   }
-
 }, 6000);
 
 /* 5. PRODUTOS */
-
 const produtos = [
-
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",
     link: "https://meli.la/1qQswxt"
   },
-
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png",
     link: "https://mercadolivre.com/sec/1J5NsnW"
   },
-
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png",
     link: "https://mercadolivre.com/sec/1Z6u8hn"
   },
-
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png",
     link: "https://meli.la/1F3kSsp"
   },
-
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/touca.png",
     link: "https://meli.la/2BcECX6"
   }
-
 ];
 
 let prodIdx = 0;
 
 function trocarProduto() {
-
   const p = produtos[prodIdx];
-
-  const imgEl =
-    document.getElementById("produto-img");
-
+  const imgEl = document.getElementById("produto-img");
   if (imgEl) {
-
     imgEl.src = p.img;
-
-    document.getElementById("produto-link").href =
-      p.link;
-
-    document.getElementById("produto-btn").href =
-      p.link;
-
-    prodIdx =
-      (prodIdx + 1) % produtos.length;
-
+    document.getElementById("produto-link").href = p.link;
+    document.getElementById("produto-btn").href = p.link;
+    prodIdx = (prodIdx + 1) % produtos.length;
   }
-
 }
 
 /* LOAD */
-
 window.addEventListener('load', () => {
-
   syncDynamicInterface();
-
   trocarProduto();
-
   setInterval(trocarProduto, 3000);
-
 });
 
 /* ===================================================== */
 /* PLAYER RADIO */
 /* ===================================================== */
-
-const audio =
-  document.getElementById("radioAudio");
-
-const playBtn =
-  document.getElementById("playBtn");
-
-const pauseBtn =
-  document.getElementById("pauseBtn");
-
-const eq =
-  document.getElementById("eq");
-
-const volumeControl =
-  document.getElementById("volumeControl");
-
-const statusPlayer =
-  document.getElementById("statusPlayer");
+const audio = document.getElementById("radioAudio");
+const playBtn = document.getElementById("playBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const eq = document.getElementById("eq");
+const volumeControl = document.getElementById("volumeControl");
+const statusPlayer = document.getElementById("statusPlayer");
 
 /* PLAY */
-
 playBtn.addEventListener("click", async () => {
-
   try {
-
     await audio.play();
-
     eq.classList.add("playing");
-
     statusPlayer.innerHTML = "● AO VIVO";
-
     statusPlayer.style.color = "#39ff14";
 
     // GOOGLE ANALYTICS
@@ -1463,261 +953,148 @@ playBtn.addEventListener("click", async () => {
       event_label: 'Beat Apurado Radio',
       value: 1
     });
-
   } catch (err) {
-
     alert("Erro ao iniciar rádio");
-
   }
-
 });
 
 /* PAUSE */
-
 pauseBtn.addEventListener("click", () => {
-
   audio.pause();
-
   eq.classList.remove("playing");
-
   statusPlayer.innerHTML = "● PAUSADO";
-
   statusPlayer.style.color = "#ff00ff";
-
 });
 
 /* VOLUME */
-
 volumeControl.addEventListener("input", () => {
-
   audio.volume = volumeControl.value;
-
 });
 
 /* AUTO PLAY PRIMEIRO TOQUE */
-
 document.body.addEventListener("click", async () => {
-
   try {
-
     await audio.play();
-
     eq.classList.add("playing");
-
     statusPlayer.innerHTML = "● AO VIVO";
-
   } catch (e) {}
-
 }, { once: true });
 
 /* RECONNECT AUTO */
-
 audio.addEventListener("error", () => {
-
-  statusPlayer.innerHTML =
-    "● RECONECTANDO...";
-
+  statusPlayer.innerHTML = "● RECONECTANDO...";
   setTimeout(() => {
-
     audio.load();
-
     audio.play();
-
   }, 3000);
-
 });
-
 
 /* ===================================================== */
 /* BACKGROUND VÍDEO CINEMÁTICO ULTRA SMOOTH */
 /* ===================================================== */
-
 const videoA = document.getElementById("bg-video-a");
 const videoB = document.getElementById("bg-video-b");
 
 const playlist = [
-
   "https://beatapurado.github.io/radiobeatapurado/fundo.mp4",
   "https://beatapurado.github.io/radiobeatapurado/fundo2.mp4",
   "https://beatapurado.github.io/radiobeatapurado/fundo3.mp4",
   "https://beatapurado.github.io/radiobeatapurado/fundo4.mp4",
   "https://beatapurado.github.io/radiobeatapurado/fundo5.mp4"
-
 ];
 
 let currentIndex = 0;
-
 let activeVideo = videoA;
 let nextVideo = videoB;
-
 let switching = false;
 
 /* CONFIG */
-
 [videoA, videoB].forEach(v => {
-
   v.muted = true;
   v.autoplay = true;
   v.loop = false;
   v.playsInline = true;
-
-  /* MAIS IMPORTANTE */
   v.preload = "auto";
-
-  /* GPU */
   v.style.transform = "translateZ(0)";
   v.style.backfaceVisibility = "hidden";
   v.style.willChange = "opacity";
-
 });
 
-/* ===================================================== */
 /* CARREGA VÍDEO */
-/* ===================================================== */
-
 function loadVideo(video, src){
-
   return new Promise((resolve) => {
-
     video.src = src;
-
     video.load();
-
     video.oncanplaythrough = () => {
-
       resolve();
-
     };
-
   });
-
 }
 
-/* ===================================================== */
 /* START */
-/* ===================================================== */
-
 async function startBackground(){
-
   await loadVideo(activeVideo, playlist[currentIndex]);
-
   try {
-
     await activeVideo.play();
-
     activeVideo.style.opacity = 1;
-
     scheduleTransition();
-
   } catch(err){
-
     console.log(err);
-
   }
-
 }
 
-/* ===================================================== */
 /* AGENDA TROCA */
-/* ===================================================== */
-
 function scheduleTransition(){
-
   const duration = activeVideo.duration;
-
   if(!duration || !isFinite(duration)){
-
     setTimeout(scheduleTransition, 1000);
-
     return;
-
   }
-
   const transitionPoint = (duration * 1000) - 2000;
-
   setTimeout(() => {
-
     switchBackground();
-
   }, transitionPoint);
-
 }
 
-/* ===================================================== */
 /* TROCA SUAVE */
-/* ===================================================== */
-
 async function switchBackground(){
-
   if(switching) return;
-
   switching = true;
-
   currentIndex++;
-
   if(currentIndex >= playlist.length){
-
     currentIndex = 0;
-
   }
-
   const nextSrc = playlist[currentIndex];
-
   await loadVideo(nextVideo, nextSrc);
-
   nextVideo.currentTime = 0;
 
   try {
-
     await nextVideo.play();
-
     /* CROSSFADE */
-
     nextVideo.style.opacity = 1;
     activeVideo.style.opacity = 0;
 
     /* ESPERA TRANSIÇÃO */
-
     setTimeout(() => {
-
-      /* PARA ANTIGO */
-
       activeVideo.pause();
-
-      /* LIMPA BUFFER ANTIGO */
-
       activeVideo.removeAttribute("src");
       activeVideo.load();
 
-      /* SWAP */
-
       const temp = activeVideo;
-
       activeVideo = nextVideo;
       nextVideo = temp;
 
       switching = false;
-
       scheduleTransition();
-
     }, 1400);
-
   } catch(err){
-
     console.log(err);
-
     switching = false;
-
   }
-
 }
 
 /* START */
-
 startBackground();
-
-</script>
-
 </script>
 </body>
 </html>
