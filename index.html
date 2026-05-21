@@ -261,6 +261,22 @@ section {
   max-width: 260px;
 }
 
+.flyer-btn{
+  margin: 25px auto 0 auto;
+  max-width: 320px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Share Tech Mono', monospace;
+  box-shadow: 0 0 20px rgba(57,255,20,.45);
+  transition: .3s;
+}
+
+.flyer-btn:hover{
+  transform: scale(1.03);
+  box-shadow: 0 0 28px rgba(57,255,20,.75);
+}
+
+
 .flyer-container {
   position: relative;
   width: 100%;
@@ -624,6 +640,79 @@ footer {
   backface-visibility: hidden;
 }
 
+
+/* ====================================== */
+/* FULLSCREEN FLYER ZOOM */
+/* ====================================== */
+
+#flyerModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999999;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:opacity .35s ease;
+  backdrop-filter: blur(6px);
+}
+
+#flyerModal.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+#flyerZoom{
+  max-width:92%;
+  max-height:92%;
+  border-radius:18px;
+
+  box-shadow:
+    0 0 25px rgba(57,255,20,.5),
+    0 0 50px rgba(255,0,255,.25);
+
+  transform:scale(.88);
+  transition:transform .35s ease;
+}
+
+#flyerModal.active #flyerZoom{
+  transform:scale(1);
+}
+
+/* BOTÃO FECHAR */
+
+#closeFlyer{
+  position:absolute;
+  top:25px;
+  right:30px;
+
+  font-size:2rem;
+  color:#39ff14;
+
+  cursor:pointer;
+
+  text-shadow:
+    0 0 10px #39ff14,
+    0 0 20px #39ff14;
+
+  transition:.25s;
+}
+
+#closeFlyer:hover{
+  transform:scale(1.2);
+  color:#ff00ff;
+}
+
+/* CURSOR LUPA */
+
+.flyer-container img{
+  cursor: zoom-in;
+}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNLZVJ995"></script>
@@ -716,11 +805,17 @@ footer {
 
 <section id="anuncio" style="text-align:center;">
   <h2>📡 Anúncios</h2>
+
   <div class="flyer-container">
     <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
+    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/jornal01.png">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_03_.png">
-    <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_05_.png">
   </div>
+  
+<button id="toggleFlyer" class="btn-neon flyer-btn">
+  ⏸ PAUSAR ANÚNCIOS
+</button>
+  
 </section>
 
   <section id="programacao">
@@ -793,6 +888,13 @@ footer {
     <i class="fa-solid fa-share-nodes"></i>
   </button>
 </div>
+
+<!-- MODAL FULLSCREEN -->
+<div id="flyerModal">
+  <span id="closeFlyer">✕</span>
+  <img id="flyerZoom">
+</div>
+
 
 <script>
 /* 1. SINCRONIZAÇÃO DE CONTEÚDO DINÂMICO */
@@ -877,13 +979,85 @@ function copyBeatLink() {
 let flyerIndex = 0;
 const flyers = document.querySelectorAll(".flyer-container img");
 
-setInterval(() => {
+let flyerPaused = false;
+
+function trocarFlyer() {
+  if (flyerPaused) return;
+
   if (flyers.length > 0) {
     flyers[flyerIndex].classList.remove("active");
+
     flyerIndex = (flyerIndex + 1) % flyers.length;
+
     flyers[flyerIndex].classList.add("active");
   }
-}, 6000);
+}
+
+setInterval(trocarFlyer, 6000);
+
+/* ====================================== */
+/* ZOOM FULLSCREEN DOS FLYERS */
+/* ====================================== */
+
+const flyerModal = document.getElementById("flyerModal");
+const flyerZoom = document.getElementById("flyerZoom");
+const closeFlyer = document.getElementById("closeFlyer");
+
+/* ABRIR */
+
+flyers.forEach(img => {
+
+  img.addEventListener("click", () => {
+
+    flyerZoom.src = img.src;
+
+    flyerModal.classList.add("active");
+
+  });
+
+});
+
+/* FECHAR BOTÃO */
+
+closeFlyer.addEventListener("click", () => {
+
+  flyerModal.classList.remove("active");
+
+});
+
+/* FECHAR CLICANDO FUNDO */
+
+flyerModal.addEventListener("click", (e) => {
+
+  if(e.target === flyerModal){
+
+    flyerModal.classList.remove("active");
+
+  }
+
+});
+
+/* BOTÃO PAUSAR */
+const toggleFlyerBtn = document.getElementById("toggleFlyer");
+
+toggleFlyerBtn.addEventListener("click", () => {
+
+  flyerPaused = !flyerPaused;
+
+if (flyerPaused) {
+
+  toggleFlyerBtn.innerHTML = "▶ CONTINUAR";
+  toggleFlyerBtn.style.background = "#ff00ff";
+  toggleFlyerBtn.style.color = "#fff";
+
+} else {
+
+  toggleFlyerBtn.innerHTML = "⏸ PAUSAR ANÚNCIOS";
+  toggleFlyerBtn.style.background = "#39ff14";
+  toggleFlyerBtn.style.color = "#000";
+
+}
+});
 
 /* 5. PRODUTOS */
 const produtos = [
