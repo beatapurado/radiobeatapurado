@@ -713,6 +713,45 @@ footer {
   cursor: zoom-in;
 }
 
+
+
+
+
+
+@keyframes mkPulse{
+
+0%{
+transform:scale(1);
+filter:drop-shadow(0 0 5px #39ff14);
+}
+
+50%{
+transform:scale(1.03);
+filter:
+drop-shadow(0 0 18px #39ff14)
+drop-shadow(0 0 30px #39ff14);
+}
+
+100%{
+transform:scale(1);
+filter:drop-shadow(0 0 5px #39ff14);
+}
+
+}
+
+
+@keyframes blinkMK{
+
+0%,100%{
+opacity:1;
+}
+
+50%{
+opacity:.4;
+}
+
+}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNLZVJ995"></script>
@@ -806,11 +845,13 @@ footer {
 <section id="anuncio" style="text-align:center;">
   <h2>📡 Anúncios</h2>
 
-  <div class="flyer-container">
+  <div class="flyer-container">  
+
     <img class="active" src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/cao.jpeg">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/jornal01.png">
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/info01.png">	
     <img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/rbu_flyer_01_.png">
+	<img src="https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/mk.png">
   </div>
   
 <button id="toggleFlyer" class="btn-neon flyer-btn">
@@ -1010,8 +1051,17 @@ flyers.forEach(img => {
 
   img.addEventListener("click", () => {
 
-    flyerZoom.src = img.src;
+    // Flyer da MK abre o WhatsApp
+    if (img.src.includes("mk.png")) {
+      window.open(
+        "https://wa.me/5511919364641?text=Olá!%20Vi%20o%20flyer%20na%20Rádio%20Beat%20Apurado%20e%20gostaria%20de%20solicitar%20um%20orçamento.",
+        "_blank"
+      );
+      return;
+    }
 
+    // Demais flyers continuam abrindo em tela cheia
+    flyerZoom.src = img.src;
     flyerModal.classList.add("active");
 
   });
@@ -1073,12 +1123,12 @@ const produtos = [
   
    {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta06.png",
-    link: "https://meli.la/1gEEYPX"
+    link: "https://meli.la/2JjcmJ8"
   }, 
 
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png",
-    link: "https://mercadolivre.com/sec/1Z6u8hn"
+    link: "https://meli.la/24zu96X"
   },
   {
     img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png",
