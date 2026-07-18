@@ -974,11 +974,12 @@ transform:scale(1.05);
 
     <img id="flyerZoom">
 
-    <a id="mkWhatsappBtn" ...>
-
-        💬 Solicitar orçamento
-
-    </a>
+<a
+   id="mkWhatsappBtn"
+   href="https://wa.me/5511919364641?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento."
+   target="_blank">
+   💬 Solicitar orçamento
+</a>
 
 </div>
 
@@ -1053,7 +1054,14 @@ function fecharFlyer(){
 
     document.getElementById("whatsapp-btn").style.display = "flex";
 
-    syncDynamicInterface();
+    // NÃO mostra PIX nem BuyMeACoffee novamente
+    pixBox.style.display = "none";
+    bmcBox.style.display = "none";
+
+    // mostra somente o botão de instalar (caso exista)
+    if (installBtn) {
+        installBtn.style.display = "block";
+    }
 
 }
 
@@ -1109,7 +1117,7 @@ const mkBtn = document.getElementById("mkWhatsappBtn");
 mkBtn.addEventListener("click", () => {
 
     window.open(
-        "https://wa.me/5511998683830?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento.",
+        "https://wa.me/5511919364641?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento.",
         "_blank"
     );
 
