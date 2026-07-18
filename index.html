@@ -646,24 +646,23 @@ footer {
 /* ====================================== */
 
 #flyerModal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.92);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:999999;
 
-  opacity:0;
-  pointer-events:none;
+position:fixed;
+inset:0;
 
-  transition:opacity .35s ease;
-  backdrop-filter: blur(6px);
+display:none; 
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+background:rgba(0,0,0,.92);
+
+z-index:999999;
+
 }
 
 #flyerModal.active{
-  opacity:1;
-  pointer-events:auto;
+ display:flex;
 }
 
 #flyerZoom{
@@ -749,6 +748,50 @@ opacity:1;
 50%{
 opacity:.4;
 }
+
+}
+
+
+#mkWhatsappBtn:hover{
+
+background:#1ebe5b;
+
+transform:scale(1.05);
+
+}
+
+
+
+#mkWhatsappBtn{
+
+display:none;
+
+margin-top:25px;
+
+padding:15px 35px;
+
+background:#25D366;
+
+color:#fff;
+
+text-decoration:none;
+
+border-radius:40px;
+
+font-size:1.1rem;
+
+box-shadow:0 0 20px #25D366;
+
+transition:.3s;
+
+animation:mkPulse 2s infinite;
+}
+
+#mkWhatsappBtn:hover{
+
+background:#1ebe5b;
+
+transform:scale(1.05);
 
 }
 
@@ -925,16 +968,18 @@ opacity:.4;
       <i class="fab fa-facebook-f"></i>
     </a>
   </div>
-  
-  <button class="beat-main-btn" onclick="toggleBeatSocial()" title="Compartilhar">
-    <i class="fa-solid fa-share-nodes"></i>
-  </button>
-</div>
-
-<!-- MODAL FULLSCREEN -->
 <div id="flyerModal">
-  <span id="closeFlyer">✕</span>
-  <img id="flyerZoom">
+
+    <span id="closeFlyer">&times;</span>
+
+    <img id="flyerZoom">
+
+    <a id="mkWhatsappBtn" ...>
+
+        💬 Solicitar orçamento
+
+    </a>
+
 </div>
 
 
@@ -1000,6 +1045,19 @@ installBtn.addEventListener("click", () => {
   }
 });
 
+function fecharFlyer(){
+
+    flyerModal.classList.remove("active");
+
+    mkBtn.style.display = "none";
+
+    document.getElementById("whatsapp-btn").style.display = "flex";
+
+    syncDynamicInterface();
+
+}
+
+
 /* 3. SOCIAL */
 function toggleBeatSocial() {
   const box = document.getElementById("beatSocial");
@@ -1044,6 +1102,19 @@ setInterval(trocarFlyer, 6000);
 const flyerModal = document.getElementById("flyerModal");
 const flyerZoom = document.getElementById("flyerZoom");
 const closeFlyer = document.getElementById("closeFlyer");
+const mkBtn = document.getElementById("mkWhatsappBtn");
+
+
+/* WhatsApp_MK */
+mkBtn.addEventListener("click", () => {
+
+    window.open(
+        "https://wa.me/5511998683830?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento.",
+        "_blank"
+    );
+
+});
+
 
 /* ABRIR */
 
@@ -1052,17 +1123,26 @@ flyers.forEach(img => {
   img.addEventListener("click", () => {
 
     // Flyer da MK abre o WhatsApp
-    if (img.src.includes("mk.png")) {
-      window.open(
-        "https://wa.me/5511919364641?text=Olá!%20Vi%20o%20flyer%20na%20Rádio%20Beat%20Apurado%20e%20gostaria%20de%20solicitar%20um%20orçamento.",
-        "_blank"
-      );
-      return;
-    }
+
 
     // Demais flyers continuam abrindo em tela cheia
     flyerZoom.src = img.src;
+	
+
+if (img.src.includes("mk.png")){
+
+    mkBtn.style.display="inline-block";
+
+}else{
+
+    mkBtn.style.display="none";
+
+}
     flyerModal.classList.add("active");
+	installBtn.style.display = "none";
+pixBox.style.display = "none";
+bmcBox.style.display = "none";
+document.getElementById("whatsapp-btn").style.display = "none";
 
   });
 
@@ -1070,23 +1150,19 @@ flyers.forEach(img => {
 
 /* FECHAR BOTÃO */
 
-closeFlyer.addEventListener("click", () => {
+closeFlyer.addEventListener("click", fecharFlyer);
 
-  flyerModal.classList.remove("active");
+flyerModal.addEventListener("click",e=>{
 
-});
+    if(e.target===flyerModal){
 
-/* FECHAR CLICANDO FUNDO */
+        fecharFlyer();
 
-flyerModal.addEventListener("click", (e) => {
-
-  if(e.target === flyerModal){
-
-    flyerModal.classList.remove("active");
-
-  }
+    }
 
 });
+
+
 
 /* BOTÃO PAUSAR */
 const toggleFlyerBtn = document.getElementById("toggleFlyer");
