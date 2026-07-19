@@ -982,11 +982,12 @@ transform:scale(1.05);
 </a>
 
 </div>
-
-
 <script>
+
+
 /* 1. SINCRONIZAÇÃO DE CONTEÚDO DINÂMICO */
 let deferredPrompt;
+let appInstalled = false;
 const installBtn = document.getElementById("installBtn");
 const pixBox = document.getElementById('pix-float');
 const bmcBox = document.getElementById('bmc-float');
@@ -1005,239 +1006,149 @@ async function syncDynamicInterface() {
   } catch (e) {
     pixBox.style.display = 'block';
   }
-
-  const isStandalone =
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone;
-
-  if (!isStandalone) {
-    const isIOS =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-      !window.MSStream;
-
-    if (isIOS || deferredPrompt) {
-      installBtn.style.display = "block";
-    } else {
-      setTimeout(() => {
-        installBtn.style.display = "block";
-      }, 2000);
-    }
-  }
 }
 
-/* 2. LÓGICA PWA */
+function isPWA(){
+  return window.matchMedia("(display-mode: standalone)").matches
+      || window.navigator.standalone
+      || appInstalled;
+}
+
+/* 2. LÓGICA PWA (Corrigido o async/await) */
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   deferredPrompt = e;
-});
-
-installBtn.addEventListener("click", () => {
-  const isIOS =
-    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-    !window.MSStream;
-
-  if (isIOS) {
-    alert("No iPhone, clique no ícone 'Compartilhar' e selecione 'Adicionar à Tela de Início'! 🚀");
-  } else if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.finally(() => {
-      installBtn.style.display = "none";
-    });
+  if (!isPWA() && installBtn) {
+    installBtn.style.display = "block";
   }
 });
 
-function fecharFlyer(){
+if (installBtn) {
+  installBtn.addEventListener("click", async () => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-    flyerModal.classList.remove("active");
+    if (isIOS) {
+      alert("No iPhone, clique no ícone 'Compartilhar' e selecione 'Adicionar à Tela de Início'! 🚀");
+    } else if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice; // Agora funciona pois a função externa é async
 
-    mkBtn.style.display = "none";
-
-    document.getElementById("whatsapp-btn").style.display = "flex";
-
-    // NÃO mostra PIX nem BuyMeACoffee novamente
-    pixBox.style.display = "none";
-    bmcBox.style.display = "none";
-
-    // mostra somente o botão de instalar (caso exista)
-    if (installBtn) {
-        installBtn.style.display = "block";
+      if(outcome === "accepted"){
+        installBtn.style.display = "none";
+      }
+      deferredPrompt = null;
     }
-
+  });
 }
 
+function fecharFlyer(){
+  flyerModal.classList.remove("active");
+  mkBtn.style.display = "none";
+  document.getElementById("whatsapp-btn").style.display = "flex";
+
+  pixBox.style.display = "none";
+  bmcBox.style.display = "none";
+
+  if (!isPWA() && deferredPrompt) {
+    installBtn.style.display = "block";
+  }
+}
 
 /* 3. SOCIAL */
 function toggleBeatSocial() {
   const box = document.getElementById("beatSocial");
-  box.style.display =
-    box.style.display === "flex"
-      ? "none"
-      : "flex";
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
 }
 
 function copyBeatLink() {
-  navigator.clipboard
-    .writeText("https://beatapurado.github.io/radiobeatapurado/")
+  navigator.clipboard.writeText("https://beatapurado.github.io/radiobeatapurado/")
     .then(() => {
-      alert("Link copied! 🚀");
+      alert("Link copiado! 🚀");
     });
 }
 
 /* 4. SLIDER FLYERS */
 let flyerIndex = 0;
 const flyers = document.querySelectorAll(".flyer-container img");
-
 let flyerPaused = false;
 
 function trocarFlyer() {
   if (flyerPaused) return;
-
   if (flyers.length > 0) {
     flyers[flyerIndex].classList.remove("active");
-
     flyerIndex = (flyerIndex + 1) % flyers.length;
-
     flyers[flyerIndex].classList.add("active");
   }
 }
-
 setInterval(trocarFlyer, 6000);
 
-/* ====================================== */
 /* ZOOM FULLSCREEN DOS FLYERS */
-/* ====================================== */
-
 const flyerModal = document.getElementById("flyerModal");
 const flyerZoom = document.getElementById("flyerZoom");
 const closeFlyer = document.getElementById("closeFlyer");
 const mkBtn = document.getElementById("mkWhatsappBtn");
 
-
-/* WhatsApp_MK */
-mkBtn.addEventListener("click", () => {
-
-    window.open(
-        "https://wa.me/5511919364641?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento.",
-        "_blank"
-    );
-
-});
-
-
-/* ABRIR */
+if (mkBtn) {
+  mkBtn.addEventListener("click", () => {
+    window.open("https://wa.me/5511919364641?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento.", "_blank");
+  });
+}
 
 flyers.forEach(img => {
-
   img.addEventListener("click", () => {
-
-    // Flyer da MK abre o WhatsApp
-
-
-    // Demais flyers continuam abrindo em tela cheia
     flyerZoom.src = img.src;
-	
-
-if (img.src.includes("mk.png")){
-
-    mkBtn.style.display="inline-block";
-
-}else{
-
-    mkBtn.style.display="none";
-
-}
-    flyerModal.classList.add("active");
-	installBtn.style.display = "none";
-pixBox.style.display = "none";
-bmcBox.style.display = "none";
-document.getElementById("whatsapp-btn").style.display = "none";
-
-  });
-
-});
-
-/* FECHAR BOTÃO */
-
-closeFlyer.addEventListener("click", fecharFlyer);
-
-flyerModal.addEventListener("click",e=>{
-
-    if(e.target===flyerModal){
-
-        fecharFlyer();
-
+    if (img.src.includes("mk.png")){
+      mkBtn.style.display = "inline-block";
+    } else {
+      mkBtn.style.display = "none";
     }
-
+    flyerModal.classList.add("active");
+    installBtn.style.display = "none";
+    pixBox.style.display = "none";
+    bmcBox.style.display = "none";
+    document.getElementById("whatsapp-btn").style.display = "none";
+  });
 });
 
+if (closeFlyer) closeFlyer.addEventListener("click", fecharFlyer);
 
+if (flyerModal) {
+  flyerModal.addEventListener("click", e => {
+    if(e.target === flyerModal){
+      fecharFlyer();
+    }
+  });
+}
 
 /* BOTÃO PAUSAR */
 const toggleFlyerBtn = document.getElementById("toggleFlyer");
-
-toggleFlyerBtn.addEventListener("click", () => {
-
-  flyerPaused = !flyerPaused;
-
-if (flyerPaused) {
-
-  toggleFlyerBtn.innerHTML = "▶ CONTINUAR";
-  toggleFlyerBtn.style.background = "#ff00ff";
-  toggleFlyerBtn.style.color = "#fff";
-
-} else {
-
-  toggleFlyerBtn.innerHTML = "⏸ PAUSAR | STOP";
-  toggleFlyerBtn.style.background = "#39ff14";
-  toggleFlyerBtn.style.color = "#000";
-
+if (toggleFlyerBtn) {
+  toggleFlyerBtn.addEventListener("click", () => {
+    flyerPaused = !flyerPaused;
+    if (flyerPaused) {
+      toggleFlyerBtn.innerHTML = "▶ CONTINUAR";
+      toggleFlyerBtn.style.background = "#ff00ff";
+      toggleFlyerBtn.style.color = "#fff";
+    } else {
+      toggleFlyerBtn.innerHTML = "⏸ PAUSAR | STOP";
+      toggleFlyerBtn.style.background = "#39ff14";
+      toggleFlyerBtn.style.color = "#000";
+    }
+  });
 }
-});
 
-/* 5. PRODUTOS */
+/* 5. PRODUTOS (Ativado o Carrossel automaticamente) */
 const produtos = [
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",
-    link: "https://meli.la/1qQswxt"
-  },
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png",
-    link: "https://mercadolivre.com/sec/1J5NsnW"
-  },
-  
-   {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta06.png",
-    link: "https://meli.la/2JjcmJ8"
-  }, 
-
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png",
-    link: "https://meli.la/24zu96X"
-  },
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png",
-    link: "https://meli.la/1F3kSsp"
-  },
-  {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/touca.png",
-    link: "https://meli.la/2BcECX6"
-  },
-  
-    {
-    img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/fone.png",
-    link: "https://meli.la/21Bn5CW"
-  }
-  
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png", link: "https://meli.la/1qQswxt" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png", link: "https://mercadolivre.com/sec/1J5NsnW" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta06.png", link: "https://meli.la/2JjcmJ8" }, 
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png", link: "https://meli.la/24zu96X" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png", link: "https://meli.la/1F3kSsp" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/touca.png", link: "https://meli.la/2BcECX6" },
+  { img: "https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/fone.png", link: "https://meli.la/21Bn5CW" }
 ];
 
-
-
-
-
-
-
 let prodIdx = 0;
-
 function trocarProduto() {
   const p = produtos[prodIdx];
   const imgEl = document.getElementById("produto-img");
@@ -1248,13 +1159,9 @@ function trocarProduto() {
     prodIdx = (prodIdx + 1) % produtos.length;
   }
 }
-
-/* LOAD */
-window.addEventListener('load', () => {
-  syncDynamicInterface();
-  trocarProduto();
-  setInterval(trocarProduto, 3000);
-});
+// Inicializa o primeiro produto e roda a fila a cada 5 segundos
+trocarProduto();
+setInterval(trocarProduto, 5000);
 
 /* ===================================================== */
 /* PLAYER RADIO */
@@ -1266,44 +1173,48 @@ const eq = document.getElementById("eq");
 const volumeControl = document.getElementById("volumeControl");
 const statusPlayer = document.getElementById("statusPlayer");
 
-/* PLAY */
-playBtn.addEventListener("click", async () => {
-  try {
-    await audio.play();
-    eq.classList.add("playing");
-    statusPlayer.innerHTML = "● AO VIVO";
-    statusPlayer.style.color = "#39ff14";
+if (playBtn) {
+  playBtn.addEventListener("click", async () => {
+    try {
+      await audio.play();
+      eq.classList.add("playing");
+      statusPlayer.innerHTML = "● AO VIVO";
+      statusPlayer.style.color = "#39ff14";
 
-    // GOOGLE ANALYTICS
-    gtag('event', 'radio_play', {
-      event_category: 'Player',
-      event_label: 'Beat Apurado Radio',
-      value: 1
-    });
-  } catch (err) {
-    alert("Erro ao iniciar rádio");
-  }
-});
+      gtag('event', 'radio_play', {
+        event_category: 'Player',
+        event_label: 'Beat Apurado Radio',
+        value: 1
+      });
+    } catch (err) {
+      alert("Erro ao iniciar rádio");
+    }
+  });
+}
 
-/* PAUSE */
-pauseBtn.addEventListener("click", () => {
-  audio.pause();
-  eq.classList.remove("playing");
-  statusPlayer.innerHTML = "● PAUSADO";
-  statusPlayer.style.color = "#ff00ff";
-});
+if (pauseBtn) {
+  pauseBtn.addEventListener("click", () => {
+    audio.pause();
+    eq.classList.remove("playing");
+    statusPlayer.innerHTML = "● PAUSADO";
+    statusPlayer.style.color = "#ff00ff";
+  });
+}
 
-/* VOLUME */
-volumeControl.addEventListener("input", () => {
-  audio.volume = volumeControl.value;
-});
+if (volumeControl) {
+  volumeControl.addEventListener("input", () => {
+    audio.volume = volumeControl.value;
+  });
+}
 
 /* AUTO PLAY PRIMEIRO TOQUE */
 document.body.addEventListener("click", async () => {
   try {
-    await audio.play();
-    eq.classList.add("playing");
-    statusPlayer.innerHTML = "● AO VIVO";
+    if (audio.paused) {
+      await audio.play();
+      eq.classList.add("playing");
+      statusPlayer.innerHTML = "● AO VIVO";
+    }
   } catch (e) {}
 }, { once: true });
 
@@ -1312,7 +1223,7 @@ audio.addEventListener("error", () => {
   statusPlayer.innerHTML = "● RECONECTANDO...";
   setTimeout(() => {
     audio.load();
-    audio.play();
+    audio.play().catch(e => console.log("Erro ao reconectar"));
   }, 3000);
 });
 
@@ -1335,93 +1246,96 @@ let activeVideo = videoA;
 let nextVideo = videoB;
 let switching = false;
 
-/* CONFIG */
-[videoA, videoB].forEach(v => {
-  v.muted = true;
-  v.autoplay = true;
-  v.loop = false;
-  v.playsInline = true;
-  v.preload = "auto";
-  v.style.transform = "translateZ(0)";
-  v.style.backfaceVisibility = "hidden";
-  v.style.willChange = "opacity";
+if (videoA && videoB) {
+  [videoA, videoB].forEach(v => {
+    v.muted = true;
+    v.autoplay = true;
+    v.loop = false;
+    v.playsInline = true;
+    v.preload = "auto";
+    v.style.transform = "translateZ(0)";
+    v.style.backfaceVisibility = "hidden";
+    v.style.willChange = "opacity";
+  });
+
+  function loadVideo(video, src){
+    return new Promise((resolve) => {
+      video.src = src;
+      video.load();
+      video.oncanplaythrough = () => resolve();
+    });
+  }
+
+  async function startBackground(){
+    await loadVideo(activeVideo, playlist[currentIndex]);
+    try {
+      await activeVideo.play();
+      activeVideo.style.opacity = 1;
+      scheduleTransition();
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  function scheduleTransition(){
+    const duration = activeVideo.duration;
+    if(!duration || !isFinite(duration)){
+      setTimeout(scheduleTransition, 1000);
+      return;
+    }
+    const transitionPoint = (duration * 1000) - 2000;
+    setTimeout(() => {
+      switchBackground();
+    }, transitionPoint);
+  }
+
+  async function switchBackground(){
+    if(switching) return;
+    switching = true;
+    currentIndex = (currentIndex + 1) % playlist.length;
+    
+    const nextSrc = playlist[currentIndex];
+    await loadVideo(nextVideo, nextSrc);
+    nextVideo.currentTime = 0;
+
+    try {
+      await nextVideo.play();
+      nextVideo.style.opacity = 1;
+      activeVideo.style.opacity = 0;
+
+      setTimeout(() => {
+        activeVideo.pause();
+        activeVideo.removeAttribute("src");
+        activeVideo.load();
+
+        const temp = activeVideo;
+        activeVideo = nextVideo;
+        nextVideo = temp;
+
+        switching = false;
+        scheduleTransition();
+      }, 1400);
+    } catch(err){
+      console.log(err);
+      switching = false;
+    }
+  }
+
+  startBackground();
+}
+
+window.addEventListener("appinstalled", () => {
+    appInstalled = true;
+    deferredPrompt = null;
+    if (installBtn) installBtn.style.display = "none";
 });
 
-/* CARREGA VÍDEO */
-function loadVideo(video, src){
-  return new Promise((resolve) => {
-    video.src = src;
-    video.load();
-    video.oncanplaythrough = () => {
-      resolve();
-    };
-  });
-}
+// Inicializa a validação de região geoip
+syncDynamicInterface();
 
-/* START */
-async function startBackground(){
-  await loadVideo(activeVideo, playlist[currentIndex]);
-  try {
-    await activeVideo.play();
-    activeVideo.style.opacity = 1;
-    scheduleTransition();
-  } catch(err){
-    console.log(err);
-  }
-}
-
-/* AGENDA TROCA */
-function scheduleTransition(){
-  const duration = activeVideo.duration;
-  if(!duration || !isFinite(duration)){
-    setTimeout(scheduleTransition, 1000);
-    return;
-  }
-  const transitionPoint = (duration * 1000) - 2000;
-  setTimeout(() => {
-    switchBackground();
-  }, transitionPoint);
-}
-
-/* TROCA SUAVE */
-async function switchBackground(){
-  if(switching) return;
-  switching = true;
-  currentIndex++;
-  if(currentIndex >= playlist.length){
-    currentIndex = 0;
-  }
-  const nextSrc = playlist[currentIndex];
-  await loadVideo(nextVideo, nextSrc);
-  nextVideo.currentTime = 0;
-
-  try {
-    await nextVideo.play();
-    /* CROSSFADE */
-    nextVideo.style.opacity = 1;
-    activeVideo.style.opacity = 0;
-
-    /* ESPERA TRANSIÇÃO */
-    setTimeout(() => {
-      activeVideo.pause();
-      activeVideo.removeAttribute("src");
-      activeVideo.load();
-
-      const temp = activeVideo;
-      activeVideo = nextVideo;
-      nextVideo = temp;
-
-      switching = false;
-      scheduleTransition();
-    }, 1400);
-  } catch(err){
-    console.log(err);
-    switching = false;
-  }
-}
-
-/* START */
-startBackground();
 </script>
+
+
 </body>
+
 </html>
