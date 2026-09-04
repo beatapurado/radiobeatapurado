@@ -1,13 +1,13 @@
 /* PRODUTOS — carrossel + fullscreen + navegação manual + comprar */
 const produtos=[
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/boina.png",link:"https://meli.la/1qQswxt"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/bone01.png",link:"https://mercadolivre.com/sec/1J5NsnW"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta06.png",link:"https://meli.la/2JjcmJ8"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta01.png",link:"https://meli.la/24zu96X"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta04.png",link:"https://meli.la/1F3kSsp"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/touca.png",link:"https://meli.la/2BcECX6"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/camiseta_beat_apurado.png",link:"https://www.stickermule.com/br/beatapurado/item/20534691?origin=PUBLIC_PROFILE"},
- {img:"https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/fone.png",link:"https://meli.la/21Bn5CW"}
+ {img:"./img/boina.png",link:"https://meli.la/1qQswxt"},
+ {img:"./img/bone01.png",link:"https://mercadolivre.com/sec/1J5NsnW"},
+ {img:"./img/camiseta06.png",link:"https://meli.la/2JjcmJ8"},
+ {img:"./img/camiseta01.png",link:"https://meli.la/24zu96X"},
+ {img:"./img/camiseta04.png",link:"https://meli.la/1F3kSsp"},
+ {img:"./img/touca.png",link:"https://meli.la/2BcECX6"},
+ {img:"./img/camiseta_beat_apurado.png",link:"https://www.stickermule.com/br/beatapurado/item/20534691?origin=PUBLIC_PROFILE"},
+ {img:"./img/fone.png",link:"https://meli.la/21Bn5CW"}
 ];
 let prodIdx=0;
 const productImg=document.getElementById("produto-img");
