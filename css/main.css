@@ -46,7 +46,7 @@ section{background:rgba(10,10,20,.90);padding:25px;border-radius:18px;box-shadow
 h2{color:#7cff7c;text-align:center}
 
 .player-bg{position:relative;overflow:hidden}
-.player-bg::before{content:"";position:absolute;inset:0;background:url('https://raw.githubusercontent.com/beatapurado/radiobeatapurado/main/uni.png') center/cover no-repeat;opacity:.25;z-index:0}
+.player-bg::before{content:"";position:absolute;inset:0;background:url('../img/uni.png') center/cover no-repeat;opacity:.25;z-index:0}
 .player-bg>*{position:relative;z-index:1}
 
 .beat-player{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;background:rgba(0,0,0,.52);padding:25px;border-radius:25px}
@@ -160,3 +160,192 @@ footer{position:relative;z-index:1;text-align:center;padding:20px;background:rgb
 #pix-float .pix-key-label{margin-top:7px;color:#fff;font-size:.62rem}
 #pix-float .pix-key{margin-top:2px;color:#fff;font-size:.62rem;letter-spacing:0;white-space:nowrap}
 @media(max-width:420px){#pix-float .pix-key-label,#pix-float .pix-key{font-size:.56rem}}
+
+
+/* ==========================================================
+   BEAT CHAT
+   ========================================================== */
+
+.beat-chat{
+  max-width:900px;
+  margin:0 auto;
+  background:rgba(0,0,0,.88);
+  border:1px solid rgba(57,255,20,.35);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 0 25px rgba(57,255,20,.12);
+}
+
+.beat-chat-auth{
+  padding:18px;
+  border-bottom:1px solid rgba(57,255,20,.18);
+}
+
+.beat-chat-auth p{
+  margin:0 0 12px;
+}
+
+.beat-chat-google,
+.beat-chat-logout,
+#beatChatSend{
+  border:1px solid #39ff14;
+  background:#020502;
+  color:#39ff14;
+  border-radius:999px;
+  padding:10px 18px;
+  font:inherit;
+  cursor:pointer;
+}
+
+.beat-chat-google:hover,
+.beat-chat-logout:hover,
+#beatChatSend:hover{
+  background:#39ff14;
+  color:#000;
+}
+
+.beat-chat-user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.beat-chat-user > div{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.beat-chat-user span{
+  opacity:.65;
+  font-size:.8rem;
+}
+
+.beat-chat-avatar{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #39ff14;
+}
+
+.beat-chat-messages{
+  height:420px;
+  overflow-y:auto;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.beat-chat-empty{
+  text-align:center;
+  opacity:.6;
+  margin:auto;
+}
+
+.beat-chat-message{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+
+.beat-chat-message.mine{
+  flex-direction:row-reverse;
+}
+
+.beat-message-avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  object-fit:cover;
+  flex:0 0 38px;
+}
+
+.beat-message-avatar.fallback{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#111;
+}
+
+.beat-message-body{
+  max-width:75%;
+  background:#101210;
+  border:1px solid rgba(57,255,20,.22);
+  padding:10px 13px;
+  border-radius:5px 15px 15px 15px;
+}
+
+.beat-chat-message.mine .beat-message-body{
+  background:rgba(57,255,20,.08);
+  border-radius:15px 5px 15px 15px;
+}
+
+.beat-message-meta{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:5px;
+}
+
+.beat-message-meta strong{
+  color:#39ff14;
+  font-size:.82rem;
+}
+
+.beat-message-meta span{
+  opacity:.45;
+  font-size:.7rem;
+}
+
+.beat-message-text{
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+
+.beat-chat-form{
+  border-top:1px solid rgba(57,255,20,.18);
+  padding:15px;
+  display:flex;
+  gap:10px;
+}
+
+#beatChatInput{
+  flex:1;
+  min-width:0;
+  background:#050705;
+  color:#fff;
+  border:1px solid rgba(57,255,20,.35);
+  border-radius:999px;
+  padding:12px 17px;
+  outline:none;
+}
+
+#beatChatInput:focus{
+  border-color:#39ff14;
+  box-shadow:0 0 12px rgba(57,255,20,.15);
+}
+
+#beatChatInput:disabled,
+#beatChatSend:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+@media(max-width:600px){
+
+  .beat-chat-messages{
+    height:350px;
+    padding:12px;
+  }
+
+  .beat-message-body{
+    max-width:82%;
+  }
+
+  .beat-chat-form{
+    flex-direction:column;
+  }
+
+}
