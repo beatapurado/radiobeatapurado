@@ -333,6 +333,83 @@ footer{position:relative;z-index:1;text-align:center;padding:20px;background:rgb
   cursor:not-allowed;
 }
 
+
+/* BUILD 002 — Emoji picker do Beat Chat */
+.beat-chat-emoji-wrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  flex:0 0 auto;
+}
+
+.beat-chat-emoji-button{
+  width:46px;
+  height:46px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(57,255,20,.35);
+  background:#050705;
+  color:#fff;
+  border-radius:50%;
+  font:inherit;
+  font-size:1.25rem;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.beat-chat-emoji-button:hover:not(:disabled){
+  border-color:#39ff14;
+  box-shadow:0 0 12px rgba(57,255,20,.18);
+  transform:scale(1.04);
+}
+
+.beat-chat-emoji-button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.beat-chat-emoji-panel{
+  position:absolute;
+  left:0;
+  bottom:calc(100% + 10px);
+  z-index:100;
+  width:min(310px,82vw);
+  padding:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  background:rgba(3,7,3,.98);
+  border:1px solid rgba(57,255,20,.45);
+  border-radius:14px;
+  box-shadow:0 12px 30px rgba(0,0,0,.55),0 0 18px rgba(57,255,20,.10);
+}
+
+.beat-chat-emoji-panel[hidden]{
+  display:none!important;
+}
+
+.beat-chat-emoji-panel button{
+  width:40px;
+  height:40px;
+  padding:0;
+  border:1px solid rgba(57,255,20,.22);
+  border-radius:10px;
+  background:#0d120d;
+  color:#fff;
+  font:inherit;
+  font-size:1.2rem;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.beat-chat-emoji-panel button:hover{
+  border-color:#39ff14;
+  background:rgba(57,255,20,.10);
+  transform:translateY(-1px);
+}
+
 @media(max-width:600px){
 
   .beat-chat-messages{
@@ -346,6 +423,15 @@ footer{position:relative;z-index:1;text-align:center;padding:20px;background:rgb
 
   .beat-chat-form{
     flex-direction:column;
+  }
+
+  .beat-chat-emoji-wrap{
+    width:100%;
+  }
+
+  .beat-chat-emoji-panel{
+    left:0;
+    width:min(310px,calc(100vw - 54px));
   }
 
 }
