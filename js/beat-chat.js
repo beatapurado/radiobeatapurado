@@ -52,6 +52,12 @@
   const sendBtn =
     document.getElementById('beatChatSend');
 
+  const emojiBtn =
+    document.getElementById('beatChatEmoji');
+
+  const emojiPanel =
+    document.getElementById('beatChatEmojiPanel');
+
   if (!messagesEl || !form) return;
 
   let currentUser = null;
@@ -161,6 +167,53 @@
 
     messagesEl.scrollTop =
       messagesEl.scrollHeight;
+  }
+
+
+  function updateEmojiLanguage() {
+
+    if (!emojiBtn) return;
+
+    const label = t(
+      'beatChatEmojiTitle',
+      'Emojis da Nave'
+    );
+
+    emojiBtn.title = label;
+    emojiBtn.setAttribute('aria-label', label);
+  }
+
+
+  function insertEmoji(emoji) {
+
+    if (!input || input.disabled || !emoji) return;
+
+    const start =
+      input.selectionStart ?? input.value.length;
+
+    const end =
+      input.selectionEnd ?? start;
+
+    const nextValue =
+      input.value.slice(0, start) +
+      emoji +
+      input.value.slice(end);
+
+    const maxLength =
+      Number(input.maxLength) || 500;
+
+    if (nextValue.length > maxLength) return;
+
+    input.value = nextValue;
+
+    const nextCursor =
+      start + emoji.length;
+
+    input.focus();
+    input.setSelectionRange(
+      nextCursor,
+      nextCursor
+    );
   }
 
 
@@ -331,6 +384,10 @@
       input.disabled = false;
       sendBtn.disabled = false;
 
+      if (emojiBtn) {
+        emojiBtn.disabled = false;
+      }
+
       input.placeholder = t(
         'beatChatPlaceholder',
         'Digite sua mensagem para a nave...'
@@ -343,6 +400,14 @@
 
       input.disabled = true;
       sendBtn.disabled = true;
+
+      if (emojiBtn) {
+        emojiBtn.disabled = true;
+      }
+
+      if (emojiPanel) {
+        emojiPanel.hidden = true;
+      }
 
       input.placeholder = t(
         'beatChatPlaceholderGuest',
@@ -484,6 +549,71 @@
   );
 
 
+  emojiBtn?.addEventListener(
+    'click',
+    event => {
+
+      event.stopPropagation();
+
+      if (emojiBtn.disabled || !emojiPanel) return;
+
+      emojiPanel.hidden =
+        !emojiPanel.hidden;
+    }
+  );
+
+
+  emojiPanel?.addEventListener(
+    'click',
+    event => {
+
+      const button =
+        event.target.closest('[data-emoji]');
+
+      if (!button) return;
+
+      insertEmoji(
+        button.dataset.emoji
+      );
+
+      emojiPanel.hidden = true;
+    }
+  );
+
+
+  document.addEventListener(
+    'click',
+    event => {
+
+      if (
+        !emojiPanel ||
+        emojiPanel.hidden
+      ) return;
+
+      if (
+        emojiPanel.contains(event.target) ||
+        emojiBtn?.contains(event.target)
+      ) return;
+
+      emojiPanel.hidden = true;
+    }
+  );
+
+
+  document.addEventListener(
+    'keydown',
+    event => {
+
+      if (
+        event.key === 'Escape' &&
+        emojiPanel
+      ) {
+        emojiPanel.hidden = true;
+      }
+    }
+  );
+
+
   /* ============================================================
      AUTH STATE
      ============================================================ */
@@ -545,6 +675,8 @@
         currentUser
       );
 
+      updateEmojiLanguage();
+
       loadMessages();
     }
   );
@@ -564,6 +696,8 @@
     updateAuthUI(
       session?.user || null
     );
+
+    updateEmojiLanguage();
 
     await loadMessages();
   }
