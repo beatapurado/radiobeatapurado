@@ -119,8 +119,73 @@
     <div class="produto-hint" data-i18n="productHint">👆 Clique no produto para ampliar e comprar</div>
   </div>
 </section>
+<!-- BEAT CHAT -->
+<section id="chat">
+  <h2 data-i18n="chatHeading">👽💬 Beat Chat</h2>
 
-<section id="chat"><h2 data-i18n="chatHeading">💬 Chat</h2><iframe class="chat-frame" src="https://tlk.io/beatapurado" title="Chat Beat Apurado"></iframe></section>
+  <div class="beat-chat" id="beatChat">
+
+    <div class="beat-chat-auth" id="beatChatAuth">
+      <div id="beatChatLoggedOut">
+        <p>Entre com Google para participar da transmissão.</p>
+
+        <button type="button"
+                class="beat-chat-google"
+                id="beatChatLogin">
+          <i class="fab fa-google"></i>
+          Entrar com Google
+        </button>
+      </div>
+
+      <div id="beatChatLoggedIn" hidden>
+        <div class="beat-chat-user">
+          <img id="beatChatAvatar"
+               class="beat-chat-avatar"
+               alt="Avatar">
+
+          <div>
+            <strong id="beatChatUserName"></strong>
+            <span>Conectado ao Beat Chat 👽</span>
+          </div>
+
+          <button type="button"
+                  id="beatChatLogout"
+                  class="beat-chat-logout">
+            Sair
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat-chat-messages"
+         id="beatChatMessages">
+
+      <div class="beat-chat-empty">
+        🛸 Carregando transmissões da galáxia...
+      </div>
+
+    </div>
+
+    <form class="beat-chat-form"
+          id="beatChatForm">
+
+      <input type="text"
+             id="beatChatInput"
+             maxlength="500"
+             autocomplete="off"
+             placeholder="Entre com Google para enviar mensagem..."
+             disabled>
+
+      <button type="submit"
+              id="beatChatSend"
+              disabled>
+        Enviar 🚀
+      </button>
+
+    </form>
+
+  </div>
+</section>
 </div>
 
 
@@ -159,12 +224,14 @@
   <a id="productBuyModal" class="modal-action" href="#" target="_blank" rel="noopener" data-i18n="buy">👉 Comprar</a>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/i18n.js?v=005" defer></script>
 <script src="js/app.js?v=005-prod" defer></script>
 <script src="js/flyers.js?v=005" defer></script>
 <script src="js/products.js?v=005-pathfix1" defer></script>
 <script src="js/player.js?v=005" defer></script>
 <script src="js/dj-live.js?v=006-dj-live" defer></script>
+<script src="js/beat-chat.js?v=001" defer></script>
 <script src="js/background.js?v=005-pathfix1" defer></script>
 </body>
 </html>
