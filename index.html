@@ -119,71 +119,68 @@
     <div class="produto-hint" data-i18n="productHint">👆 Clique no produto para ampliar e comprar</div>
   </div>
 </section>
-<!-- BEAT CHAT -->
+<!-- BEAT CHAT — BUILD 002 -->
 <section id="chat">
   <h2 data-i18n="chatHeading">👽💬 Beat Chat</h2>
 
   <div class="beat-chat" id="beatChat">
-
     <div class="beat-chat-auth" id="beatChatAuth">
       <div id="beatChatLoggedOut">
-        <p>Entre com Google para participar da transmissão.</p>
+        <p data-i18n="beatChatLoginText">Entre com Google para participar da transmissão.</p>
 
-        <button type="button"
-                class="beat-chat-google"
-                id="beatChatLogin">
+        <button type="button" class="beat-chat-google" id="beatChatLogin">
           <i class="fab fa-google"></i>
-          Entrar com Google
+          <span data-i18n="beatChatLogin">Entrar com Google</span>
         </button>
       </div>
 
       <div id="beatChatLoggedIn" hidden>
         <div class="beat-chat-user">
-          <img id="beatChatAvatar"
-               class="beat-chat-avatar"
-               alt="Avatar">
+          <img id="beatChatAvatar" class="beat-chat-avatar" alt="Avatar">
 
           <div>
             <strong id="beatChatUserName"></strong>
-            <span>Conectado ao Beat Chat 👽</span>
+            <span data-i18n="beatChatConnected">Conectado ao Beat Chat 👽</span>
           </div>
 
-          <button type="button"
-                  id="beatChatLogout"
-                  class="beat-chat-logout">
-            Sair
-          </button>
+          <button type="button" id="beatChatLogout" class="beat-chat-logout" data-i18n="beatChatLogout">Sair</button>
         </div>
       </div>
     </div>
 
-    <div class="beat-chat-messages"
-         id="beatChatMessages">
-
-      <div class="beat-chat-empty">
-        🛸 Carregando transmissões da galáxia...
-      </div>
-
+    <div class="beat-chat-messages" id="beatChatMessages">
+      <div class="beat-chat-empty" data-i18n="beatChatLoading">🛸 Carregando transmissões da galáxia...</div>
     </div>
 
-    <form class="beat-chat-form"
-          id="beatChatForm">
+    <form class="beat-chat-form" id="beatChatForm">
+      <div class="beat-chat-emoji-wrap">
+        <button type="button" id="beatChatEmoji" class="beat-chat-emoji-button" title="Emojis da Nave" aria-label="Emojis da Nave">😀</button>
 
-      <input type="text"
-             id="beatChatInput"
-             maxlength="500"
-             autocomplete="off"
-             placeholder="Entre com Google para enviar mensagem..."
-             disabled>
+        <div id="beatChatEmojiPanel" class="beat-chat-emoji-panel" hidden>
+          <button type="button" data-emoji="👽">👽</button>
+          <button type="button" data-emoji="🛸">🛸</button>
+          <button type="button" data-emoji="🖖🏽">🖖🏽</button>
+          <button type="button" data-emoji="🎧">🎧</button>
+          <button type="button" data-emoji="🎤">🎤</button>
+          <button type="button" data-emoji="🎶">🎶</button>
+          <button type="button" data-emoji="🔥">🔥</button>
+          <button type="button" data-emoji="💚">💚</button>
+          <button type="button" data-emoji="✊🏽">✊🏽</button>
+          <button type="button" data-emoji="🚀">🚀</button>
+          <button type="button" data-emoji="💿">💿</button>
+          <button type="button" data-emoji="📻">📻</button>
+          <button type="button" data-emoji="🔊">🔊</button>
+          <button type="button" data-emoji="❤️">❤️</button>
+          <button type="button" data-emoji="😂">😂</button>
+          <button type="button" data-emoji="👏🏽">👏🏽</button>
+          <button type="button" data-emoji="🙌🏽">🙌🏽</button>
+        </div>
+      </div>
 
-      <button type="submit"
-              id="beatChatSend"
-              disabled>
-        Enviar 🚀
-      </button>
+      <input type="text" id="beatChatInput" maxlength="500" autocomplete="off" placeholder="Entre com Google para enviar mensagem..." disabled>
 
+      <button type="submit" id="beatChatSend" data-i18n="beatChatSend" disabled>Enviar 🚀</button>
     </form>
-
   </div>
 </section>
 </div>
@@ -231,7 +228,7 @@
 <script src="js/products.js?v=005-pathfix1" defer></script>
 <script src="js/player.js?v=005" defer></script>
 <script src="js/dj-live.js?v=006-dj-live" defer></script>
-<script src="js/beat-chat.js?v=001" defer></script>
+<script src="js/beat-chat.js?v=002" defer></script>
 <script src="js/background.js?v=005-pathfix1" defer></script>
 </body>
 </html>
