@@ -1,7 +1,7 @@
 /* ============================================================
    BEAT APURADO RADIO
-   BEAT CHAT — BUILD 001
-   Google Auth + Supabase Realtime
+   BEAT CHAT — BUILD 002
+   Google Auth + Supabase Realtime + i18n
    ============================================================ */
 
 (() => {
@@ -56,15 +56,64 @@
 
   let currentUser = null;
 
-  function escapeHtml(value = '') {
-    return value.replace(/[&<>"']/g, char => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;'
-    })[char]);
+
+  /* ============================================================
+     TRADUÇÕES
+     ============================================================ */
+
+  function t(key, fallback = '') {
+
+    const value =
+      window.BeatI18n?.t?.(key);
+
+    return (
+      !value ||
+      value === key
+    )
+      ? fallback
+      : value;
   }
+
+
+  function currentLocale() {
+
+    const lang =
+      document.documentElement.lang ||
+      'pt-BR';
+
+    const locales = {
+      'pt-BR': 'pt-BR',
+      'pt': 'pt-BR',
+      'en': 'en-US',
+      'en-US': 'en-US',
+      'es': 'es-ES',
+      'es-ES': 'es-ES',
+      'ja': 'ja-JP',
+      'ja-JP': 'ja-JP'
+    };
+
+    return locales[lang] || lang;
+  }
+
+
+  /* ============================================================
+     UTILITÁRIOS
+     ============================================================ */
+
+  function escapeHtml(value = '') {
+
+    return value.replace(
+      /[&<>"']/g,
+      char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      })[char]
+    );
+  }
+
 
   function getDisplayName(user) {
 
@@ -74,8 +123,8 @@
       user?.email?.split('@')[0] ||
       'Terráqueo'
     );
-
   }
+
 
   function getAvatar(user) {
 
@@ -84,35 +133,40 @@
       user?.user_metadata?.picture ||
       ''
     );
-
   }
+
 
   function formatTime(dateString) {
 
     try {
 
       return new Intl.DateTimeFormat(
-        'pt-BR',
+        currentLocale(),
         {
           hour: '2-digit',
           minute: '2-digit'
         }
-      ).format(new Date(dateString));
+      ).format(
+        new Date(dateString)
+      );
 
     } catch {
 
       return '';
-
     }
-
   }
+
 
   function scrollChat() {
 
     messagesEl.scrollTop =
       messagesEl.scrollHeight;
-
   }
+
+
+  /* ============================================================
+     RENDERIZAÇÃO DAS MENSAGENS
+     ============================================================ */
 
   function renderMessage(message) {
 
@@ -120,7 +174,9 @@
       document.getElementById(
         `beat-message-${message.id}`
       )
-    ) return;
+    ) {
+      return;
+    }
 
     const mine =
       currentUser &&
@@ -137,11 +193,19 @@
 
     const avatar =
       message.user_avatar
-        ? `<img
-             src="${escapeHtml(message.user_avatar)}"
-             class="beat-message-avatar"
-             alt="">`
-        : `<div class="beat-message-avatar fallback">👽</div>`;
+        ? `
+          <img
+            src="${escapeHtml(message.user_avatar)}"
+            class="beat-message-avatar"
+            alt=""
+          >
+        `
+        : `
+          <div
+            class="beat-message-avatar fallback">
+            👽
+          </div>
+        `;
 
     wrapper.innerHTML = `
       ${avatar}
@@ -149,8 +213,15 @@
       <div class="beat-message-body">
 
         <div class="beat-message-meta">
-          <strong>${escapeHtml(message.user_name)}</strong>
-          <span>${formatTime(message.created_at)}</span>
+
+          <strong>
+            ${escapeHtml(message.user_name)}
+          </strong>
+
+          <span>
+            ${formatTime(message.created_at)}
+          </span>
+
         </div>
 
         <div class="beat-message-text">
@@ -161,8 +232,12 @@
     `;
 
     messagesEl.appendChild(wrapper);
-
   }
+
+
+  /* ============================================================
+     CARREGAR MENSAGENS
+     ============================================================ */
 
   async function loadMessages() {
 
@@ -170,9 +245,12 @@
       await client
         .from('beat_chat_messages')
         .select('*')
-        .order('created_at', {
-          ascending: true
-        })
+        .order(
+          'created_at',
+          {
+            ascending: true
+          }
+        )
         .limit(100);
 
     if (error) {
@@ -184,7 +262,10 @@
 
       messagesEl.innerHTML = `
         <div class="beat-chat-empty">
-          👽 Não foi possível carregar o Beat Chat.
+          ${t(
+            'beatChatLoadError',
+            '👽 Não foi possível carregar o Beat Chat.'
+          )}
         </div>
       `;
 
@@ -200,8 +281,10 @@
           class="beat-chat-empty"
           id="beatChatEmpty">
 
-          👽 Seja o primeiro terráqueo
-          a mandar uma mensagem.
+          ${t(
+            'beatChatEmpty',
+            '👽 Seja o primeiro terráqueo a mandar uma mensagem.'
+          )}
 
         </div>
       `;
@@ -212,12 +295,17 @@
     data.forEach(renderMessage);
 
     scrollChat();
-
   }
+
+
+  /* ============================================================
+     INTERFACE DE AUTENTICAÇÃO
+     ============================================================ */
 
   function updateAuthUI(user) {
 
-    currentUser = user || null;
+    currentUser =
+      user || null;
 
     if (currentUser) {
 
@@ -238,14 +326,15 @@
       } else {
 
         avatarEl.hidden = true;
-
       }
 
       input.disabled = false;
       sendBtn.disabled = false;
 
-      input.placeholder =
-        'Digite sua mensagem para a nave...';
+      input.placeholder = t(
+        'beatChatPlaceholder',
+        'Digite sua mensagem para a nave...'
+      );
 
     } else {
 
@@ -255,12 +344,17 @@
       input.disabled = true;
       sendBtn.disabled = true;
 
-      input.placeholder =
-        'Entre com Google para enviar mensagem...';
-
+      input.placeholder = t(
+        'beatChatPlaceholderGuest',
+        'Entre com Google para enviar mensagem...'
+      );
     }
-
   }
+
+
+  /* ============================================================
+     LOGIN GOOGLE
+     ============================================================ */
 
   async function loginGoogle() {
 
@@ -269,11 +363,13 @@
 
     const { error } =
       await client.auth.signInWithOAuth({
+
         provider: 'google',
 
         options: {
           redirectTo
         }
+
       });
 
     if (error) {
@@ -284,18 +380,28 @@
       );
 
       alert(
-        'Não foi possível entrar com Google.'
+        t(
+          'beatChatLoginError',
+          'Não foi possível entrar com Google.'
+        )
       );
-
     }
-
   }
+
+
+  /* ============================================================
+     LOGOUT
+     ============================================================ */
 
   async function logout() {
 
     await client.auth.signOut();
-
   }
+
+
+  /* ============================================================
+     ENVIAR MENSAGEM
+     ============================================================ */
 
   async function sendMessage(event) {
 
@@ -324,7 +430,6 @@
         getAvatar(currentUser),
 
       message
-
     };
 
     const { error } =
@@ -341,29 +446,47 @@
         error
       );
 
-      return;
+      alert(
+        t(
+          'beatChatSendError',
+          'Não foi possível enviar sua mensagem.'
+        )
+      );
 
+      return;
     }
 
     input.value = '';
-    input.focus();
 
+    input.focus();
   }
+
+
+  /* ============================================================
+     EVENTOS
+     ============================================================ */
 
   loginBtn?.addEventListener(
     'click',
     loginGoogle
   );
 
+
   logoutBtn?.addEventListener(
     'click',
     logout
   );
 
+
   form.addEventListener(
     'submit',
     sendMessage
   );
+
+
+  /* ============================================================
+     AUTH STATE
+     ============================================================ */
 
   client.auth.onAuthStateChange(
     (event, session) => {
@@ -373,9 +496,13 @@
       );
 
       loadMessages();
-
     }
   );
+
+
+  /* ============================================================
+     SUPABASE REALTIME
+     ============================================================ */
 
   client
     .channel('beat-chat-live')
@@ -396,13 +523,36 @@
 
         empty?.remove();
 
-        renderMessage(payload.new);
+        renderMessage(
+          payload.new
+        );
 
         scrollChat();
-
       }
     )
     .subscribe();
+
+
+  /* ============================================================
+     TROCA DE IDIOMA
+     ============================================================ */
+
+  window.addEventListener(
+    'beat-language-changed',
+    () => {
+
+      updateAuthUI(
+        currentUser
+      );
+
+      loadMessages();
+    }
+  );
+
+
+  /* ============================================================
+     INICIALIZAÇÃO
+     ============================================================ */
 
   async function init() {
 
@@ -416,8 +566,8 @@
     );
 
     await loadMessages();
-
   }
+
 
   init();
 
