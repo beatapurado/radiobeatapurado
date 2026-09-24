@@ -1,6 +1,6 @@
 /* ============================================================
    BEAT APURADO RADIO
-   BEAT CHAT — BUILD 003.7 FIXED — EMOJI BRIDGE
+   BEAT CHAT — BUILD 003.7 — EMOJI BRIDGE
    Google Auth + Supabase Realtime + i18n
    ============================================================ */
 
@@ -9,18 +9,31 @@
   const SUPABASE_URL =
     'https://qsxtulxbgdlodcwdsgle.supabase.co';
 
+  /*
+    IMPORTANTE:
+    mantenha aqui a MESMA SUPABASE_KEY (anon/publishable)
+    que já existia no seu arquivo original.
+  */
   const SUPABASE_KEY =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzeHR1bHhiZ2Rsb2Rjd2RzZ2xlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5MDcxMDMsImV4cCI6MjA3ODQ4MzEwM30.87mcKSYBZxcgzMWVQGrevuVd1yEBV400_Y7wgfj6uMc';
 
   if (!window.supabase) {
-    console.error('[Beat Chat] Biblioteca Supabase não carregada.');
+    console.error(
+      '[Beat Chat] Biblioteca Supabase não carregada.'
+    );
     return;
   }
 
-  const client = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  const client =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  /* ============================================================
+     ELEMENTOS
+     ============================================================ */
 
   const messagesEl =
     document.getElementById('beatChatMessages');
@@ -183,19 +196,33 @@
     );
 
     emojiBtn.title = label;
-    emojiBtn.setAttribute('aria-label', label);
+
+    emojiBtn.setAttribute(
+      'aria-label',
+      label
+    );
   }
 
 
+  /* ============================================================
+     INSERIR EMOJI NO CAMPO
+     ============================================================ */
+
   function insertEmoji(emoji) {
 
-    if (!input || input.disabled || !emoji) return;
+    if (
+      !input ||
+      input.disabled ||
+      !emoji
+    ) return;
 
     const start =
-      input.selectionStart ?? input.value.length;
+      input.selectionStart ??
+      input.value.length;
 
     const end =
-      input.selectionEnd ?? start;
+      input.selectionEnd ??
+      start;
 
     const nextValue =
       input.value.slice(0, start) +
@@ -205,14 +232,20 @@
     const maxLength =
       Number(input.maxLength) || 500;
 
-    if (nextValue.length > maxLength) return;
+    if (
+      nextValue.length >
+      maxLength
+    ) return;
 
-    input.value = nextValue;
+    input.value =
+      nextValue;
 
     const nextCursor =
-      start + emoji.length;
+      start +
+      emoji.length;
 
     input.focus();
+
     input.setSelectionRange(
       nextCursor,
       nextCursor
@@ -236,13 +269,16 @@
 
     const mine =
       currentUser &&
-      currentUser.id === message.user_id;
+      currentUser.id ===
+        message.user_id;
 
     const wrapper =
       document.createElement('div');
 
     wrapper.className =
-      `beat-chat-message${mine ? ' mine' : ''}`;
+      `beat-chat-message${
+        mine ? ' mine' : ''
+      }`;
 
     wrapper.id =
       `beat-message-${message.id}`;
@@ -251,14 +287,17 @@
       message.user_avatar
         ? `
           <img
-            src="${escapeHtml(message.user_avatar)}"
+            src="${escapeHtml(
+              message.user_avatar
+            )}"
             class="beat-message-avatar"
             alt=""
           >
         `
         : `
           <div
-            class="beat-message-avatar fallback">
+            class="beat-message-avatar fallback"
+          >
             👽
           </div>
         `;
@@ -271,23 +310,31 @@
         <div class="beat-message-meta">
 
           <strong>
-            ${escapeHtml(message.user_name)}
+            ${escapeHtml(
+              message.user_name
+            )}
           </strong>
 
           <span>
-            ${formatTime(message.created_at)}
+            ${formatTime(
+              message.created_at
+            )}
           </span>
 
         </div>
 
         <div class="beat-message-text">
-          ${escapeHtml(message.message)}
+          ${escapeHtml(
+            message.message
+          )}
         </div>
 
       </div>
     `;
 
-    messagesEl.appendChild(wrapper);
+    messagesEl.appendChild(
+      wrapper
+    );
   }
 
 
@@ -299,7 +346,9 @@
 
     const { data, error } =
       await client
-        .from('beat_chat_messages')
+        .from(
+          'beat_chat_messages'
+        )
         .select('*')
         .order(
           'created_at',
@@ -335,7 +384,8 @@
       messagesEl.innerHTML = `
         <div
           class="beat-chat-empty"
-          id="beatChatEmpty">
+          id="beatChatEmpty"
+        >
 
           ${t(
             'beatChatEmpty',
@@ -348,7 +398,9 @@
       return;
     }
 
-    data.forEach(renderMessage);
+    data.forEach(
+      renderMessage
+    );
 
     scrollChat();
   }
@@ -369,53 +421,75 @@
       loggedIn.hidden = false;
 
       userNameEl.textContent =
-        getDisplayName(currentUser);
+        getDisplayName(
+          currentUser
+        );
 
       const avatar =
-        getAvatar(currentUser);
+        getAvatar(
+          currentUser
+        );
 
       if (avatar) {
 
-        avatarEl.src = avatar;
-        avatarEl.hidden = false;
+        avatarEl.src =
+          avatar;
+
+        avatarEl.hidden =
+          false;
 
       } else {
 
-        avatarEl.hidden = true;
+        avatarEl.hidden =
+          true;
       }
 
-      input.disabled = false;
-      sendBtn.disabled = false;
+      input.disabled =
+        false;
+
+      sendBtn.disabled =
+        false;
 
       if (emojiBtn) {
-        emojiBtn.disabled = false;
+        emojiBtn.disabled =
+          false;
       }
 
-      input.placeholder = t(
-        'beatChatPlaceholder',
-        'Digite sua mensagem para a nave...'
-      );
+      input.placeholder =
+        t(
+          'beatChatPlaceholder',
+          'Digite sua mensagem para a nave...'
+        );
 
     } else {
 
-      loggedOut.hidden = false;
-      loggedIn.hidden = true;
+      loggedOut.hidden =
+        false;
 
-      input.disabled = true;
-      sendBtn.disabled = true;
+      loggedIn.hidden =
+        true;
+
+      input.disabled =
+        true;
+
+      sendBtn.disabled =
+        true;
 
       if (emojiBtn) {
-        emojiBtn.disabled = true;
+        emojiBtn.disabled =
+          true;
       }
 
       if (emojiPanel) {
-        emojiPanel.hidden = true;
+        emojiPanel.hidden =
+          true;
       }
 
-      input.placeholder = t(
-        'beatChatPlaceholderGuest',
-        'Entre com Google para enviar mensagem...'
-      );
+      input.placeholder =
+        t(
+          'beatChatPlaceholderGuest',
+          'Entre com Google para enviar mensagem...'
+        );
     }
   }
 
@@ -430,15 +504,17 @@
       'https://beatapurado.github.io/radiobeatapurado/';
 
     const { error } =
-      await client.auth.signInWithOAuth({
+      await client.auth
+        .signInWithOAuth({
 
-        provider: 'google',
+          provider:
+            'google',
 
-        options: {
-          redirectTo
-        }
+          options: {
+            redirectTo
+          }
 
-      });
+        });
 
     if (error) {
 
@@ -463,7 +539,8 @@
 
   async function logout() {
 
-    await client.auth.signOut();
+    await client.auth
+      .signOut();
   }
 
 
@@ -471,7 +548,9 @@
      ENVIAR MENSAGEM
      ============================================================ */
 
-  async function sendMessage(event) {
+  async function sendMessage(
+    event
+  ) {
 
     event.preventDefault();
 
@@ -482,9 +561,12 @@
 
     if (!message) return;
 
-    if (message.length > 500) return;
+    if (
+      message.length > 500
+    ) return;
 
-    sendBtn.disabled = true;
+    sendBtn.disabled =
+      true;
 
     const payload = {
 
@@ -492,20 +574,29 @@
         currentUser.id,
 
       user_name:
-        getDisplayName(currentUser),
+        getDisplayName(
+          currentUser
+        ),
 
       user_avatar:
-        getAvatar(currentUser),
+        getAvatar(
+          currentUser
+        ),
 
       message
     };
 
     const { error } =
       await client
-        .from('beat_chat_messages')
-        .insert(payload);
+        .from(
+          'beat_chat_messages'
+        )
+        .insert(
+          payload
+        );
 
-    sendBtn.disabled = false;
+    sendBtn.disabled =
+      false;
 
     if (error) {
 
@@ -552,13 +643,20 @@
   );
 
 
+  /*
+    Abre / fecha o painel de emojis.
+  */
+
   emojiBtn?.addEventListener(
     'click',
     event => {
 
       event.stopPropagation();
 
-      if (emojiBtn.disabled || !emojiPanel) return;
+      if (
+        emojiBtn.disabled ||
+        !emojiPanel
+      ) return;
 
       emojiPanel.hidden =
         !emojiPanel.hidden;
@@ -566,17 +664,186 @@
   );
 
 
-  // Full emoji-picker bridge. The component emits `emoji-click`
-  // with the selected Unicode emoji in event.detail.unicode.
-  emojiPicker?.addEventListener(
-    'emoji-click',
-    event => {
-      const emoji = event.detail?.unicode;
-      if (!emoji) return;
+  /*
+    ============================================================
+    BUILD 003.7
+    PONTE DO EMOJI-PICKER-ELEMENT
+
+    Este é o trecho novo.
+
+    O componente <emoji-picker> dispara "emoji-click".
+    Pegamos event.detail.unicode e enviamos para insertEmoji().
+    ============================================================
+  */
+
+function conectarEmojiPicker() {
+
+  const picker =
+    document.getElementById('beatChatEmojiPicker');
+
+  if (!picker) {
+    console.warn('[Beat Chat] Emoji Picker ainda não encontrado.');
+    return;
+  }
+
+picker.addEventListener(
+  'emoji-click',
+  event => {
+
+    const emoji =
+      event.detail?.unicode;
+
+    if (!emoji) return;
+
+    // Emojis que podem receber tom de pele
+    const baseEmoji =
+      emoji.replace(/[\u{1F3FB}-\u{1F3FF}]/gu, '');
+
+    const emojisComTom = new Set([
+      '👋', '🤚', '🖐️', '✋', '🖖',
+      '👌', '🤌', '🤏', '✌️', '🤞',
+      '🫰', '🤟', '🤘', '🤙',
+      '👈', '👉', '👆', '👇', '☝️',
+      '🫵', '👍', '👎', '✊', '👊',
+      '🤛', '🤜', '👏', '🙌', '🫶',
+      '👐', '🤲', '🙏', '✍️',
+      '💪', '🦾'
+    ]);
+
+    if (!emojisComTom.has(baseEmoji)) {
       insertEmoji(emoji);
+      return;
     }
+
+    // Remove seletor anterior, caso exista
+    document
+      .getElementById('beatSkinTonePicker')
+      ?.remove();
+
+    const tons = [
+      '',
+      '\u{1F3FB}',
+      '\u{1F3FC}',
+      '\u{1F3FD}',
+      '\u{1F3FE}',
+      '\u{1F3FF}'
+    ];
+
+    const seletor =
+      document.createElement('div');
+
+    seletor.id =
+      'beatSkinTonePicker';
+
+    seletor.style.cssText = `
+      position: fixed;
+      z-index: 999999;
+      display: flex;
+      gap: 6px;
+      padding: 8px;
+      background: #050505;
+      border: 1px solid #39ff14;
+      border-radius: 12px;
+      box-shadow: 0 0 18px rgba(57,255,20,.35);
+    `;
+
+    tons.forEach(tom => {
+
+      const botao =
+        document.createElement('button');
+
+      botao.type =
+        'button';
+
+      botao.textContent =
+        baseEmoji + tom;
+
+      botao.style.cssText = `
+        background: transparent;
+        border: 0;
+        font-size: 25px;
+        cursor: pointer;
+        padding: 4px;
+      `;
+
+      botao.addEventListener(
+        'click',
+        e => {
+
+          e.stopPropagation();
+
+          insertEmoji(
+            baseEmoji + tom
+          );
+
+          seletor.remove();
+        }
+      );
+
+      seletor.appendChild(botao);
+    });
+
+    document.body.appendChild(seletor);
+
+    // Posiciona próximo ao emoji clicado
+    const rect =
+      picker.getBoundingClientRect();
+
+    const largura =
+      seletor.offsetWidth;
+
+    const altura =
+      seletor.offsetHeight;
+
+    let left =
+      rect.left +
+      (rect.width / 2) -
+      (largura / 2);
+
+    let top =
+      rect.bottom - altura - 10;
+
+    left = Math.max(
+      8,
+      Math.min(
+        left,
+        window.innerWidth - largura - 8
+      )
+    );
+
+    top = Math.max(
+      8,
+      top
+    );
+
+    seletor.style.left =
+      `${left}px`;
+
+    seletor.style.top =
+      `${top}px`;
+  }
+);
+
+  console.log('[Beat Chat] Emoji Picker conectado 👽');
+}
+
+if (document.readyState === 'loading') {
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    conectarEmojiPicker,
+    { once: true }
   );
 
+} else {
+
+  conectarEmojiPicker();
+}
+
+
+  /*
+    Clique fora fecha o painel.
+  */
 
   document.addEventListener(
     'click',
@@ -588,24 +855,36 @@
       ) return;
 
       if (
-        emojiPanel.contains(event.target) ||
-        emojiBtn?.contains(event.target)
+        emojiPanel.contains(
+          event.target
+        ) ||
+        emojiBtn?.contains(
+          event.target
+        )
       ) return;
 
-      emojiPanel.hidden = true;
+      emojiPanel.hidden =
+        true;
     }
   );
 
+
+  /*
+    ESC fecha o painel.
+  */
 
   document.addEventListener(
     'keydown',
     event => {
 
       if (
-        event.key === 'Escape' &&
+        event.key ===
+          'Escape' &&
         emojiPanel
       ) {
-        emojiPanel.hidden = true;
+
+        emojiPanel.hidden =
+          true;
       }
     }
   );
@@ -615,16 +894,21 @@
      AUTH STATE
      ============================================================ */
 
-  client.auth.onAuthStateChange(
-    (event, session) => {
+  client.auth
+    .onAuthStateChange(
+      (
+        event,
+        session
+      ) => {
 
-      updateAuthUI(
-        session?.user || null
-      );
+        updateAuthUI(
+          session?.user ||
+          null
+        );
 
-      loadMessages();
-    }
-  );
+        loadMessages();
+      }
+    );
 
 
   /* ============================================================
@@ -632,13 +916,17 @@
      ============================================================ */
 
   client
-    .channel('beat-chat-live')
+    .channel(
+      'beat-chat-live'
+    )
     .on(
       'postgres_changes',
+
       {
         event: 'INSERT',
         schema: 'public',
-        table: 'beat_chat_messages'
+        table:
+          'beat_chat_messages'
       },
 
       payload => {
@@ -686,12 +974,16 @@
   async function init() {
 
     const {
-      data: { session }
+      data: {
+        session
+      }
     } =
-      await client.auth.getSession();
+      await client.auth
+        .getSession();
 
     updateAuthUI(
-      session?.user || null
+      session?.user ||
+      null
     );
 
     updateEmojiLanguage();
