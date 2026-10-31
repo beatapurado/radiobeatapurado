@@ -7,7 +7,8 @@ const playlist = [
   "./videos/fundo2.mp4",
   "./videos/fundo3.mp4",
   "./videos/fundo4.mp4",
-  "./videos/fundo5.mp4"
+  "./videos/fundo5.mp4",
+  "./videos/fundo-halloween.mp4"
 ];
 
 let currentIndex = 0;
