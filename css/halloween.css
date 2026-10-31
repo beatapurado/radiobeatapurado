@@ -1,0 +1,110 @@
+/* BEAT APURADO — HALLOWEEN TEMPORÁRIO
+   Para reverter: remova o link halloween.css do index.html.
+   O main.css original permanece intacto.
+*/
+:root{
+  --ha-green:#8cff00;
+  --ha-purple:#8b00ff;
+  --ha-red:#b51220;
+  --ha-ink:#030304;
+}
+body{
+  color:#d5d0d8;
+  background:#030304;
+  letter-spacing:1.05px;
+}
+body::before{
+  background:
+    radial-gradient(ellipse at 18% 24%,rgba(100,0,150,.24),transparent 42%),
+    radial-gradient(ellipse at 82% 70%,rgba(40,130,0,.19),transparent 40%),
+    linear-gradient(180deg,rgba(0,0,0,.76),rgba(0,0,0,.56) 48%,rgba(0,0,0,.82));
+}
+header{
+  background:linear-gradient(180deg,rgba(0,0,0,.97),rgba(8,5,10,.88));
+  border-bottom:1px solid rgba(139,0,255,.35);
+  box-shadow:0 8px 30px rgba(0,0,0,.8);
+}
+.title-main img{
+  filter:drop-shadow(0 0 9px rgba(139,0,255,.55)) drop-shadow(0 0 13px rgba(140,255,0,.25));
+}
+.footer-content{color:#b8a7c7;text-shadow:0 0 8px rgba(139,0,255,.45)}
+nav{
+  background:rgba(2,2,3,.96);
+  border-bottom:1px solid rgba(140,255,0,.22);
+  box-shadow:0 8px 24px rgba(0,0,0,.55);
+}
+nav a{color:#c8b9d2;text-shadow:0 0 8px rgba(139,0,255,.22)}
+nav a:hover{color:var(--ha-green);text-shadow:0 0 12px var(--ha-green)}
+.container{filter:drop-shadow(0 8px 18px rgba(0,0,0,.35))}
+section{
+  background:linear-gradient(145deg,rgba(8,7,11,.96),rgba(3,3,5,.94));
+  border:1px solid rgba(139,0,255,.28);
+  border-radius:8px;
+  box-shadow:0 0 18px rgba(139,0,255,.13),inset 0 0 28px rgba(0,0,0,.75);
+}
+h2{
+  color:#c7ff9b;
+  text-shadow:0 0 8px rgba(140,255,0,.35),0 0 18px rgba(139,0,255,.35);
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.player-bg::before{opacity:.12;filter:grayscale(1) contrast(1.35)}
+.beat-player{
+  background:linear-gradient(135deg,rgba(0,0,0,.88),rgba(25,5,30,.72));
+  border:1px solid rgba(140,255,0,.22);
+  border-radius:8px;
+  box-shadow:inset 0 0 24px rgba(139,0,255,.12),0 0 22px rgba(0,0,0,.65);
+}
+.cover-box{box-shadow:0 0 18px rgba(139,0,255,.5);border:1px solid rgba(140,255,0,.4)}
+.status-player,.dj-live-title{color:var(--ha-green);text-shadow:0 0 8px rgba(140,255,0,.3)}
+#playBtn{
+  background:var(--ha-green);
+  box-shadow:0 0 22px rgba(140,255,0,.45);
+}
+#pauseBtn{background:#7900a8;box-shadow:0 0 22px rgba(139,0,255,.5)}
+.equalizer span{background:linear-gradient(to top,#7200a8,#aaff00)}
+.dj-live-card{
+  border-color:rgba(139,0,255,.38);
+  border-radius:7px;
+  background:rgba(0,0,0,.88);
+  box-shadow:inset 0 0 18px rgba(139,0,255,.12);
+}
+.dj-live-card[data-state="live"]{border-color:rgba(140,255,0,.48);box-shadow:0 0 18px rgba(140,255,0,.12)}
+.dj-live-card[data-state="live"] .dj-status-line{color:var(--ha-green)}
+.dj-live-card[data-state="live"] .dj-status-dot{background:var(--ha-green);box-shadow:0 0 12px rgba(140,255,0,.75)}
+.dj-live-name{color:#eee5f4}
+.dj-socials a,.dj-alert-btn{
+  border-color:rgba(139,0,255,.42);
+  color:#d6c3e4;
+  border-radius:5px;
+  background:rgba(20,5,25,.45);
+}
+.dj-socials a:hover,.dj-alert-btn:hover{color:var(--ha-green);border-color:var(--ha-green)}
+.flyer-container img{box-shadow:0 0 22px rgba(139,0,255,.35);border-radius:5px}
+.btn-neon{
+  background:linear-gradient(90deg,#79c900,#b2ff00);
+  color:#080808;
+  border-radius:4px;
+  box-shadow:0 0 18px rgba(140,255,0,.25);
+  font-weight:bold;
+}
+.programacao .card{
+  background:rgba(15,8,19,.82);
+  border:1px solid rgba(139,0,255,.25);
+  border-radius:6px;
+  box-shadow:inset 0 0 14px rgba(139,0,255,.13);
+}
+footer{
+  background:rgba(0,0,0,.98);
+  border-top:1px solid rgba(139,0,255,.3);
+  color:#a99ab5;
+}
+.top-round{
+  border-color:rgba(140,255,0,.65);
+  color:var(--ha-green);
+  box-shadow:0 0 12px rgba(140,255,0,.22);
+}
+@media(max-width:768px){
+  section{border-radius:6px}
+  .beat-player{border-radius:6px}
+}
