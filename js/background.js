@@ -3,10 +3,11 @@ const videoA = document.getElementById("bg-video-a");
 const videoB = document.getElementById("bg-video-b");
 
 const playlist = [
-  "./videos/fundo-halloween01.mp4",
-  "./videos/fundo-halloween02.mp4",
-  "./videos/fundo-halloween03.mp4",
-  "./videos/fundo-halloween04.mp4"
+  "./videos/fundo.mp4",
+  "./videos/fundo2.mp4",
+  "./videos/fundo3.mp4",
+  "./videos/fundo4.mp4",
+  "./videos/fundo5.mp4"
 ];
 
 let currentIndex = 0;
